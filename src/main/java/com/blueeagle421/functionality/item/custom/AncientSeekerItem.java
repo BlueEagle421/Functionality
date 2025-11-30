@@ -73,6 +73,14 @@ public class AncientSeekerItem extends Item {
                     1f,
                     1.0f);
 
+            serverWorld.playSound(
+                    null,
+                    player.getX(), player.getY(), player.getZ(),
+                    net.minecraft.sounds.SoundEvents.AMETHYST_BLOCK_RESONATE,
+                    net.minecraft.sounds.SoundSource.PLAYERS,
+                    1f,
+                    1.0f);
+
             spawnParticles(serverWorld, nearest);
 
         } else {
