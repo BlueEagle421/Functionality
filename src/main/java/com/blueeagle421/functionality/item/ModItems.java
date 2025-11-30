@@ -4,6 +4,7 @@ import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
 import com.blueeagle421.functionality.item.custom.AmethystArrowItem;
+import com.blueeagle421.functionality.item.custom.AncientSeekerItem;
 import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
@@ -64,6 +65,9 @@ public class ModItems {
 
         public static final RegistryObject<Item> FISH_TRAP = ITEMS.register("fish_trap",
                         () -> new BlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
+
+        public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
+                        () -> new AncientSeekerItem(new Item.Properties()));
 
         public static void register(IEventBus eventBus) {
                 ITEMS.register(eventBus);

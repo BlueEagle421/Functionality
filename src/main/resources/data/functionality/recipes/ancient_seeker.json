@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:echo_shard"
+    },
+    "X": [
+      {
+        "item": "minecraft:diamond"
+      }
+    ]
+  },
+  "pattern": [
+    "#X#"
+  ],
+  "result": {
+    "count": 1,
+    "item": "functionality:ancient_seeker"
+  },
+  "show_notification": true
+}

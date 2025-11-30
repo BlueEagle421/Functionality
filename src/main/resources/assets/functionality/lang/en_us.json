@@ -11,6 +11,9 @@
     "item.functionality.amethyst_scepter": "Scepter",
     "item.functionality.amethyst_arrow": "Amethyst Arrow",
     "item.functionality.obsidian_boat": "Obsidian Boat",
+    "item.functionality.ancient_seeker": "Ancient Seeker",
+
+    "message.functionality.ancient_seeker.not_enough_xp": "Missing %s experience levels",
 
     "block.functionality.glow_torch": "Glow Torch",
     "block.functionality.fish_trap": "Fish Trap",
@@ -28,6 +31,7 @@
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Sails on lava.",
+    "tooltip.functionality.ancient_seeker": "Detects nearby ancient debris for experience.",
 
     "creativetab.functionality_tab": "Functionality"
 }

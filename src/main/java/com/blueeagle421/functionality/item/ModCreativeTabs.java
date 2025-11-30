@@ -32,6 +32,7 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.OBSIDIAN_BOAT.get());
                         pOutput.accept(ModItems.GLOW_TORCH.get());
                         pOutput.accept(ModItems.FISH_TRAP.get());
+                        pOutput.accept(ModItems.ANCIENT_SEEKER.get());
 
                         pOutput.accept(Items.DIAMOND);
 

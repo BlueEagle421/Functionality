@@ -3,6 +3,7 @@ package com.blueeagle421.functionality;
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
+import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
@@ -79,6 +80,7 @@ public class FunctionalityMod {
         @SubscribeEvent
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(ModParticles.GLOW_FLAME.get(), GlowFlameParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.ANCIENT_SEEKER.get(), AncientSeekerParticle.Provider::new);
         }
     }
 }
