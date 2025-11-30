@@ -63,7 +63,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:sculk",
+          "name": "minecraft:echo_shard",
           "weight": 8
         },
         {
