@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.worldgen;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.worldgen.custom.RiverChestFeature;
+
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.eventbus.api.IEventBus;

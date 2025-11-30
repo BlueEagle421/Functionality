@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.worldgen;
+package com.blueeagle421.functionality.worldgen.custom;
 
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.mojang.serialization.Codec;
