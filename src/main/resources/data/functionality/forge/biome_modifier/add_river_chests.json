@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#minecraft:is_river",
+    "features": "functionality:river_chest_placed",
+    "step": "surface_structures"
+}

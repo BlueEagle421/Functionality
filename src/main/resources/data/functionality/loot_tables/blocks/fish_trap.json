@@ -1,0 +1,49 @@
+{
+    "type": "minecraft:block",
+    "pools": [
+        {
+            "rolls": 1,
+            "conditions": [
+                {
+                    "condition": "minecraft:block_state_property",
+                    "block": "functionality:fish_trap",
+                    "properties": { "stage": 0 }
+                },
+                {
+                    "condition": "minecraft:survives_explosion"
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:copper_ingot",
+                    "functions": [
+                        { "function": "minecraft:set_count", "count": 3 }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions": [
+                {
+                    "condition": "minecraft:block_state_property",
+                    "block": "functionality:fish_trap",
+                    "properties": { "stage": 0 }
+                },
+                {
+                    "condition": "minecraft:survives_explosion"
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stick",
+                    "functions": [
+                        { "function": "minecraft:set_count", "count": 1 }
+                    ]
+                }
+            ]
+        }
+    ]
+}

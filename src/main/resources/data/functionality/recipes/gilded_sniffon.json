@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gold_nugget"
+    },
+    "X": {
+      "item": "functionality:cooked_sniffon"
+    }
+  },
+  "result": {
+    "item": "functionality:gilded_sniffon"
+  },
+  "show_notification": true
+}

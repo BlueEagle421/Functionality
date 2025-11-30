@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "functionality:block/glow_torch"
+    },
+    "waterlogged=true": {
+      "model": "functionality:block/glow_torch"
+    }
+  }
+}

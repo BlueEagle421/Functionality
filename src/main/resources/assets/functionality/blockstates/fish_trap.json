@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "stage=0": { "model": "functionality:block/fish_trap_stage_0" },
+        "stage=1": { "model": "functionality:block/fish_trap_stage_1" }
+    }
+}

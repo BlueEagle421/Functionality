@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_torch_wall",
+  "textures": {
+    "torch": "functionality:block/glow_torch"
+  },
+  "render_type": "cutout"
+}
