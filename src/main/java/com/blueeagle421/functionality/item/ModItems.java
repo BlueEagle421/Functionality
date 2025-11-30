@@ -8,6 +8,7 @@ import com.blueeagle421.functionality.item.custom.AncientSeekerItem;
 import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
+import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
 import com.blueeagle421.functionality.item.custom.TooltipItem;
 
 import net.minecraft.core.Direction;
@@ -48,6 +49,14 @@ public class ModItems {
 
         public static final RegistryObject<Item> COOKED_FROG_LEG = ITEMS.register("cooked_frog_leg",
                         () -> new FrogLegItem(new Item.Properties().food(ModFoods.COOKED_FROG_LEG)));
+
+        public static final RegistryObject<Item> TERRAPIN = ITEMS.register("terrapin",
+                        () -> new TooltipItem(new Item.Properties().food(ModFoods.TERRAPIN)));
+
+        public static final RegistryObject<Item> TERRAPIN_SOUP = ITEMS.register("terrapin_soup",
+                        () -> new TooltipBowlFoodItem(new Item.Properties()
+                                        .stacksTo(1)
+                                        .food(ModFoods.TERRAPIN_SOUP)));
 
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));

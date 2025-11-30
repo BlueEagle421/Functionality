@@ -8,6 +8,8 @@
     "item.functionality.gilded_sniffon": "Gilded Sniffon",
     "item.functionality.frog_leg": "Raw Frog Leg",
     "item.functionality.cooked_frog_leg": "Cooked Frog Leg",
+    "item.functionality.terrapin": "Raw Terrapin",
+    "item.functionality.terrapin_soup": "Terrapin Stew",
     "item.functionality.amethyst_scepter": "Scepter",
     "item.functionality.amethyst_arrow": "Amethyst Arrow",
     "item.functionality.obsidian_boat": "Obsidian Boat",
@@ -27,11 +29,13 @@
     "tooltip.functionality.gilded_sniffon": "Even healthier then it's plain variant.",
     "tooltip.functionality.frog_leg": "Looks disgusting and smells like swamp. Better not eat it raw.",
     "tooltip.functionality.cooked_frog_leg": "A light, crunchy snack. Removes one negative effect.",
+    "tooltip.functionality.terrapin": "Stinks of mud and might be poisonous.",
+    "tooltip.functionality.terrapin_soup": "Smells yummy and is good for swimmers.",
     "tooltip.functionality.amethyst_scepter": "Detects nearby ores for experience.",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Sails on lava.",
-    "tooltip.functionality.ancient_seeker": "Detects nearby ancient debris for experience.",
+    "tooltip.functionality.ancient_seeker": "Detects nearby ancient debris for experience levels. Right click to use.",
 
     "creativetab.functionality_tab": "Functionality"
 }

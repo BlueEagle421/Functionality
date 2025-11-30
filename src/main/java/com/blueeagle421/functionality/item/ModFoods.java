@@ -16,6 +16,7 @@ public class ModFoods {
                         .nutrition(8).saturationMod(0.9f)
                         .meat()
                         .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 2400, 0), 1f)
+                        .alwaysEat()
                         .build();
 
         public static final FoodProperties CHEVON = new FoodProperties.Builder()
@@ -34,6 +35,7 @@ public class ModFoods {
                         .nutrition(8).saturationMod(0.9f)
                         .meat()
                         .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0), 1f)
+                        .alwaysEat()
                         .build();
 
         public static final FoodProperties GILDED_SNIFFON = new FoodProperties.Builder()
@@ -41,12 +43,14 @@ public class ModFoods {
                         .meat()
                         .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0), 1f)
                         .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 3600, 0), 1f)
+                        .alwaysEat()
                         .build();
 
         public static final FoodProperties COOKED_CHEVON = new FoodProperties.Builder()
                         .nutrition(5).saturationMod(0.6f)
                         .meat()
                         .effect(() -> new MobEffectInstance(MobEffects.JUMP, 1200, 0), 1f)
+                        .alwaysEat()
                         .build();
 
         public static final FoodProperties FROG_LEG = new FoodProperties.Builder()
@@ -63,12 +67,17 @@ public class ModFoods {
                         .fast()
                         .build();
 
-        public static final FoodProperties GLOW_INC_SAC = new FoodProperties.Builder()
-                        .nutrition(2)
-                        .fast()
-                        .saturationMod(0.2f)
-                        .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 1f)
-                        .effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 2400, 0), 1f)
+        public static final FoodProperties TERRAPIN = new FoodProperties.Builder()
+                        .nutrition(3).saturationMod(0.4f)
+                        .meat()
+                        .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3f)
+                        .effect(() -> new MobEffectInstance(MobEffects.POISON, 300, 0), 1f)
+                        .build();
+
+        public static final FoodProperties TERRAPIN_SOUP = new FoodProperties.Builder()
+                        .nutrition(8).saturationMod(0.6f)
+                        .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 3600, 0), 1f)
+                        .alwaysEat()
                         .build();
 
 }
