@@ -52,7 +52,8 @@ public class ModItems {
                         () -> new AmethystArrowItem(new Item.Properties()));
 
         public static final RegistryObject<Item> OBSIDIAN_BOAT = ITEMS.register("obsidian_boat",
-                        () -> new ObsidianBoatItem(false, ObsidianBoatEntity.Type.OBSIDIAN, new Item.Properties()));
+                        () -> new ObsidianBoatItem(false, ObsidianBoatEntity.Type.OBSIDIAN,
+                                        new Item.Properties().fireResistant()));
 
         public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("glow_torch",
                         () -> new GlowTorchItem(
