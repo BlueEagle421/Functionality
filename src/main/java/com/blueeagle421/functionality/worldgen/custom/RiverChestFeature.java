@@ -62,7 +62,7 @@ public class RiverChestFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockEntity chestEntity = world.getBlockEntity(chestPos);
         if (chestEntity instanceof RandomizableContainerBlockEntity rcbe) {
-            rcbe.setLootTable(new ResourceLocation("minecraft", "chests/simple_dungeon"), random.nextLong());
+            rcbe.setLootTable(new ResourceLocation("functionality", "chests/river_loot"), random.nextLong());
         }
         BlockState topState = world.getBlockState(torchPos);
         if (topState.is(Blocks.WATER) || topState.isAir()) {
