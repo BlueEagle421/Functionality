@@ -5,6 +5,7 @@ import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
 import com.blueeagle421.functionality.item.custom.AmethystArrowItem;
 import com.blueeagle421.functionality.item.custom.AncientSeekerItem;
+import com.blueeagle421.functionality.item.custom.FinsItem;
 import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
@@ -12,8 +13,11 @@ import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
 import com.blueeagle421.functionality.item.custom.TooltipItem;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -57,6 +61,10 @@ public class ModItems {
                         () -> new TooltipBowlFoodItem(new Item.Properties()
                                         .stacksTo(1)
                                         .food(ModFoods.TERRAPIN_SOUP)));
+
+        public static final RegistryObject<Item> FINS = ITEMS
+                        .register("fins", () -> new FinsItem(ArmorMaterials.TURTLE, ArmorItem.Type.BOOTS,
+                                        new Item.Properties()));
 
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));

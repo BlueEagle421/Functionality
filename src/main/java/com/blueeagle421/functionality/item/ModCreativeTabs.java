@@ -30,6 +30,7 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.COOKED_FROG_LEG.get());
                         pOutput.accept(ModItems.TERRAPIN.get());
                         pOutput.accept(ModItems.TERRAPIN_SOUP.get());
+                        pOutput.accept(ModItems.FINS.get());
                         pOutput.accept(ModItems.AMETHYST_ARROW.get());
                         pOutput.accept(ModItems.OBSIDIAN_BOAT.get());
                         pOutput.accept(ModItems.GLOW_TORCH.get());
