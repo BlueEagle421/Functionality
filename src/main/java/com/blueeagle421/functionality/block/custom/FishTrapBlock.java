@@ -1,7 +1,7 @@
 package com.blueeagle421.functionality.block.custom;
 
-import com.blueeagle421.functionality.block.entity.FishTrapEntity;
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
+import com.blueeagle421.functionality.block.entity.custom.FishTrapEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

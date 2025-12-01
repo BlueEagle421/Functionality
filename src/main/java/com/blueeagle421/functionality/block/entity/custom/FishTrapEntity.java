@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.block.entity;
+package com.blueeagle421.functionality.block.entity.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -23,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 import com.blueeagle421.functionality.block.custom.FishTrapBlock;
+import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 
 public class FishTrapEntity extends BlockEntity {
 

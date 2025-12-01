@@ -75,6 +75,9 @@ public class ModItems {
         public static final RegistryObject<Item> FISH_TRAP = ITEMS.register("fish_trap",
                         () -> new BlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
 
+        public static final RegistryObject<Item> LIGHTNING_CHARGER = ITEMS.register("lightning_charger",
+                        () -> new BlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
+
         public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
                         () -> new AncientSeekerItem(new Item.Properties()));
 

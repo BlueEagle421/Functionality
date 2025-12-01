@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.block;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -14,6 +15,7 @@ import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.block.custom.FishTrapBlock;
 import com.blueeagle421.functionality.block.custom.GlowTorchBlock;
 import com.blueeagle421.functionality.block.custom.GlowWallTorchBlock;
+import com.blueeagle421.functionality.block.custom.LightningChargerBlock;
 import com.blueeagle421.functionality.particle.ModParticles;
 
 public class ModBlocks {
@@ -33,6 +35,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> FISH_TRAP = BLOCKS.register("fish_trap",
             () -> new FishTrapBlock(
                     BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.BAMBOO)));
+
+    public static final RegistryObject<Block> LIGHTNING_CHARGER = BLOCKS.register("lightning_charger",
+            () -> new LightningChargerBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

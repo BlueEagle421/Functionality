@@ -19,6 +19,7 @@
 
     "block.functionality.glow_torch": "Glow Torch",
     "block.functionality.fish_trap": "Fish Trap",
+    "block.functionality.lightning_charger": "Lightning Altar",
 
     "tooltip.functionality.bear_venison": "An uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",
