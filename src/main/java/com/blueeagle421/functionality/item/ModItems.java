@@ -5,10 +5,12 @@ import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
 import com.blueeagle421.functionality.item.custom.AmethystArrowItem;
 import com.blueeagle421.functionality.item.custom.AncientSeekerItem;
+import com.blueeagle421.functionality.item.custom.ChorusHerbItem;
 import com.blueeagle421.functionality.item.custom.FinsItem;
 import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
+import com.blueeagle421.functionality.item.custom.PhantomHerbItem;
 import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
 import com.blueeagle421.functionality.item.custom.TooltipItem;
 
@@ -69,10 +71,10 @@ public class ModItems {
                         () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
 
         public static final RegistryObject<Item> PHANTOM_HERB = ITEMS.register("phantom_herb",
-                        () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
+                        () -> new PhantomHerbItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
 
         public static final RegistryObject<Item> CHORUS_HERB = ITEMS.register("chorus_herb",
-                        () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
+                        () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
 
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));
