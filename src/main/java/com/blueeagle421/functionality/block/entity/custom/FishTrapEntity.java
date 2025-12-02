@@ -97,11 +97,14 @@ public class FishTrapEntity extends BlockEntity {
     private void onFinish(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide)
             return;
+
         RandomSource random = level.getRandom();
+
         int waterDepth = countWaterDepthAbove(level, pos, WATER_DEPTH_MAX);
         int maxRoll = determineMaxCatchAmount(waterDepth);
         int count = 1 + random.nextInt(maxRoll);
         float luck = computeLuck(level, pos);
+
         for (int i = 0; i < count; i++) {
             if (level instanceof ServerLevel serverLevel) {
                 ItemStack fishingRod = new ItemStack(Items.FISHING_ROD);
@@ -109,10 +112,12 @@ public class FishTrapEntity extends BlockEntity {
                 addToInventory(loot);
             }
         }
+
         BlockState newState = state.setValue(FishTrapBlock.STAGE, 1);
         level.setBlock(pos, newState, 3);
         level.updateNeighborsAt(pos, newState.getBlock());
         level.updateNeighborsAt(pos.below(), newState.getBlock());
+
         triggered = true;
         setChanged();
     }
@@ -120,16 +125,34 @@ public class FishTrapEntity extends BlockEntity {
     public ItemStack rollFishingLoot(ServerLevel level, Vec3 origin, ItemStack tool, float luck) {
         if (level == null)
             return ItemStack.EMPTY;
+
+        RandomSource rnd = level.getRandom();
+
+        double treasureChance = 0.01 + (0.01 * luck);
+        if (rnd.nextDouble() < treasureChance) {
+            LootParams.Builder treasureBuilder = new LootParams.Builder(level)
+                    .withParameter(LootContextParams.ORIGIN, origin)
+                    .withParameter(LootContextParams.TOOL, tool == null ? ItemStack.EMPTY : tool)
+                    .withLuck(luck);
+            LootParams treasureParams = treasureBuilder.create(LootContextParamSets.FISHING);
+            LootTable treasureTable = level.getServer().getLootData().getLootTable(BuiltInLootTables.FISHING_TREASURE);
+            List<ItemStack> tgen = treasureTable.getRandomItems(treasureParams);
+            if (tgen != null && !tgen.isEmpty()) {
+                return tgen.get(rnd.nextInt(tgen.size()));
+            }
+        }
+
         LootParams.Builder builder = new LootParams.Builder(level)
                 .withParameter(LootContextParams.ORIGIN, origin)
                 .withParameter(LootContextParams.TOOL, tool == null ? ItemStack.EMPTY : tool)
                 .withLuck(luck);
+
         LootParams lootParams = builder.create(LootContextParamSets.FISHING);
         LootTable lootTable = level.getServer().getLootData().getLootTable(BuiltInLootTables.FISHING);
         List<ItemStack> generated = lootTable.getRandomItems(lootParams);
         if (generated == null || generated.isEmpty())
             return ItemStack.EMPTY;
-        return generated.get(level.getRandom().nextInt(generated.size()));
+        return generated.get(rnd.nextInt(generated.size()));
     }
 
     private void addToInventory(ItemStack stack) {
