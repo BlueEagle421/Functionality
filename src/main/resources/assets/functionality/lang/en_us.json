@@ -25,6 +25,11 @@
     "block.functionality.fish_trap": "Fish Trap",
     "block.functionality.lightning_charger": "Lightning Altar",
 
+    "tooltip.functionality.fish_trap": "Catches fish over time.",
+    "tooltip.detailed.functionality.fish_trap": "Use amethyst crystals, gold blocks, or mob heads within 5 blocks (2 of each for max luck). Higher light level speeds it up, and larger water areas increases catch amount.",
+
+    "tooltip.functionality.lightning_charger": "Smelts and charges items. Place a lightning rod on top.",
+
     "tooltip.functionality.bear_venison": "An uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",
     "tooltip.functionality.chevon": "Has earthy scent and firm texture.",
@@ -45,6 +50,8 @@
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Sails on lava.",
     "tooltip.functionality.ancient_seeker": "Detects nearby ancient debris for experience levels. Right click to use.",
+
+    "tooltip.functionality.details": "<Press %s for details>",
 
     "creativetab.functionality_tab": "Functionality"
 }

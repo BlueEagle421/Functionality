@@ -11,13 +11,13 @@ import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
 import com.blueeagle421.functionality.item.custom.PhantomHerbItem;
+import com.blueeagle421.functionality.item.custom.TooltipBlockItem;
 import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
 import com.blueeagle421.functionality.item.custom.TooltipItem;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -91,10 +91,10 @@ public class ModItems {
                                         Direction.DOWN));
 
         public static final RegistryObject<Item> FISH_TRAP = ITEMS.register("fish_trap",
-                        () -> new BlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
+                        () -> new TooltipBlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
 
         public static final RegistryObject<Item> LIGHTNING_CHARGER = ITEMS.register("lightning_charger",
-                        () -> new BlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
+                        () -> new TooltipBlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
 
         public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
                         () -> new AncientSeekerItem(new Item.Properties()));
