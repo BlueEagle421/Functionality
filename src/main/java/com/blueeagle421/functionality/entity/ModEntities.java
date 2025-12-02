@@ -15,18 +15,6 @@ public class ModEntities {
         public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister
                         .create(ForgeRegistries.ENTITY_TYPES, FunctionalityMod.MOD_ID);
 
-        // public static final
-        // RegistryObject<EntityType<com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity>>
-        // OBSIDIAN_BOAT = ENTITY_TYPES
-        // .register("obsidian_boat",
-        // () ->
-        // EntityType.Builder.<com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity>of(
-        // com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity::new,
-        // MobCategory.MISC)
-        // .sized(1.375F, 0.5625F)
-        // .clientTrackingRange(10)
-        // .build("obsidian_boat"));
-
         public static final RegistryObject<EntityType<ObsidianBoatEntity>> OBSIDIAN_BOAT = ENTITY_TYPES.register(
                         "obsidian_boat",
                         () -> EntityType.Builder.<ObsidianBoatEntity>of(

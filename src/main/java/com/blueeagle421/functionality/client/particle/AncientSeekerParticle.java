@@ -54,7 +54,7 @@ public class AncientSeekerParticle extends RisingParticle {
                 r = 5f / 255f;
                 g = 42f / 255f;
                 b = 50f / 255f;
-            } // #052a32
+            }
         }
 
         this.setColor(r, g, b);
