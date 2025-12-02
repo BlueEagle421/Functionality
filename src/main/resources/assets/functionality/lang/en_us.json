@@ -26,7 +26,8 @@
     "block.functionality.lightning_charger": "Lightning Altar",
 
     "tooltip.functionality.fish_trap": "Catches fish over time.",
-    "tooltip.detailed.functionality.fish_trap": "Use amethyst crystals, gold blocks, or mob heads within 5 blocks (2 of each for max luck). Higher light level speeds it up, and larger water areas increases catch amount.",
+    "tooltip.detailed.functionality.fish_trap": "Place amethyst crystals, gold blocks, or mob heads within 5 blocks (2 of each for max luck). Higher light level speeds it up, and water depth increases catch amount.",
+    "message.functionality.fish_trap.stats": "Luck: %s Max catch: %s Speed: %s%%",
 
     "tooltip.functionality.lightning_charger": "Smelts and charges items. Place a lightning rod on top.",
 
