@@ -17,7 +17,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -65,6 +64,15 @@ public class ModItems {
         public static final RegistryObject<Item> FINS = ITEMS
                         .register("fins", () -> new FinsItem(ArmorMaterials.TURTLE, ArmorItem.Type.BOOTS,
                                         new Item.Properties()));
+
+        public static final RegistryObject<Item> SLEEPING_HERB = ITEMS.register("sleeping_herb",
+                        () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
+
+        public static final RegistryObject<Item> PHANTOM_HERB = ITEMS.register("phantom_herb",
+                        () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
+
+        public static final RegistryObject<Item> CHORUS_HERB = ITEMS.register("chorus_herb",
+                        () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
 
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));

@@ -6,7 +6,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -19,6 +18,9 @@ public class ModCreativeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BEAR_VENISON.get()))
                     .title(Component.translatable("creativetab.functionality_tab"))
                     .displayItems((pParameters, pOutput) -> {
+                        pOutput.accept(ModItems.SLEEPING_HERB.get());
+                        pOutput.accept(ModItems.PHANTOM_HERB.get());
+                        pOutput.accept(ModItems.CHORUS_HERB.get());
                         pOutput.accept(ModItems.BEAR_VENISON.get());
                         pOutput.accept(ModItems.COOKED_BEAR_VENISON.get());
                         pOutput.accept(ModItems.CHEVON.get());
@@ -37,8 +39,6 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.FISH_TRAP.get());
                         pOutput.accept(ModItems.LIGHTNING_CHARGER.get());
                         pOutput.accept(ModItems.ANCIENT_SEEKER.get());
-
-                        pOutput.accept(Items.DIAMOND);
 
                     })
                     .build());

@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:blue_orchid"
+        },
+        {
+            "item": "minecraft:kelp"
+        }
+    ],
+    "result": {
+        "item": "functionality:sleeping_herb"
+    }
+}

@@ -80,4 +80,11 @@ public class ModFoods {
                         .alwaysEat()
                         .build();
 
+        public static final FoodProperties SLEEPING_HERB = new FoodProperties.Builder()
+                        .nutrition(1).saturationMod(0.3f)
+                        .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 3600, 0), 1f)
+                        .fast()
+                        .alwaysEat()
+                        .build();
+
 }
