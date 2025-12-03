@@ -105,6 +105,9 @@ public class ModItems {
         public static final RegistryObject<Item> LIGHTNING_CHARGER = ITEMS.register("lightning_charger",
                         () -> new TooltipBlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
 
+        public static final RegistryObject<Item> PHANTOM_LEAD = ITEMS.register("phantom_lead",
+                        () -> new TooltipItem(new Item.Properties()));
+
         public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
                         () -> new AncientSeekerItem(new Item.Properties()));
 

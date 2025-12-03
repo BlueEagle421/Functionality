@@ -19,6 +19,7 @@
     "item.functionality.amethyst_scepter": "Scepter",
     "item.functionality.amethyst_arrow": "Amethyst Arrow",
     "item.functionality.obsidian_boat": "Obsidian Boat",
+    "item.functionality.phantom_lead": "Phantom Lead",
     "item.functionality.ancient_seeker": "Ancient Seeker",
 
     "message.functionality.ancient_seeker.not_enough_xp": "Needs %s experience levels",
