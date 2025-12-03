@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "Y": {
+      "item": "minecraft:obsidian"
+    },
+    "Z": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "pattern": [
+    "Z Z",
+    "Y Y"
+  ],
+  "result": {
+    "item": "functionality:obsidian_fins"
+  },
+  "show_notification": true
+}

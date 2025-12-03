@@ -10,6 +10,7 @@ import com.blueeagle421.functionality.item.custom.FinsItem;
 import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
+import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
 import com.blueeagle421.functionality.item.custom.PhantomHerbItem;
 import com.blueeagle421.functionality.item.custom.TooltipBlockItem;
 import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
@@ -65,6 +66,11 @@ public class ModItems {
 
         public static final RegistryObject<Item> FINS = ITEMS
                         .register("fins", () -> new FinsItem(ArmorMaterials.TURTLE, ArmorItem.Type.BOOTS,
+                                        new Item.Properties()));
+
+        public static final RegistryObject<Item> OBSIDIAN_FINS = ITEMS
+                        .register("obsidian_fins", () -> new ObsidianFinsItem(
+                                        ModArmorMaterials.OBSIDIAN, ArmorItem.Type.BOOTS,
                                         new Item.Properties()));
 
         public static final RegistryObject<Item> SLEEPING_HERB = ITEMS.register("sleeping_herb",
