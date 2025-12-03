@@ -76,6 +76,9 @@ public class ModItems {
         public static final RegistryObject<Item> CHORUS_HERB = ITEMS.register("chorus_herb",
                         () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.CHORUS_HERB)));
 
+        public static final RegistryObject<Item> GLOWING_HERB = ITEMS.register("glowing_herb",
+                        () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.GLOWING_HERB)));
+
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));
 

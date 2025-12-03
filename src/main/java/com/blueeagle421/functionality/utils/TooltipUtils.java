@@ -33,7 +33,7 @@ public class TooltipUtils {
         }
 
         if (Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable(detailKey).withStyle(ChatFormatting.DARK_AQUA));
+            tooltip.add(Component.translatable(detailKey).withStyle(ChatFormatting.WHITE));
         } else {
             tooltip.add(
                     Component.translatable(

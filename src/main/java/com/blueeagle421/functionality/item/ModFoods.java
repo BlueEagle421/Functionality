@@ -99,4 +99,10 @@ public class ModFoods {
                         .alwaysEat()
                         .build();
 
+        public static final FoodProperties GLOWING_HERB = new FoodProperties.Builder()
+                        .nutrition(1).saturationMod(0.3f)
+                        .fast()
+                        .alwaysEat()
+                        .build();
+
 }

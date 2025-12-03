@@ -21,6 +21,7 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.SLEEPING_HERB.get());
                         pOutput.accept(ModItems.PHANTOM_HERB.get());
                         pOutput.accept(ModItems.CHORUS_HERB.get());
+                        pOutput.accept(ModItems.GLOWING_HERB.get());
                         pOutput.accept(ModItems.BEAR_VENISON.get());
                         pOutput.accept(ModItems.COOKED_BEAR_VENISON.get());
                         pOutput.accept(ModItems.CHEVON.get());
