@@ -12,6 +12,7 @@ import com.blueeagle421.functionality.item.custom.GlowTorchItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
 import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
 import com.blueeagle421.functionality.item.custom.PhantomHerbItem;
+import com.blueeagle421.functionality.item.custom.PheromonesItem;
 import com.blueeagle421.functionality.item.custom.TooltipBlockItem;
 import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
 import com.blueeagle421.functionality.item.custom.TooltipItem;
@@ -107,7 +108,7 @@ public class ModItems {
                         () -> new TooltipBlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
 
         public static final RegistryObject<Item> PHEROMONES = ITEMS.register("pheromones",
-                        () -> new TooltipItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
+                        () -> new PheromonesItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
         public static final RegistryObject<Item> PHANTOM_TREAT = ITEMS.register("phantom_treat",
                         () -> new TooltipItem(new Item.Properties()));
