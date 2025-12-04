@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.utils.CauldronUtils;
 
 import net.minecraft.core.BlockPos;
@@ -67,7 +68,7 @@ public class CauldronEventHandler {
     }
 
     private static void scheduleFill(ServerLevel level, BlockPos pos) {
-        PENDING_FILL.computeIfAbsent(level, l -> new ConcurrentHashMap<>()).put(pos, 0);
+        PENDING_FILL.computeIfAbsent(level, l -> new ConcurrentHashMap<>()).putIfAbsent(pos, 0);
     }
 
     @SubscribeEvent
@@ -143,12 +144,12 @@ public class CauldronEventHandler {
     }
 
     private static void spawnBubbleParticles(ServerLevel world, BlockPos pos) {
-
         for (int i = 0; i < 5; i++) {
-            double px = pos.getX() + 0.5 + (world.random.nextDouble() - 0.5);
-            double py = pos.getY() + 0.5 + (world.random.nextDouble() - 0.5);
-            double pz = pos.getZ() + 0.5 + (world.random.nextDouble() - 0.5);
+            double px = pos.getX() + world.random.nextDouble() * 1.2 - 0.1; // from -0.1 to 1.1
+            double py = pos.getY() + world.random.nextDouble() * 1.2 - 0.1; // from -0.1 to 1.1
+            double pz = pos.getZ() + world.random.nextDouble() * 1.2 - 0.1; // from -0.1 to 1.1
             world.sendParticles(ParticleTypes.BUBBLE_POP, px, py, pz, 1, 0, 0, 0, 0);
         }
     }
+
 }
