@@ -20,6 +20,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -104,6 +105,9 @@ public class ModItems {
 
         public static final RegistryObject<Item> LIGHTNING_CHARGER = ITEMS.register("lightning_charger",
                         () -> new TooltipBlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
+
+        public static final RegistryObject<Item> PHEROMONES = ITEMS.register("pheromones",
+                        () -> new TooltipItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
         public static final RegistryObject<Item> PHANTOM_TREAT = ITEMS.register("phantom_treat",
                         () -> new TooltipItem(new Item.Properties()));

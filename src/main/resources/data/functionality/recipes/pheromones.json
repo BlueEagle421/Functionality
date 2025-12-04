@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " X ",
+        "PYW",
+        " Z "
+    ],
+    "key": {
+        "X": {
+            "item": "minecraft:gold_ingot"
+        },
+        "Y": {
+            "item": "minecraft:experience_bottle"
+        },
+        "Z": {
+            "item": "minecraft:phantom_membrane"
+        },
+        "W": {
+            "item": "minecraft:glistering_melon_slice"
+        },
+        "P": {
+            "item": "minecraft:fermented_spider_eye"
+        }
+    },
+    "result": {
+        "item": "functionality:pheromones"
+    }
+}

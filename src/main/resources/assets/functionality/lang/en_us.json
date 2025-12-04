@@ -19,6 +19,7 @@
     "item.functionality.amethyst_scepter": "Scepter",
     "item.functionality.amethyst_arrow": "Amethyst Arrow",
     "item.functionality.obsidian_boat": "Obsidian Boat",
+    "item.functionality.pheromones": "Pheromones",
     "item.functionality.phantom_treat": "Phantom Treat",
     "item.functionality.phantom_lead": "Phantom Lead",
     "item.functionality.ancient_seeker": "Ancient Seeker",
@@ -58,6 +59,8 @@
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Sails on lava.",
+    "tooltip.functionality.pheromones": "An universal tame mixture for animals.",
+    "tooltip.detailed.functionality.pheromones": "Right click on any tamable mob to make it you friend!",
     "tooltip.functionality.phantom_treat": "Feed it to any animal to make it much faster.",
     "tooltip.functionality.ancient_seeker": "Detects nearby ancient debris for experience levels. Right click to use.",
 
