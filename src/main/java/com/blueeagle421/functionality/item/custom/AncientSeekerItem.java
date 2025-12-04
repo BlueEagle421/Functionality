@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class AncientSeekerItem extends Item {
 
-    private static final int REQUIRED_LEVELS = 2;
+    private static final int REQUIRED_XP_LEVELS = 2;
     private static final int SEARCH_RADIUS = 24;
 
     public AncientSeekerItem(Properties properties) {
@@ -41,9 +41,9 @@ public class AncientSeekerItem extends Item {
         if (world.isClientSide())
             return InteractionResultHolder.sidedSuccess(stack, true);
 
-        if (!player.isCreative() && player.experienceLevel < REQUIRED_LEVELS) {
+        if (!player.isCreative() && player.experienceLevel < REQUIRED_XP_LEVELS) {
             player.displayClientMessage(
-                    Component.translatable("message.functionality.ancient_seeker.not_enough_xp", REQUIRED_LEVELS)
+                    Component.translatable("message.functionality.ancient_seeker.not_enough_xp", REQUIRED_XP_LEVELS)
                             .withStyle(ChatFormatting.RED),
                     true);
 
@@ -51,34 +51,43 @@ public class AncientSeekerItem extends Item {
         }
 
         if (!player.isCreative())
-            player.giveExperienceLevels(-REQUIRED_LEVELS);
+            player.giveExperienceLevels(-REQUIRED_XP_LEVELS);
 
         BlockPos playerPos = player.blockPosition();
 
         BlockPos nearest = findNearestDebris(world, playerPos);
 
-        if (nearest != null && world instanceof ServerLevel serverWorld) {
-
-            serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1f, 1.0f);
-
-            serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.PLAYERS, 1f, 1.0f);
-
-            serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1f, 1.0f);
-
-            spawnParticles(serverWorld, nearest);
-
-        } else {
-            // no debris nearby
-            world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.WARDEN_LISTENING_ANGRY, SoundSource.PLAYERS, 0.6f, 1.0f);
-        }
+        if (nearest != null && world instanceof ServerLevel serverWorld)
+            searchSucceeded(serverWorld, player, nearest);
+        else
+            searchFailed(world, player);
 
         stack.shrink(1);
 
         return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+    }
+
+    private void searchSucceeded(ServerLevel serverWorld, Player player, BlockPos foundPos) {
+        // cool sound #1
+        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1f, 1.0f);
+
+        // cool sound #2
+        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.PLAYERS, 1f, 1.0f);
+
+        // cool sound #3
+        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1f, 1.0f);
+
+        // cool particles
+        spawnParticles(serverWorld, foundPos);
+    }
+
+    private void searchFailed(Level level, Player player) {
+        // just fail sound
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.WARDEN_LISTENING_ANGRY, SoundSource.PLAYERS, 0.6f, 1.0f);
     }
 
     private BlockPos findNearestDebris(Level world, BlockPos origin) {
