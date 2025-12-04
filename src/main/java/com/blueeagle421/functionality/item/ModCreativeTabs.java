@@ -40,6 +40,7 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.GLOW_TORCH.get());
                         pOutput.accept(ModItems.FISH_TRAP.get());
                         pOutput.accept(ModItems.LIGHTNING_CHARGER.get());
+                        pOutput.accept(ModItems.PHANTOM_TREAT.get());
                         pOutput.accept(ModItems.PHANTOM_LEAD.get());
                         pOutput.accept(ModItems.ANCIENT_SEEKER.get());
 
