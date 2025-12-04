@@ -33,6 +33,7 @@ public class FunctionalityJeiPlugin implements IModPlugin {
         return new ResourceLocation(FunctionalityMod.MOD_ID, "jei_plugin");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         IVanillaRecipeFactory factory = registration.getVanillaRecipeFactory();
