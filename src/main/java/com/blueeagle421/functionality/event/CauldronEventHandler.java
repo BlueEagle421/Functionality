@@ -5,7 +5,6 @@ import com.blueeagle421.functionality.utils.CauldronUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -37,20 +36,33 @@ public class CauldronEventHandler {
             return;
 
         BlockState state = world.getBlockState(pos);
-        if (!(state.getBlock() instanceof LayeredCauldronBlock))
-            return;
 
-        var stack = event.getItemStack();
-        if (stack == null)
-            return;
-        var item = stack.getItem();
-        boolean isDrainingUse = item == Items.BUCKET || item == Items.GLASS_BOTTLE || item == Items.POTION;
-        if (!isDrainingUse)
+        if (!(state.getBlock() instanceof LayeredCauldronBlock))
             return;
 
         if (CauldronUtils.isInfiniteWaterSource(world, pos))
             scheduleFill((ServerLevel) world, pos);
+    }
 
+    @SubscribeEvent
+    public static void onNeighborChange(net.minecraftforge.event.level.BlockEvent.NeighborNotifyEvent event) {
+
+        if (!(event.getLevel() instanceof Level world))
+            return;
+
+        if (world.isClientSide())
+            return;
+
+        BlockPos changedPos = event.getPos();
+
+        BlockPos abovePos = changedPos.above();
+        BlockState stateAbove = world.getBlockState(abovePos);
+
+        if (!(stateAbove.getBlock() instanceof AbstractCauldronBlock))
+            return;
+
+        if (CauldronUtils.isInfiniteWaterSource(world, abovePos))
+            scheduleFill((ServerLevel) world, abovePos);
     }
 
     private static void scheduleFill(ServerLevel level, BlockPos pos) {
@@ -62,18 +74,10 @@ public class CauldronEventHandler {
 
         if (event.phase != TickEvent.Phase.END)
             return;
-
-        if (event.level == null)
-            return;
-
-        if (event.level.isClientSide())
-            return;
-
         if (!(event.level instanceof ServerLevel serverLevel))
             return;
 
         ConcurrentHashMap<BlockPos, Integer> map = PENDING_FILL.get(serverLevel);
-
         if (map == null || map.isEmpty())
             return;
 
@@ -84,28 +88,31 @@ public class CauldronEventHandler {
             int counter = entry.getValue() + 1;
 
             BlockState state = serverLevel.getBlockState(pos);
+
             if (!canContinueFilling(serverLevel, state, pos)) {
                 it.remove();
                 continue;
             }
 
             if (counter >= FILL_INTERVAL_TICKS) {
-                int curLvl = state.getValue(LayeredCauldronBlock.LEVEL);
-                if (curLvl < 3) {
-                    BlockState next = state.setValue(LayeredCauldronBlock.LEVEL, curLvl + 1);
-                    serverLevel.setBlockAndUpdate(pos, next);
+                if (state.getBlock() instanceof LayeredCauldronBlock) {
+                    int curLvl = state.getValue(LayeredCauldronBlock.LEVEL);
+                    if (curLvl < 3) {
+                        BlockState next = state.setValue(LayeredCauldronBlock.LEVEL, curLvl + 1);
+                        serverLevel.setBlockAndUpdate(pos, next);
+                        serverLevel.levelEvent(1047, pos, 0);
+                    } else
+                        it.remove();
 
+                } else if (state.is(Blocks.CAULDRON)) {
+                    BlockState waterLvl1 = Blocks.WATER_CAULDRON.defaultBlockState()
+                            .setValue(LayeredCauldronBlock.LEVEL, 1);
+                    serverLevel.setBlockAndUpdate(pos, waterLvl1);
                     serverLevel.levelEvent(1047, pos, 0);
-                } else {
+                } else
                     it.remove();
-                    continue;
-                }
+
                 counter = 0;
-            } else if (state.is(Blocks.CAULDRON)) {
-                BlockState waterCauldron = Blocks.WATER_CAULDRON.defaultBlockState()
-                        .setValue(LayeredCauldronBlock.LEVEL, 1);
-                serverLevel.setBlockAndUpdate(pos, waterCauldron);
-                serverLevel.levelEvent(1047, pos, 0);
             }
 
             entry.setValue(counter);
@@ -115,19 +122,18 @@ public class CauldronEventHandler {
             PENDING_FILL.remove(serverLevel);
     }
 
-    private static Boolean canContinueFilling(Level level, BlockState state, BlockPos pos) {
-        if (!(state.getBlock() instanceof AbstractCauldronBlock cauldronBlock))
-            return false;
-
+    private static boolean canContinueFilling(Level level, BlockState state, BlockPos pos) {
         if (!CauldronUtils.isInfiniteWaterSource(level, pos))
             return false;
 
-        return true;
-    }
+        if (state.getBlock() instanceof LayeredCauldronBlock) {
+            int lvl = state.getValue(LayeredCauldronBlock.LEVEL);
+            return lvl < 3;
+        }
 
-    public static void cancelScheduledFill(ServerLevel level, BlockPos pos) {
-        var m = PENDING_FILL.get(level);
-        if (m != null)
-            m.remove(pos);
+        if (state.is(Blocks.CAULDRON))
+            return true;
+
+        return false;
     }
 }
