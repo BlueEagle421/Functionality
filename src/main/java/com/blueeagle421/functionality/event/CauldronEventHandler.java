@@ -4,6 +4,7 @@ import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.utils.CauldronUtils;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
@@ -101,6 +102,8 @@ public class CauldronEventHandler {
                         BlockState next = state.setValue(LayeredCauldronBlock.LEVEL, curLvl + 1);
                         serverLevel.setBlockAndUpdate(pos, next);
                         serverLevel.levelEvent(1047, pos, 0);
+
+                        spawnBubbleParticles(serverLevel, pos);
                     } else
                         it.remove();
 
@@ -109,6 +112,8 @@ public class CauldronEventHandler {
                             .setValue(LayeredCauldronBlock.LEVEL, 1);
                     serverLevel.setBlockAndUpdate(pos, waterLvl1);
                     serverLevel.levelEvent(1047, pos, 0);
+
+                    spawnBubbleParticles(serverLevel, pos);
                 } else
                     it.remove();
 
@@ -135,5 +140,15 @@ public class CauldronEventHandler {
             return true;
 
         return false;
+    }
+
+    private static void spawnBubbleParticles(ServerLevel world, BlockPos pos) {
+
+        for (int i = 0; i < 5; i++) {
+            double px = pos.getX() + 0.5 + (world.random.nextDouble() - 0.5);
+            double py = pos.getY() + 0.5 + (world.random.nextDouble() - 0.5);
+            double pz = pos.getZ() + 0.5 + (world.random.nextDouble() - 0.5);
+            world.sendParticles(ParticleTypes.BUBBLE_POP, px, py, pz, 1, 0, 0, 0, 0);
+        }
     }
 }
