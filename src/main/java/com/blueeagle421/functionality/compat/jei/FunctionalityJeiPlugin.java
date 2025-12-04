@@ -23,9 +23,11 @@ import java.util.Map;
 @JeiPlugin
 public class FunctionalityJeiPlugin implements IModPlugin {
 
-    private static final Map<Item, ItemStack> REPAIRABLE_ITEMS = Map.of(
-            ModItems.FINS.get(), new ItemStack(Items.SCUTE),
-            ModItems.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN));
+    private static Map<Item, ItemStack> REPAIRABLE_ITEMS() {
+        return Map.of(
+                ModItems.FINS.get(), new ItemStack(Items.SCUTE),
+                ModItems.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN));
+    }
 
     @SuppressWarnings("removal")
     @Override
@@ -39,7 +41,7 @@ public class FunctionalityJeiPlugin implements IModPlugin {
         IVanillaRecipeFactory factory = registration.getVanillaRecipeFactory();
         List<IJeiAnvilRecipe> recipes = new ArrayList<>();
 
-        for (Map.Entry<Item, ItemStack> entry : REPAIRABLE_ITEMS.entrySet()) {
+        for (Map.Entry<Item, ItemStack> entry : REPAIRABLE_ITEMS().entrySet()) {
             ItemStack itemStack = new ItemStack(entry.getKey());
             ItemStack repairMaterial = entry.getValue();
 
