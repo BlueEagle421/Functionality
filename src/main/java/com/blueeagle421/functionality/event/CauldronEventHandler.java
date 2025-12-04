@@ -1,7 +1,6 @@
 package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.utils.CauldronUtils;
 
 import net.minecraft.core.BlockPos;
