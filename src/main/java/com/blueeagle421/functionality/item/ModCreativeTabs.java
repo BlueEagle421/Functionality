@@ -11,6 +11,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import com.blueeagle421.functionality.item.custom.GlowingHerbItem;
+
 public class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
             .create(Registries.CREATIVE_MODE_TAB, FunctionalityMod.MOD_ID);
@@ -22,7 +24,11 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.SLEEPING_HERB.get());
                         pOutput.accept(ModItems.PHANTOM_HERB.get());
                         pOutput.accept(ModItems.CHORUS_HERB.get());
-                        pOutput.accept(ModItems.GLOWING_HERB.get());
+                        { // with nbt data
+                            ItemStack glowingHerbStack = new ItemStack(ModItems.GLOWING_HERB.get());
+                            GlowingHerbItem.setDuration(glowingHerbStack, GlowingHerbItem.DEFAULT_DURATION);
+                            pOutput.accept(glowingHerbStack);
+                        }
                         pOutput.accept(ModItems.BEAR_VENISON.get());
                         pOutput.accept(ModItems.COOKED_BEAR_VENISON.get());
                         pOutput.accept(ModItems.CHEVON.get());

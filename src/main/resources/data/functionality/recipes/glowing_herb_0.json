@@ -7,9 +7,14 @@
         },
         {
             "item": "minecraft:kelp"
+        },
+        {
+            "item": "minecraft:nether_wart"
         }
     ],
     "result": {
-        "item": "functionality:glowing_herb"
+        "type": "forge:nbt",
+        "item": "functionality:glowing_herb",
+        "nbt": "{Herb:{Duration:600}}"
     }
 }

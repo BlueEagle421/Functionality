@@ -9,6 +9,7 @@ import com.blueeagle421.functionality.item.custom.ChorusHerbItem;
 import com.blueeagle421.functionality.item.custom.FinsItem;
 import com.blueeagle421.functionality.item.custom.FrogLegItem;
 import com.blueeagle421.functionality.item.custom.GlowTorchItem;
+import com.blueeagle421.functionality.item.custom.GlowingHerbItem;
 import com.blueeagle421.functionality.item.custom.InfernoGearItem;
 import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
 import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
@@ -92,7 +93,7 @@ public class ModItems {
                         () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.CHORUS_HERB)));
 
         public static final RegistryObject<Item> GLOWING_HERB = ITEMS.register("glowing_herb",
-                        () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.GLOWING_HERB)));
+                        () -> new GlowingHerbItem(new Item.Properties().food(ModFoods.GLOWING_HERB)));
 
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));

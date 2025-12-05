@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:glow_berries"
+        },
+        {
+            "item": "minecraft:glow_berries"
+        },
+        {
+            "item": "minecraft:glow_berries"
+        },
+        {
+            "item": "minecraft:kelp"
+        },
+        {
+            "item": "minecraft:nether_wart"
+        }
+    ],
+    "result": {
+        "type": "forge:nbt",
+        "item": "functionality:glowing_herb",
+        "nbt": "{Herb:{Duration:4200}}"
+    }
+}
