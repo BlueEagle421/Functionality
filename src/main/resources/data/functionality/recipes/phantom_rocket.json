@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:phantom_membrane"
+        },
+        {
+            "item": "minecraft:gunpowder"
+        },
+        {
+            "type": "forge:nbt",
+            "item": "minecraft:firework_rocket",
+            "nbt": "{Fireworks:{Flight:3}}"
+        }
+    ],
+    "result": {
+        "type": "forge:nbt",
+        "item": "functionality:phantom_rocket",
+        "nbt": "{Fireworks:{Flight:5}}"
+    }
+}

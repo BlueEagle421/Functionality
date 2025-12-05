@@ -3,6 +3,7 @@ package com.blueeagle421.functionality.item;
 import com.blueeagle421.functionality.FunctionalityMod;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -41,6 +42,14 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.GLOW_TORCH.get());
                         pOutput.accept(ModItems.FISH_TRAP.get());
                         pOutput.accept(ModItems.LIGHTNING_CHARGER.get());
+                        { // with nbt data
+                            ItemStack rocketStack = new ItemStack(ModItems.PHANTOM_ROCKET.get());
+                            CompoundTag tag = new CompoundTag();
+                            tag.putByte("Flight", (byte) 5);
+                            CompoundTag root = rocketStack.getOrCreateTag();
+                            root.put("Fireworks", tag);
+                            pOutput.accept(rocketStack);
+                        }
                         pOutput.accept(ModItems.PHEROMONES.get());
                         pOutput.accept(ModItems.PHANTOM_TREAT.get());
                         pOutput.accept(ModItems.PHANTOM_LEAD.get());

@@ -21,6 +21,7 @@ import com.blueeagle421.functionality.item.custom.TooltipItem;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -118,6 +119,9 @@ public class ModItems {
 
         public static final RegistryObject<Item> PHANTOM_TREAT = ITEMS.register("phantom_treat",
                         () -> new TooltipItem(new Item.Properties()));
+
+        public static final RegistryObject<Item> PHANTOM_ROCKET = ITEMS.register("phantom_rocket",
+                        () -> new FireworkRocketItem(new Item.Properties()));
 
         public static final RegistryObject<Item> PHANTOM_LEAD = ITEMS.register("phantom_lead",
                         () -> new TooltipItem(new Item.Properties()));
