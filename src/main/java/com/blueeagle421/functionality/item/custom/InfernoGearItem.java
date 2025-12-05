@@ -1,0 +1,65 @@
+package com.blueeagle421.functionality.item.custom;
+
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
+
+import com.blueeagle421.functionality.utils.TooltipUtils;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+
+public class InfernoGearItem extends ArmorItem {
+
+    private static final int MARKER_AMPLIFIER = 127;
+
+    public InfernoGearItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
+        super(pMaterial, pType, pProperties);
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, Level level, Player player) {
+
+        if (level.isClientSide)
+            return;
+
+        MobEffectInstance current = player.getEffect(MobEffects.FIRE_RESISTANCE);
+
+        if (current != null)
+            return;
+
+        MobEffectInstance infiniteFR = new MobEffectInstance(MobEffects.FIRE_RESISTANCE,
+                MobEffectInstance.INFINITE_DURATION, MARKER_AMPLIFIER, true, false, true);
+
+        player.addEffect(infiniteFR);
+    }
+
+    public static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {
+        if (mobEffectInstance == null)
+            return false;
+
+        if (mobEffectInstance.getEffect() != MobEffects.FIRE_RESISTANCE)
+            return false;
+
+        if (mobEffectInstance.getAmplifier() != MARKER_AMPLIFIER)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip,
+            TooltipFlag isAdvanced) {
+
+        TooltipUtils.addFormattedTooltip(stack, tooltip);
+
+        super.appendHoverText(stack, level, tooltip, isAdvanced);
+    }
+}

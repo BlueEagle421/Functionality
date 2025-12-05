@@ -37,6 +37,7 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.OBSIDIAN_FINS.get());
                         pOutput.accept(ModItems.AMETHYST_ARROW.get());
                         pOutput.accept(ModItems.OBSIDIAN_BOAT.get());
+                        pOutput.accept(ModItems.INFERNO_GEAR.get());
                         pOutput.accept(ModItems.GLOW_TORCH.get());
                         pOutput.accept(ModItems.FISH_TRAP.get());
                         pOutput.accept(ModItems.LIGHTNING_CHARGER.get());

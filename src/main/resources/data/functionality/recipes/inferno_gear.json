@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "Z Z",
+        "XYX",
+        "XYX"
+    ],
+    "key": {
+        "Y": {
+            "type": "forge:nbt",
+            "item": "minecraft:potion",
+            "nbt": {
+                "Potion": "minecraft:long_fire_resistance"
+            }
+        },
+        "X": {
+            "item": "minecraft:obsidian"
+        },
+        "Z": {
+            "item": "minecraft:amethyst_shard"
+        }
+    },
+    "result": {
+        "item": "functionality:inferno_gear"
+    }
+}
