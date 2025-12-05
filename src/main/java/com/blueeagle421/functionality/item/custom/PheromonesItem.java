@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.item.custom;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,9 +13,15 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.UUID;
+
+import org.jetbrains.annotations.Nullable;
+
+import com.blueeagle421.functionality.utils.TooltipUtils;
 
 public class PheromonesItem extends Item {
     public PheromonesItem(Properties props) {
@@ -74,10 +81,10 @@ public class PheromonesItem extends Item {
 
         // sound
         level.playSound(null, target.getX(), target.getY(), target.getZ(),
-                SoundEvents.SPLASH_POTION_BREAK, SoundSource.PLAYERS, 1f, 1.0f);
+                SoundEvents.HONEY_DRINK, SoundSource.PLAYERS, 1f, 1.0f);
 
         // potion splash effect
-        level.levelEvent(2002, target.blockPosition(), 0xC145BC);
+        // level.levelEvent(2002, target.blockPosition(), 0xC145BC);
 
         // heart particles
         spawnHearts(level, target);
@@ -94,5 +101,14 @@ public class PheromonesItem extends Item {
         double y = target.getY() + target.getBbHeight() * 0.5;
         double z = target.getZ();
         level.sendParticles(ParticleTypes.HEART, x, y, z, 7, 0.25, 0.25, 0.25, 0.02);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip,
+            TooltipFlag isAdvanced) {
+
+        TooltipUtils.addFormattedTooltip(stack, tooltip);
+
+        super.appendHoverText(stack, level, tooltip, isAdvanced);
     }
 }
