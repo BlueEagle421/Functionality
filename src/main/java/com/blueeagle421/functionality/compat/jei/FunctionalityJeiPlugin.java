@@ -26,7 +26,8 @@ public class FunctionalityJeiPlugin implements IModPlugin {
     private static Map<Item, ItemStack> REPAIRABLE_ITEMS() {
         return Map.of(
                 ModItems.FINS.get(), new ItemStack(Items.SCUTE),
-                ModItems.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN));
+                ModItems.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN),
+                ModItems.INFERNO_GEAR.get(), new ItemStack(Items.OBSIDIAN));
     }
 
     @SuppressWarnings("removal")
