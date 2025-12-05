@@ -83,9 +83,6 @@ public class PheromonesItem extends Item {
         level.playSound(null, target.getX(), target.getY(), target.getZ(),
                 SoundEvents.HONEY_DRINK, SoundSource.PLAYERS, 1f, 1.0f);
 
-        // potion splash effect
-        // level.levelEvent(2002, target.blockPosition(), 0xC145BC);
-
         // heart particles
         spawnHearts(level, target);
     }
