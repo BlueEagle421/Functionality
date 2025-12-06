@@ -1,7 +1,7 @@
 package com.blueeagle421.functionality.block.custom;
 
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
-import com.blueeagle421.functionality.block.entity.custom.FishTrapEntity;
+import com.blueeagle421.functionality.block.entity.custom.LightningChargerEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -23,7 +23,7 @@ public class LightningChargerBlock extends BaseEntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new FishTrapEntity(ModBlockEntities.LIGHTNING_CHARGER.get(), pPos, pState);
+        return new LightningChargerEntity(ModBlockEntities.LIGHTNING_CHARGER.get(), pPos, pState);
     }
 
     @Override
