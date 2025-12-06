@@ -5,6 +5,7 @@ import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
+import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
@@ -44,6 +45,7 @@ public class FunctionalityMod {
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

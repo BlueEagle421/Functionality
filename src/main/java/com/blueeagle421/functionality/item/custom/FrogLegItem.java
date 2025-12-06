@@ -24,9 +24,8 @@ public class FrogLegItem extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         ItemStack result = super.finishUsingItem(stack, world, entity);
 
-        if (!world.isClientSide) {
+        if (!world.isClientSide)
             cureOneNegativeEffect(entity);
-        }
 
         return result;
     }

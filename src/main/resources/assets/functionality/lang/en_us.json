@@ -28,6 +28,8 @@
 
     "message.functionality.ancient_seeker.not_enough_xp": "Needs %s experience levels",
 
+    "effect.functionality.glow_shield": "Glow Blessing",
+
     "block.functionality.glow_torch": "Glow Torch",
     "block.functionality.fish_trap": "Fish Trap",
     "block.functionality.lightning_charger": "Lightning Altar",
@@ -57,7 +59,7 @@
     "tooltip.functionality.phantom_herb": "Makes phantoms spawn like you didn't sleep for a while.",
     "tooltip.functionality.chorus_herb": "Teleports you to your spawn point.",
     "tooltip.functionality.glowing_herb": "Grands immunity to poison, wither and levitation.",
-    "tooltip.nbt.functionality.glowing_herb.duration": "Effect duration:",
+    "tooltip.nbt.functionality.glowing_herb.duration": "Duration:",
     "tooltip.functionality.amethyst_scepter": "Detects nearby ores for experience.",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
