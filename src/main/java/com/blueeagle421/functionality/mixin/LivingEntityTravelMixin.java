@@ -1,7 +1,7 @@
 package com.blueeagle421.functionality.mixin;
 
-import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
-import net.minecraft.world.entity.EquipmentSlot;
+import com.blueeagle421.functionality.utils.ArmorUtils;
+
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ public class LivingEntityTravelMixin {
         if (!self.isInLava())
             return originalValue;
 
-        if (hasObsidianFins(self))
+        if (ArmorUtils.hasObsidianFins(self))
             return originalValue * LAVA_MOVE_MULTIPLIER;
 
         return originalValue;
@@ -34,7 +34,7 @@ public class LivingEntityTravelMixin {
     private float modifyLavaVerticalDamping(float original) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        if (hasObsidianFins(self))
+        if (ArmorUtils.hasObsidianFins(self))
             return LAVA_VERTICAL_DAMPING;
 
         return original;
@@ -44,7 +44,7 @@ public class LivingEntityTravelMixin {
     private double modifyLavaHorizontalSlowdown(double original) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        if (hasObsidianFins(self))
+        if (ArmorUtils.hasObsidianFins(self))
             return LAVA_SLOWDOWN_REDUCTION;
 
         return original;
@@ -54,7 +54,7 @@ public class LivingEntityTravelMixin {
     private Vec3 reduceDownwardWhenInLava(Vec3 original) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        if (!self.isInLava() || !hasObsidianFins(self))
+        if (!self.isInLava() || !ArmorUtils.hasObsidianFins(self))
             return original;
 
         double y = original.y;
@@ -62,17 +62,5 @@ public class LivingEntityTravelMixin {
             y = y * LAVA_FALL_REDUCTION;
 
         return new Vec3(original.x, y, original.z);
-    }
-
-    private boolean hasObsidianFins(LivingEntity entity) {
-        if (entity == null)
-            return false;
-
-        var feetItemStack = entity.getItemBySlot(EquipmentSlot.FEET);
-
-        if (feetItemStack == null || feetItemStack.isEmpty())
-            return false;
-
-        return feetItemStack.getItem() instanceof ObsidianFinsItem;
     }
 }

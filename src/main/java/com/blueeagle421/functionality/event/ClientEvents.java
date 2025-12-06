@@ -1,10 +1,9 @@
 package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.item.custom.InfernoGearItem;
+import com.blueeagle421.functionality.utils.ArmorUtils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ViewportEvent;
@@ -27,9 +26,7 @@ public class ClientEvents {
         if (mc.level == null)
             return;
 
-        var chestItem = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
-
-        if (!(chestItem instanceof InfernoGearItem))
+        if (!ArmorUtils.hasInfernoGear(player))
             return;
 
         if (!player.isEyeInFluidType(ForgeMod.LAVA_TYPE.get()))
