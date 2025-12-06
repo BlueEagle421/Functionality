@@ -25,15 +25,16 @@ public class TooltipUtils {
 
         tooltip.add(Component.translatable(baseKey).withStyle(ChatFormatting.GRAY));
 
-        boolean hasDetail = Component.translatable(detailKey).getString() != null
-                && !Component.translatable(detailKey).getString().equals(detailKey);
+        String translatedDetail = Component.translatable(detailKey).getString();
 
-        if (!hasDetail) {
+        boolean hasDetail = translatedDetail != null && !translatedDetail.equals(detailKey);
+
+        if (!hasDetail)
             return;
-        }
 
         if (Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable(detailKey).withStyle(ChatFormatting.WHITE));
+            translatedDetail.lines()
+                    .forEach(line -> tooltip.add(Component.literal(line).withStyle(ChatFormatting.WHITE)));
         } else {
             tooltip.add(
                     Component.translatable(
