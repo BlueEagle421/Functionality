@@ -18,7 +18,7 @@ public class ModCreativeTabs {
             .create(Registries.CREATIVE_MODE_TAB, FunctionalityMod.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> TUTORIAL_TAB = CREATIVE_MODE_TABS.register("functionality_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BEAR_VENISON.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.OBSIDIAN_BOAT.get()))
                     .title(Component.translatable("creativetab.functionality_tab"))
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.SLEEPING_HERB.get());
