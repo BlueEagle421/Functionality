@@ -34,7 +34,7 @@ public class ModFoods {
         public static final FoodProperties COOKED_SNIFFON = new FoodProperties.Builder()
                         .nutrition(8).saturationMod(0.9f)
                         .meat()
-                        .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0), 1f)
+                        .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 1200, 0), 1f)
                         .alwaysEat()
                         .build();
 
@@ -42,7 +42,7 @@ public class ModFoods {
                         .nutrition(8).saturationMod(0.9f)
                         .meat()
                         .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0), 1f)
-                        .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 3600, 0), 1f)
+                        .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 600, 0), 1f)
                         .alwaysEat()
                         .build();
 
