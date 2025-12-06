@@ -14,6 +14,6 @@ public class RegisterLayer {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
 
-        event.registerLayerDefinition(ModModelLayers.PINE_BOAT_LAYER, BoatModel::createBodyModel);
+        event.registerLayerDefinition(ModModelLayers.OBSIDIAN_BOAT_LAYER, BoatModel::createBodyModel);
     }
 }
