@@ -9,6 +9,7 @@ import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -49,6 +50,9 @@ public class OnLivingDrops {
 
                 handleEntityDrop(event, Turtle.class,
                                 () -> new ItemStack(Items.SCUTE), 0.3f, 1, 0, 0);
+
+                handleEntityDrop(event, AbstractIllager.class,
+                                () -> new ItemStack(ModItems.TREASURE_SACK.get()), 0.8f, 1, 0.5f, 1);
         }
 
         private static void handleEntityDrop(LivingDropsEvent event,
