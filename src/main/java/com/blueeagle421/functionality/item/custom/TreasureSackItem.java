@@ -50,9 +50,8 @@ public class TreasureSackItem extends TooltipItem {
             }
         }
 
-        if (!player.getAbilities().instabuild) {
+        if (!player.getAbilities().instabuild)
             stackInHand.shrink(1);
-        }
 
         return InteractionResultHolder.sidedSuccess(stackInHand, false);
     }
