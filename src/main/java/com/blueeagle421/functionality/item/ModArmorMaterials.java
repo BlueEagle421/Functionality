@@ -14,7 +14,10 @@ import com.blueeagle421.functionality.FunctionalityMod;
 public enum ModArmorMaterials implements ArmorMaterial {
 
     OBSIDIAN("obsidian", 37, new int[] { 2, 5, 6, 2 }, 12,
-            SoundEvents.ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.of(Items.OBSIDIAN));
+            SoundEvents.ARMOR_EQUIP_DIAMOND, 0.0f, 0.0f, () -> Ingredient.of(Items.OBSIDIAN)),
+
+    KELP("kelp", 3, new int[] { 1, 1, 1, 1 }, 4,
+            SoundEvents.SMALL_DRIPLEAF_PLACE, 0.0f, 0.0f, () -> Ingredient.of(Items.KELP));
 
     private final String name;
     private final int durabilityMultiplier;

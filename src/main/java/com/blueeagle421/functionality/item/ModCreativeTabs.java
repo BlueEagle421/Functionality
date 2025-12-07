@@ -29,6 +29,7 @@ public class ModCreativeTabs {
                             GlowingHerbItem.setDuration(glowingHerbStack, GlowingHerbItem.DEFAULT_DURATION);
                             pOutput.accept(glowingHerbStack);
                         }
+                        pOutput.accept(ModItems.GLOWING_CROWN.get());
                         pOutput.accept(ModItems.BEAR_VENISON.get());
                         pOutput.accept(ModItems.COOKED_BEAR_VENISON.get());
                         pOutput.accept(ModItems.CHEVON.get());

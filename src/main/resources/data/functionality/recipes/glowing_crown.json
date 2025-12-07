@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "type": "forge:nbt",
+      "item": "functionality:glowing_herb",
+      "nbt": "{Herb:{Duration:4200}}"
+    }
+  },
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "item": "functionality:glowing_crown"
+  },
+  "show_notification": true
+}

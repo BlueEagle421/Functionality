@@ -77,6 +77,10 @@ public class ModItems {
         public static final RegistryObject<Item> GLOWING_HERB = ITEMS.register("glowing_herb",
                         () -> new GlowingHerbItem(new Item.Properties().food(ModFoods.GLOWING_HERB)));
 
+        public static final RegistryObject<Item> GLOWING_CROWN = ITEMS.register("glowing_crown",
+                        () -> new GlowingCrownItem(ModArmorMaterials.KELP, ArmorItem.Type.HELMET,
+                                        new Item.Properties()));
+
         public static final RegistryObject<Item> AMETHYST_ARROW = ITEMS.register("amethyst_arrow",
                         () -> new AmethystArrowItem(new Item.Properties()));
 

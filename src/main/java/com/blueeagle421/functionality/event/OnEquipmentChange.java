@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.effect.ModEffects;
+import com.blueeagle421.functionality.item.custom.GlowingCrownItem;
 import com.blueeagle421.functionality.item.custom.InfernoGearItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,11 @@ public class OnEquipmentChange {
         if (player.level().isClientSide)
             return;
 
+        checkInfernoGear(event, player);
+        checkGlowingCrown(event, player);
+    }
+
+    private static void checkInfernoGear(LivingEquipmentChangeEvent event, Player player) {
         if (event.getSlot() != EquipmentSlot.CHEST)
             return;
 
@@ -37,6 +44,24 @@ public class OnEquipmentChange {
 
             if (InfernoGearItem.isEffectFromGear(fr))
                 player.removeEffect(MobEffects.FIRE_RESISTANCE);
+        }
+    }
+
+    private static void checkGlowingCrown(LivingEquipmentChangeEvent event, Player player) {
+        if (event.getSlot() != EquipmentSlot.HEAD)
+            return;
+
+        ItemStack from = event.getFrom();
+        ItemStack to = event.getTo();
+
+        boolean removed = !from.isEmpty() && from.getItem() instanceof GlowingCrownItem;
+        boolean still = !to.isEmpty() && to.getItem() instanceof GlowingCrownItem;
+
+        if (removed && !still) {
+            MobEffectInstance fr = player.getEffect(ModEffects.GLOW_SHIELD.get());
+
+            if (GlowingCrownItem.isEffectFromGear(fr))
+                player.removeEffect(ModEffects.GLOW_SHIELD.get());
         }
     }
 
