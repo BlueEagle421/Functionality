@@ -60,7 +60,6 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.PHANTOM_TREAT.get());
                         pOutput.accept(ModItems.PHANTOM_LEAD.get());
                         pOutput.accept(ModItems.TREASURE_SACK.get());
-                        pOutput.accept(ModItems.LARGE_TREASURE_SACK.get());
                         pOutput.accept(ModItems.ANCIENT_SEEKER.get());
 
                     })
