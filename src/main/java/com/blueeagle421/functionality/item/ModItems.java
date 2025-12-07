@@ -16,6 +16,9 @@ public class ModItems {
         public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
                         FunctionalityMod.MOD_ID);
 
+        public static final RegistryObject<Item> INFORMATION = ITEMS.register("information",
+                        () -> new TooltipItem(new Item.Properties()));
+
         public static final RegistryObject<Item> BEAR_VENISON = ITEMS.register("bear_venison",
                         () -> new TooltipItem(new Item.Properties().food(ModFoods.BEAR_VENISON)));
 

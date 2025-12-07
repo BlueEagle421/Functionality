@@ -79,5 +79,9 @@
 
     "tooltip.functionality.details": "<Press %s for details>",
 
-    "creativetab.functionality_tab": "Functionality"
+    "information.functionality.infinite_water_cauldron": "Place any of the listed blocks below a cauldron to make it an infinite water source.",
+    "information.functionality.night_vision_potion": "Right click on a glow squid with an empty bottle to get a night vision potion. It might hurt!",
+
+    "creativetab.functionality_tab": "Functionality",
+    "category.functionality.information": "Functional Information"
 }

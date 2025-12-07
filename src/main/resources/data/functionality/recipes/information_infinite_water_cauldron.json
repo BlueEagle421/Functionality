@@ -1,0 +1,20 @@
+{
+    "type": "functionality:information",
+
+    "description": "information.functionality.infinite_water_cauldron",
+
+    "ingredients": [
+        {
+            "item": "minecraft:cauldron"
+        },
+        {
+            "item": "minecraft:prismarine"
+        },
+        {
+            "item": "minecraft:dark_prismarine"
+        },
+        {
+            "item": "minecraft:sea_lantern"
+        }
+    ]
+}

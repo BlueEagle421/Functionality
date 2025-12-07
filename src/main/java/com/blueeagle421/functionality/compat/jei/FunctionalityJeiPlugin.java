@@ -2,17 +2,22 @@ package com.blueeagle421.functionality.compat.jei;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.item.ModItems;
+import com.blueeagle421.functionality.recipe.InformationRecipe;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
@@ -37,11 +42,21 @@ public class FunctionalityJeiPlugin implements IModPlugin {
         return new ResourceLocation(FunctionalityMod.MOD_ID, "jei_plugin");
     }
 
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registration) {
+        registration.addRecipeCategories(new InformationCategory(registration.getJeiHelpers().getGuiHelper()));
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         IVanillaRecipeFactory factory = registration.getVanillaRecipeFactory();
         List<IJeiAnvilRecipe> recipes = new ArrayList<>();
+
+        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+
+        List<InformationRecipe> infoRecipes = recipeManager.getAllRecipesFor(InformationRecipe.Type.INSTANCE);
+        registration.addRecipes(InformationCategory.INFORMATION_TYPE, infoRecipes);
 
         for (Map.Entry<Item, ItemStack> entry : REPAIRABLE_ITEMS().entrySet()) {
             ItemStack itemStack = new ItemStack(entry.getKey());

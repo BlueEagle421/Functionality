@@ -10,6 +10,7 @@ import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.particle.ModParticles;
+import com.blueeagle421.functionality.recipe.ModRecipes;
 import com.blueeagle421.functionality.worldgen.ModFeatures;
 import com.mojang.logging.LogUtils;
 
@@ -46,6 +47,7 @@ public class FunctionalityMod {
         ModEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
