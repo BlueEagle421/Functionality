@@ -2,6 +2,7 @@ package com.blueeagle421.functionality.event;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,6 +28,9 @@ public class OnHurt {
         Level level = entity.level();
 
         if (!(entity instanceof GlowSquid) || level.isClientSide)
+            return;
+
+        if (!event.getSource().is(DamageTypes.PLAYER_ATTACK))
             return;
 
         List<Player> players = level.getEntitiesOfClass(

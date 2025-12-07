@@ -37,7 +37,7 @@ public class OnRightClickEntity {
 
         DamageType type = player.level().registryAccess()
                 .registryOrThrow(Registries.DAMAGE_TYPE)
-                .get(DamageTypes.PLAYER_ATTACK);
+                .get(DamageTypes.MAGIC);
 
         DamageSource src = new DamageSource(Holder.direct(type), player, player);
 
