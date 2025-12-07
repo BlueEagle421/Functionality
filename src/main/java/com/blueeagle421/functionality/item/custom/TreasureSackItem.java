@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +18,8 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class TreasureSackItem extends TooltipItem {
+
+    private final Float XP_DROP_CHANCE = 0.25f;
 
     @SuppressWarnings("removal")
     private static final ResourceLocation LOOT_TABLE = new ResourceLocation("functionality", "gameplay/treasure_sack");
@@ -48,6 +51,11 @@ public class TreasureSackItem extends TooltipItem {
                         drop.copy());
                 level.addFreshEntity(itemEntity);
             }
+        }
+
+        if (serverLevel.random.nextFloat() < XP_DROP_CHANCE) {
+            int xpAmount = 3 + serverLevel.random.nextInt(5) + serverLevel.random.nextInt(5);
+            ExperienceOrb.award(serverLevel, player.position(), xpAmount);
         }
 
         if (!player.getAbilities().instabuild)
