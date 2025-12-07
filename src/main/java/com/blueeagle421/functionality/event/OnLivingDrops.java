@@ -52,7 +52,7 @@ public class OnLivingDrops {
                                 () -> new ItemStack(Items.SCUTE), 0.3f, 1, 0, 0);
 
                 handleEntityDrop(event, AbstractIllager.class,
-                                () -> new ItemStack(ModItems.TREASURE_SACK.get()), 0.8f, 1, 0.5f, 1);
+                                () -> new ItemStack(ModItems.TREASURE_SACK.get()), 0.4f, 1, 0.5f, 1);
         }
 
         private static void handleEntityDrop(LivingDropsEvent event,
