@@ -110,10 +110,10 @@ public class ModItems {
                         () -> new TooltipItem(new Item.Properties()));
 
         public static final RegistryObject<Item> TREASURE_SACK = ITEMS.register("treasure_sack",
-                        () -> new TooltipItem(new Item.Properties()));
+                        () -> new TreasureSackItem(new Item.Properties()));
 
         public static final RegistryObject<Item> LARGE_TREASURE_SACK = ITEMS.register("large_treasure_sack",
-                        () -> new TooltipItem(new Item.Properties()));
+                        () -> new TreasureSackItem(new Item.Properties()));
 
         public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
                         () -> new AncientSeekerItem(new Item.Properties()));
