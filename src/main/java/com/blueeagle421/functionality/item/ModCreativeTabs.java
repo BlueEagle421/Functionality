@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-import com.blueeagle421.functionality.item.custom.GlowingHerbItem;
+import com.blueeagle421.functionality.item.custom.*;
 
 public class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
@@ -59,6 +59,8 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.PHEROMONES.get());
                         pOutput.accept(ModItems.PHANTOM_TREAT.get());
                         pOutput.accept(ModItems.PHANTOM_LEAD.get());
+                        pOutput.accept(ModItems.TREASURE_SACK.get());
+                        pOutput.accept(ModItems.LARGE_TREASURE_SACK.get());
                         pOutput.accept(ModItems.ANCIENT_SEEKER.get());
 
                     })

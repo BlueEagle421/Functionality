@@ -23,6 +23,8 @@
     "item.functionality.pheromones": "Pheromones",
     "item.functionality.phantom_treat": "Phantom Treat",
     "item.functionality.phantom_rocket": "Ethereal Rocket",
+    "item.functionality.treasure_sack": "Treasure Sack",
+    "item.functionality.large_treasure_sack": "Large Treasure Sack",
     "item.functionality.phantom_lead": "Phantom Lead",
     "item.functionality.ancient_seeker": "Ancient Seeker",
 
@@ -67,6 +69,10 @@
     "tooltip.functionality.pheromones": "An universal tame mixture for animals.",
     "tooltip.detailed.functionality.pheromones": "Right click on any tamable mob to make it you friend!",
     "tooltip.functionality.phantom_treat": "Feed it to any animal to make it much faster.",
+    "tooltip.functionality.treasure_sack": "Contains illager plunder.",
+    "tooltip.functionality.large_treasure_sack": "Contains illager plunder.",
+    "tooltip.detailed.functionality.treasure_sack": "Right click to open!",
+    "tooltip.detailed.functionality.large_treasure_sack": "Right click to open!",
     "tooltip.functionality.ancient_seeker": "Can detects ancient debris.",
     "tooltip.detailed.functionality.ancient_seeker": "Right click to start searching.\nConsumes experience levels.",
 

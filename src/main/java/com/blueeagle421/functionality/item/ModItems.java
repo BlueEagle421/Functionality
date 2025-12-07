@@ -3,28 +3,10 @@ package com.blueeagle421.functionality.item;
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
-import com.blueeagle421.functionality.item.custom.AmethystArrowItem;
-import com.blueeagle421.functionality.item.custom.AncientSeekerItem;
-import com.blueeagle421.functionality.item.custom.ChorusHerbItem;
-import com.blueeagle421.functionality.item.custom.FinsItem;
-import com.blueeagle421.functionality.item.custom.FrogLegItem;
-import com.blueeagle421.functionality.item.custom.GlowTorchItem;
-import com.blueeagle421.functionality.item.custom.GlowingHerbItem;
-import com.blueeagle421.functionality.item.custom.InfernoGearItem;
-import com.blueeagle421.functionality.item.custom.ObsidianBoatItem;
-import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
-import com.blueeagle421.functionality.item.custom.PhantomHerbItem;
-import com.blueeagle421.functionality.item.custom.PheromonesItem;
-import com.blueeagle421.functionality.item.custom.TooltipBlockItem;
-import com.blueeagle421.functionality.item.custom.TooltipBowlFoodItem;
-import com.blueeagle421.functionality.item.custom.TooltipItem;
+import com.blueeagle421.functionality.item.custom.*;
 
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.FireworkRocketItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -125,6 +107,12 @@ public class ModItems {
                         () -> new FireworkRocketItem(new Item.Properties()));
 
         public static final RegistryObject<Item> PHANTOM_LEAD = ITEMS.register("phantom_lead",
+                        () -> new TooltipItem(new Item.Properties()));
+
+        public static final RegistryObject<Item> TREASURE_SACK = ITEMS.register("treasure_sack",
+                        () -> new TooltipItem(new Item.Properties()));
+
+        public static final RegistryObject<Item> LARGE_TREASURE_SACK = ITEMS.register("large_treasure_sack",
                         () -> new TooltipItem(new Item.Properties()));
 
         public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
