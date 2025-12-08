@@ -69,7 +69,7 @@
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Sails on lava.",
-    "tooltip.functionality.harpoon": "Has tripled reach in water.",
+    "tooltip.functionality.harpoon": "Tripled reach underwater.",
     "tooltip.functionality.pheromones": "An universal tame mixture for animals.",
     "tooltip.detailed.functionality.pheromones": "Right click on any tamable mob to make it you friend!",
     "tooltip.functionality.phantom_treat": "Feed it to any animal to make it much faster.",
