@@ -11,50 +11,51 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID)
 public class OnPlayerTick {
-    @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID)
-    public class WaterReachHandler {
 
-        @SubscribeEvent
-        public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-            if (event.phase != TickEvent.Phase.END)
-                return;
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END)
+            return;
 
-            Player player = event.player;
-            ItemStack held = player.getMainHandItem();
+        Player player = event.player;
+        ItemStack held = player.getMainHandItem();
 
-            if (!(held.getItem() instanceof HarpoonItem)) {
-                removeModifier(player);
-                return;
-            }
-
-            if (player.isInWater()) {
-                applyModifier(player);
-            } else {
-                removeModifier(player);
-            }
+        if (!(held.getItem() instanceof HarpoonItem)) {
+            removeModifier(player);
+            return;
         }
 
-        private static void applyModifier(Player player) {
-            var attr = player.getAttribute(ForgeMod.ENTITY_REACH.get());
-            if (attr == null)
-                return;
-
-            if (attr.getModifier(HarpoonItem.WATER_REACH_UUID) == null) {
-                attr.addTransientModifier(new AttributeModifier(
-                        HarpoonItem.WATER_REACH_UUID,
-                        "water_reach_bonus",
-                        6.0,
-                        AttributeModifier.Operation.ADDITION));
-            }
-        }
-
-        private static void removeModifier(Player player) {
-            var attr = player.getAttribute(ForgeMod.ENTITY_REACH.get());
-            if (attr == null)
-                return;
-            attr.removeModifier(HarpoonItem.WATER_REACH_UUID);
+        if (player.isInWater()) {
+            applyModifier(player);
+        } else {
+            removeModifier(player);
         }
     }
 
+    private static void applyModifier(Player player) {
+        var attr = player.getAttribute(ForgeMod.ENTITY_REACH.get());
+        if (attr == null)
+            return;
+
+        // Only add if not already present
+        if (attr.getModifier(HarpoonItem.WATER_REACH_UUID) == null) {
+            attr.addTransientModifier(new AttributeModifier(
+                    HarpoonItem.WATER_REACH_UUID,
+                    "water_reach_bonus",
+                    HarpoonItem.EXTRA_REACH_UNDERWATER,
+                    AttributeModifier.Operation.ADDITION));
+        }
+    }
+
+    private static void removeModifier(Player player) {
+        var attr = player.getAttribute(ForgeMod.ENTITY_REACH.get());
+        if (attr == null)
+            return;
+
+        var mod = attr.getModifier(HarpoonItem.WATER_REACH_UUID);
+        if (mod != null)
+            attr.removeModifier(mod);
+    }
 }
