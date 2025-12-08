@@ -27,26 +27,26 @@ public class OnHurt {
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
 
-        if (!(entity instanceof GlowSquid) || level.isClientSide)
+        if (!(level instanceof ServerLevel serverLevel))
+            return;
+
+        if (!(entity instanceof GlowSquid))
             return;
 
         if (!event.getSource().is(DamageTypes.PLAYER_ATTACK))
             return;
 
-        List<Player> players = level.getEntitiesOfClass(
+        List<Player> players = serverLevel.getEntitiesOfClass(
                 Player.class,
                 entity.getBoundingBox().inflate(4.0D),
                 p -> p != null && p.isAlive() && !p.isSpectator());
 
-        for (Player p : players) {
+        for (Player p : players)
             p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, TIME, 0));
-        }
 
-        if (level instanceof ServerLevel serverLevel) {
-            double x = entity.getX();
-            double y = entity.getY() + entity.getBbHeight() / 2.0;
-            double z = entity.getZ();
-            serverLevel.sendParticles(ParticleTypes.GLOW_SQUID_INK, x, y, z, 30, 0.4, 0.4, 0.4, 0.03);
-        }
+        double x = entity.getX();
+        double y = entity.getY() + entity.getBbHeight() / 2.0;
+        double z = entity.getZ();
+        serverLevel.sendParticles(ParticleTypes.GLOW_SQUID_INK, x, y, z, 30, 0.4, 0.4, 0.4, 0.03);
     }
 }
