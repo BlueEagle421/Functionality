@@ -21,6 +21,7 @@
     "item.functionality.amethyst_scepter": "Scepter",
     "item.functionality.amethyst_arrow": "Amethyst Arrow",
     "item.functionality.obsidian_boat": "Obsidian Boat",
+    "item.functionality.harpoon": "Harpoon",
     "item.functionality.pheromones": "Pheromones",
     "item.functionality.phantom_treat": "Phantom Treat",
     "item.functionality.phantom_rocket": "Ethereal Rocket",
@@ -34,6 +35,7 @@
     "effect.functionality.glow_shield": "Glow Blessing",
 
     "block.functionality.glow_torch": "Glow Torch",
+
     "block.functionality.fish_trap": "Fish Trap",
     "block.functionality.lightning_charger": "Lightning Altar",
 
@@ -67,6 +69,7 @@
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Sails on lava.",
+    "tooltip.functionality.harpoon": "Has tripled reach in water.",
     "tooltip.functionality.pheromones": "An universal tame mixture for animals.",
     "tooltip.detailed.functionality.pheromones": "Right click on any tamable mob to make it you friend!",
     "tooltip.functionality.phantom_treat": "Feed it to any animal to make it much faster.",

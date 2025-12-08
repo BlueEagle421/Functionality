@@ -49,6 +49,7 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.GLOW_TORCH.get());
                         pOutput.accept(ModItems.FISH_TRAP.get());
                         pOutput.accept(ModItems.LIGHTNING_CHARGER.get());
+                        pOutput.accept(ModItems.TREASURE_SACK.get());
                         { // with nbt data
                             ItemStack rocketStack = new ItemStack(ModItems.PHANTOM_ROCKET.get());
                             CompoundTag tag = new CompoundTag();
@@ -60,9 +61,8 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.PHEROMONES.get());
                         pOutput.accept(ModItems.PHANTOM_TREAT.get());
                         pOutput.accept(ModItems.PHANTOM_LEAD.get());
-                        pOutput.accept(ModItems.TREASURE_SACK.get());
                         pOutput.accept(ModItems.ANCIENT_SEEKER.get());
-
+                        pOutput.accept(ModItems.HARPOON.get());
                     })
                     .build());
 

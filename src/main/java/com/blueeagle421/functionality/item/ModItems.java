@@ -98,6 +98,9 @@ public class ModItems {
                                         new Item.Properties(),
                                         Direction.DOWN));
 
+        public static final RegistryObject<Item> HARPOON = ITEMS.register("harpoon",
+                        () -> new HarpoonItem(Tiers.STONE, 2, -1.6F, new Item.Properties()));
+
         public static final RegistryObject<Item> FISH_TRAP = ITEMS.register("fish_trap",
                         () -> new TooltipBlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
 
