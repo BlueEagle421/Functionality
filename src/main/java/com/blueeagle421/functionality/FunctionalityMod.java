@@ -8,6 +8,7 @@ import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
+import com.blueeagle421.functionality.event.ForgeRepairEvent;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.particle.ModParticles;
@@ -27,6 +28,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.slf4j.Logger;
@@ -54,6 +56,7 @@ public class FunctionalityMod {
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::loadComplete);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -70,6 +73,10 @@ public class FunctionalityMod {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
+    }
+
+    private void loadComplete(final FMLLoadCompleteEvent event) {
+        MinecraftForge.EVENT_BUS.register(ForgeRepairEvent.class);
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
