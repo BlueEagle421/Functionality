@@ -27,6 +27,9 @@ public class RepairEvent {
         if (leftStack.getItem().equals(rightStack.getItem()))
             return null;
 
+        if (!leftStack.isDamaged())
+            return null;
+
         BlockPos anchored = findNearAnvilPos(server, player);
 
         var found = AnvilMarkerUtils.findMatchingMarkers(server, anchored);

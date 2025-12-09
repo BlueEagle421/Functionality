@@ -10,20 +10,17 @@ public class ForgeRepairEvent {
     public static void onRepairEvent(AnvilUpdateEvent e) {
         Triplet<Integer, Integer, ItemStack> triple = RepairEvent.onRepairEvent(null, e.getLeft(), e.getRight(),
                 e.getOutput(), e.getName(), e.getCost(), e.getPlayer());
-        if (triple == null) {
+
+        if (triple == null)
             return;
-        }
 
-        if (triple.getA() >= 0) {
+        if (triple.getA() >= 0)
             e.setCost(triple.getA());
-        }
 
-        if (triple.getB() >= 0) {
+        if (triple.getB() >= 0)
             e.setMaterialCost(triple.getB());
-        }
 
-        if (triple.getC() != null) {
+        if (triple.getC() != null)
             e.setOutput(triple.getC());
-        }
     }
 }
