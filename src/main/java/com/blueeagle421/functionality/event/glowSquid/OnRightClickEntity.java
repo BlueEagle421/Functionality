@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.glowSquid;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;

@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.item.custom.HarpoonItem;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class HarpoonAttractDropsHandler {
+public class OnLivingDrops {
 
     private static final double ATTRACT_SPEED = 1;
     private static final int PICKUP_DELAY = 10;
@@ -61,6 +61,7 @@ public class HarpoonAttractDropsHandler {
             itemEntity.setDeltaMovement(vx, vy, vz);
 
             itemEntity.setThrower(attacker.getUUID());
+            itemEntity.setNoPickUpDelay();
         }
     }
 

@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.anvil;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;

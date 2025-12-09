@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.glowSquid;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;

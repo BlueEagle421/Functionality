@@ -66,7 +66,7 @@ public class GlowingHerbItem extends TooltipItem {
         if (tag != null) {
             if (tag.contains(DURATION_KEY, 99)) {
                 pTooltip.add(
-                        Component.translatable("tooltip.nbt.functionality.glowing_herb.duration")
+                        Component.translatable("tooltip.nbt.functionality.glow_herb.duration")
                                 .append(CommonComponents.SPACE)
                                 .append(Component.literal(StringUtil.formatTickDuration(tag.getInt(
                                         DURATION_KEY))))

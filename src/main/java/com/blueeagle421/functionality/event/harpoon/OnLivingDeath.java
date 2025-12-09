@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.item.custom.HarpoonItem;
@@ -16,7 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class HarpoonKillHandler {
+public class OnLivingDeath {
 
     private static final int ONE_BUBBLE_TICKS = 30;
 

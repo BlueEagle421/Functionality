@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "functionality:item/glowing_crown"
+        "layer0": "functionality:item/glow_crown"
     }
 }

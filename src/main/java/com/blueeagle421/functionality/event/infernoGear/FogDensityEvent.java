@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.infernoGear;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.utils.ArmorUtils;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 
-public class ClientEvents {
+public class FogDensityEvent {
     final static Minecraft mc = Minecraft.getInstance();
 
     @SubscribeEvent

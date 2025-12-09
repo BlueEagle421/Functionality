@@ -77,10 +77,10 @@ public class ModItems {
         public static final RegistryObject<Item> CHORUS_HERB = ITEMS.register("chorus_herb",
                         () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.CHORUS_HERB)));
 
-        public static final RegistryObject<Item> GLOWING_HERB = ITEMS.register("glowing_herb",
-                        () -> new GlowingHerbItem(new Item.Properties().food(ModFoods.GLOWING_HERB)));
+        public static final RegistryObject<Item> GLOW_HERB = ITEMS.register("glow_herb",
+                        () -> new GlowingHerbItem(new Item.Properties().food(ModFoods.GLOW_HERB)));
 
-        public static final RegistryObject<Item> GLOWING_CROWN = ITEMS.register("glowing_crown",
+        public static final RegistryObject<Item> GLOW_CROWN = ITEMS.register("glow_crown",
                         () -> new GlowingCrownItem(ModArmorMaterials.KELP, ArmorItem.Type.HELMET,
                                         new Item.Properties()));
 

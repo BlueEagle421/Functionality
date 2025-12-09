@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.anvil;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.entity.custom.AnvilMarkerEntity;

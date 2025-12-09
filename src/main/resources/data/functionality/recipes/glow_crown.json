@@ -4,7 +4,7 @@
   "key": {
     "#": {
       "type": "forge:nbt",
-      "item": "functionality:glowing_herb",
+      "item": "functionality:glow_herb",
       "nbt": "{Herb:{Duration:4200}}"
     }
   },
@@ -15,7 +15,7 @@
   ],
   "result": {
     "count": 1,
-    "item": "functionality:glowing_crown"
+    "item": "functionality:glow_crown"
   },
   "show_notification": true
 }

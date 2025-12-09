@@ -9,9 +9,6 @@
             "item": "minecraft:glow_berries"
         },
         {
-            "item": "minecraft:glow_berries"
-        },
-        {
             "item": "minecraft:kelp"
         },
         {
@@ -20,7 +17,7 @@
     ],
     "result": {
         "type": "forge:nbt",
-        "item": "functionality:glowing_herb",
-        "nbt": "{Herb:{Duration:4200}}"
+        "item": "functionality:glow_herb",
+        "nbt": "{Herb:{Duration:2400}}"
     }
 }

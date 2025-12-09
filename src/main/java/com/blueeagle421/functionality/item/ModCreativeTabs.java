@@ -25,11 +25,11 @@ public class ModCreativeTabs {
                         pOutput.accept(ModItems.PHANTOM_HERB.get());
                         pOutput.accept(ModItems.CHORUS_HERB.get());
                         { // with nbt data
-                            ItemStack glowingHerbStack = new ItemStack(ModItems.GLOWING_HERB.get());
+                            ItemStack glowingHerbStack = new ItemStack(ModItems.GLOW_HERB.get());
                             GlowingHerbItem.setDuration(glowingHerbStack, GlowingHerbItem.DEFAULT_DURATION);
                             pOutput.accept(glowingHerbStack);
                         }
-                        pOutput.accept(ModItems.GLOWING_CROWN.get());
+                        pOutput.accept(ModItems.GLOW_CROWN.get());
                         pOutput.accept(ModItems.BEAR_VENISON.get());
                         pOutput.accept(ModItems.COOKED_BEAR_VENISON.get());
                         pOutput.accept(ModItems.CHEVON.get());

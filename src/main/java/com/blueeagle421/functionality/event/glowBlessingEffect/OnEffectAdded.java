@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event;
+package com.blueeagle421.functionality.event.glowBlessingEffect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -32,7 +32,7 @@ public class OnEffectAdded {
 
         MobEffect incoming = event.getEffectInstance().getEffect();
         if (TO_CANCEL.contains(incoming)) {
-            // DENY => the incoming effect will not be applied
+            // the effect will not be applied
             event.setResult(Result.DENY);
         }
     }
