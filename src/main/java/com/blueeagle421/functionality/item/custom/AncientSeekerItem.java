@@ -57,8 +57,8 @@ public class AncientSeekerItem extends Item {
 
         BlockPos nearest = findNearestDebris(world, playerPos);
 
-        if (nearest != null && world instanceof ServerLevel serverWorld)
-            searchSucceeded(serverWorld, player, nearest);
+        if (nearest != null && world instanceof ServerLevel server)
+            searchSucceeded(server, player, nearest);
         else
             searchFailed(world, player);
 
@@ -67,21 +67,21 @@ public class AncientSeekerItem extends Item {
         return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
     }
 
-    private void searchSucceeded(ServerLevel serverWorld, Player player, BlockPos foundPos) {
+    private void searchSucceeded(ServerLevel server, Player player, BlockPos foundPos) {
         // cool sound #1
-        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+        server.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1f, 1.0f);
 
         // cool sound #2
-        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+        server.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.PLAYERS, 1f, 1.0f);
 
         // cool sound #3
-        serverWorld.playSound(null, player.getX(), player.getY(), player.getZ(),
+        server.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1f, 1.0f);
 
         // cool particles
-        spawnParticles(serverWorld, foundPos);
+        spawnParticles(server, foundPos);
     }
 
     private void searchFailed(Level level, Player player) {
@@ -113,16 +113,15 @@ public class AncientSeekerItem extends Item {
         return nearest;
     }
 
-    private void spawnParticles(ServerLevel serverWorld, BlockPos pos) {
-
+    private void spawnParticles(ServerLevel server, BlockPos pos) {
         int particlesCount = 50;
         float blockHalf = 0.5f;
 
         for (int i = 0; i < particlesCount; i++) {
-            double px = pos.getX() + blockHalf + (serverWorld.random.nextDouble() - blockHalf);
-            double py = pos.getY() + blockHalf + (serverWorld.random.nextDouble() - blockHalf);
-            double pz = pos.getZ() + blockHalf + (serverWorld.random.nextDouble() - blockHalf);
-            serverWorld.sendParticles(ModParticles.ANCIENT_SEEKER.get(), px, py, pz, 1, 0, 0, 0, 0);
+            double px = pos.getX() + blockHalf + (server.random.nextDouble() - blockHalf);
+            double py = pos.getY() + blockHalf + (server.random.nextDouble() - blockHalf);
+            double pz = pos.getZ() + blockHalf + (server.random.nextDouble() - blockHalf);
+            server.sendParticles(ModParticles.ANCIENT_SEEKER.get(), px, py, pz, 1, 0, 0, 0, 0);
         }
     }
 
