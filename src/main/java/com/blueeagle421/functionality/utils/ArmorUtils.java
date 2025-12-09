@@ -6,23 +6,24 @@ import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 
 public class ArmorUtils {
 
     public static boolean hasInfernoGear(Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity))
-            return false;
-
-        var chestItem = livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem();
-        return chestItem instanceof InfernoGearItem;
+        return hasEquipment(entity, EquipmentSlot.CHEST, InfernoGearItem.class);
     }
 
     public static boolean hasObsidianFins(Entity entity) {
+        return hasEquipment(entity, EquipmentSlot.FEET, ObsidianFinsItem.class);
+    }
+
+    public static boolean hasEquipment(Entity entity, EquipmentSlot slot, Class<? extends Item> itemType) {
         if (!(entity instanceof LivingEntity livingEntity))
             return false;
 
-        var feetItem = livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem();
-        return feetItem instanceof ObsidianFinsItem;
+        var item = livingEntity.getItemBySlot(slot).getItem();
+        return itemType.isInstance(item);
     }
 
 }
