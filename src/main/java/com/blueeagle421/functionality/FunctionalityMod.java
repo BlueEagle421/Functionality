@@ -5,6 +5,7 @@ import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
+import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
@@ -79,6 +80,8 @@ public class FunctionalityMod {
 
             EntityRenderers.register(ModEntities.OBSIDIAN_BOAT.get(),
                     pContext -> new ObsidianBoatRenderer(pContext, false));
+
+            EntityRenderers.register(ModEntities.ANVIL_MARKER.get(), AnvilMarkerRenderer::new);
         }
 
         @SubscribeEvent
