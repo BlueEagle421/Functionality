@@ -14,7 +14,7 @@ public class ModEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS,
             FunctionalityMod.MOD_ID);
 
-    public static final RegistryObject<MobEffect> GLOW_SHIELD = MOB_EFFECTS.register("glow_shield",
+    public static final RegistryObject<MobEffect> GLOW_BLESSING = MOB_EFFECTS.register("glow_blessing",
             () -> new GlowShieldEffect(MobEffectCategory.BENEFICIAL, 0xf4bc58));
 
     public static void register(IEventBus eventBus) {

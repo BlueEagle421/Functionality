@@ -27,7 +27,7 @@ public class OnEffectAdded {
         if (entity == null)
             return;
 
-        if (!entity.hasEffect(ModEffects.GLOW_SHIELD.get()))
+        if (!entity.hasEffect(ModEffects.GLOW_BLESSING.get()))
             return;
 
         MobEffect incoming = event.getEffectInstance().getEffect();

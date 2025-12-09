@@ -58,10 +58,10 @@ public class OnEquipmentChange {
         boolean still = !to.isEmpty() && to.getItem() instanceof GlowingCrownItem;
 
         if (removed && !still) {
-            MobEffectInstance fr = player.getEffect(ModEffects.GLOW_SHIELD.get());
+            MobEffectInstance fr = player.getEffect(ModEffects.GLOW_BLESSING.get());
 
             if (GlowingCrownItem.isEffectFromGear(fr))
-                player.removeEffect(ModEffects.GLOW_SHIELD.get());
+                player.removeEffect(ModEffects.GLOW_BLESSING.get());
         }
     }
 

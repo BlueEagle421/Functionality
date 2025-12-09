@@ -21,12 +21,12 @@ public class GlowingCrownItem extends ArmorItem {
         if (level.isClientSide)
             return;
 
-        MobEffectInstance current = player.getEffect(ModEffects.GLOW_SHIELD.get());
+        MobEffectInstance current = player.getEffect(ModEffects.GLOW_BLESSING.get());
 
         if (current != null)
             return;
 
-        MobEffectInstance infiniteFR = new MobEffectInstance(ModEffects.GLOW_SHIELD.get(),
+        MobEffectInstance infiniteFR = new MobEffectInstance(ModEffects.GLOW_BLESSING.get(),
                 MobEffectInstance.INFINITE_DURATION, MARKER_AMPLIFIER, true, false, true);
 
         player.addEffect(infiniteFR);
@@ -36,7 +36,7 @@ public class GlowingCrownItem extends ArmorItem {
         if (mobEffectInstance == null)
             return false;
 
-        if (mobEffectInstance.getEffect() != ModEffects.GLOW_SHIELD.get())
+        if (mobEffectInstance.getEffect() != ModEffects.GLOW_BLESSING.get())
             return false;
 
         if (mobEffectInstance.getAmplifier() != MARKER_AMPLIFIER)
