@@ -6,6 +6,7 @@ import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.event.anvil.ForgeRepairEvent;
@@ -25,7 +26,10 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -38,11 +42,16 @@ public class FunctionalityMod {
     public static final String MOD_ID = "functionality";
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    @SuppressWarnings("removal")
     public FunctionalityMod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
-        ModCreativeTabs.register(modEventBus);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FunctionalityConfig.COMMON_SPEC,
+                "functionality-common.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, FunctionalityConfig.CLIENT_SPEC,
+                "functionality-client.toml");
 
+        ModCreativeTabs.register(modEventBus);
         ModParticles.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
@@ -52,11 +61,21 @@ public class FunctionalityMod {
         ModEffects.register(modEventBus);
         ModRecipes.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
-
         MinecraftForge.EVENT_BUS.register(this);
+
+        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::loadComplete);
+        modEventBus.addListener(this::onConfigLoad);
+        modEventBus.addListener(this::onConfigReload);
+    }
+
+    private void onConfigLoad(final ModConfigEvent.Loading event) {
+
+    }
+
+    private void onConfigReload(final ModConfigEvent.Reloading event) {
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
