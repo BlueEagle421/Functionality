@@ -1,5 +1,7 @@
 package com.blueeagle421.functionality.config;
 
+import com.blueeagle421.functionality.config.categories.FeaturesCategory;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class FunctionalityConfig {
@@ -21,14 +23,14 @@ public class FunctionalityConfig {
 
     public static class Common {
 
-        public final ItemsCategory items;
+        public final FeaturesCategory features;
 
         Common(ForgeConfigSpec.Builder builder) {
             builder.push("general");
 
             builder.pop();
 
-            items = new ItemsCategory(builder);
+            features = new FeaturesCategory(builder);
         }
     }
 

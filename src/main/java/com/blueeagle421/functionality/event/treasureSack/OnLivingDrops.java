@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.event.treasureSack;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.item.custom.TreasureSackItem;
 import com.blueeagle421.functionality.data.TreasureSackChunkData;
 
@@ -20,6 +21,9 @@ public class OnLivingDrops {
     public static void onLivingDrops(LivingDropsEvent event) {
 
         if (!(event.getEntity().level() instanceof ServerLevel server))
+            return;
+
+        if (!FunctionalityConfig.COMMON.features.treasureSacks.limitEnabled.get())
             return;
 
         // read or create data

@@ -3,6 +3,9 @@ package com.blueeagle421.functionality.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.TreasureSacks;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -13,9 +16,6 @@ public class TreasureSackChunkData extends SavedData {
     private static final String TAG_CHUNK = "Chunk";
     private static final String TAG_COUNT = "Count";
     private static final String TAG_LAST_DAY = "LastDay";
-
-    public static final int DEFAULT_MAX = 30;
-    public static final int DAILY_REGEN = 5;
 
     private final Map<Long, Integer> counts = new HashMap<>();
     private long lastProcessedDay = -1L;
@@ -55,11 +55,11 @@ public class TreasureSackChunkData extends SavedData {
     }
 
     public int getCurrentForChunkOrInit(long chunkLong) {
-        return counts.computeIfAbsent(chunkLong, k -> DEFAULT_MAX);
+        return counts.computeIfAbsent(chunkLong, k -> config().maxPerChunk.get());
     }
 
     public boolean consumeOne(long chunkLong) {
-        int cur = counts.getOrDefault(chunkLong, DEFAULT_MAX);
+        int cur = counts.getOrDefault(chunkLong, config().maxPerChunk.get());
         if (cur <= 0) {
             counts.put(chunkLong, 0);
             return false;
@@ -74,7 +74,8 @@ public class TreasureSackChunkData extends SavedData {
         boolean changed = false;
         for (Map.Entry<Long, Integer> e : counts.entrySet()) {
             int before = e.getValue();
-            int after = Math.min(DEFAULT_MAX, before + DAILY_REGEN);
+            int after = Math.min(config().maxPerChunk.get(),
+                    before + config().dailyRegen.get());
             if (after != before) {
                 e.setValue(after);
                 changed = true;
@@ -95,5 +96,9 @@ public class TreasureSackChunkData extends SavedData {
 
     public static String storageKey() {
         return DATA_NAME;
+    }
+
+    private TreasureSacks config() {
+        return FunctionalityConfig.COMMON.features.treasureSacks;
     }
 }
