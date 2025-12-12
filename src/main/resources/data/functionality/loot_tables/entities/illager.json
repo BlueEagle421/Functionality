@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:entity",
+    "pools": [
+        {
+            "name": "functionality:illager_treasure_base",
+            "rolls": 1,
+            "entries": [
+                { "type": "minecraft:item", "name": "functionality:treasure_sack" }
+            ],
+            "conditions": [
+                { "condition": "minecraft:random_chance", "chance": 0.4 }
+            ]
+        },
+        {
+            "name": "functionality:illager_treasure_extra",
+            "rolls": 1,
+            "entries": [
+                { "type": "minecraft:item", "name": "functionality:treasure_sack" }
+            ],
+            "conditions": [
+                { "condition": "minecraft:random_chance", "chance": 0.5 }
+            ]
+        },
+        {
+            "name": "functionality:illager_with_looting",
+            "rolls": 1,
+            "entries": [
+                { "type": "minecraft:item", "name": "functionality:treasure_sack" }
+            ],
+            "conditions": [
+                { "condition": "minecraft:random_chance_with_looting", "chance": 0.5, "looting_multiplier": 0.5 }
+            ]
+        }
+    ]
+}

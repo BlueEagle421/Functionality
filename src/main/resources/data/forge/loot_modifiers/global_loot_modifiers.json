@@ -7,6 +7,8 @@
         "functionality:merge_panda",
         "functionality:merge_polar_bear",
         "functionality:merge_sniffer",
-        "functionality:merge_turtle"
+        "functionality:merge_turtle",
+        "functionality:merge_pillager"
+
     ]
 }
