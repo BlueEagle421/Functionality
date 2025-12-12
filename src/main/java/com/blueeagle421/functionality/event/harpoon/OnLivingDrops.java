@@ -20,7 +20,6 @@ import java.util.List;
 public class OnLivingDrops {
 
     private static final double ATTRACT_SPEED = 1;
-    private static final int PICKUP_DELAY = 10;
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {

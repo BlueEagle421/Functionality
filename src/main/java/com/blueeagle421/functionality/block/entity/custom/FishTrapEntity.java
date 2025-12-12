@@ -39,7 +39,6 @@ public class FishTrapEntity extends BlockEntity {
     private int targetTicks = 0;
     private boolean triggered = false;
 
-    private static final int REQUIRED_PER_UNIT = 2;
     private static final int MAX_UNITS_PER_TYPE = 2;
     private static final float LUCK_PER_UNIT = 0.5f;
     private static final int LUCK_SCAN_RADIUS = 5;
