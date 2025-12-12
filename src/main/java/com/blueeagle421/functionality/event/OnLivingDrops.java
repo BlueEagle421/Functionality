@@ -1,16 +1,8 @@
 package com.blueeagle421.functionality.event;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Bee;
-import net.minecraft.world.entity.animal.Panda;
-import net.minecraft.world.entity.animal.PolarBear;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.frog.Frog;
-import net.minecraft.world.entity.animal.goat.Goat;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -27,30 +19,6 @@ public class OnLivingDrops {
 
         @SubscribeEvent
         public static void onLivingDrops(LivingDropsEvent event) {
-                handleEntityDrop(event, Bee.class,
-                                () -> new ItemStack(Items.HONEYCOMB), 0.8f, 1, 0.5f, 1);
-
-                handleEntityDrop(event, Goat.class,
-                                () -> new ItemStack(ModItems.CHEVON.get()), 1f, 1, 0.5f, 1);
-
-                handleEntityDrop(event, Frog.class,
-                                () -> new ItemStack(ModItems.FROG_LEG.get()), 1f, 1, 0.5f, 1);
-
-                handleEntityDrop(event, PolarBear.class,
-                                () -> new ItemStack(ModItems.BEAR_VENISON.get()), 1f, 2, 0.5f, 1);
-
-                handleEntityDrop(event, Panda.class,
-                                () -> new ItemStack(ModItems.BEAR_VENISON.get()), 1f, 1, 0.5f, 1);
-
-                handleEntityDrop(event, Sniffer.class,
-                                () -> new ItemStack(ModItems.SNIFFON.get()), 1f, 2, 0.5f, 1);
-
-                handleEntityDrop(event, Turtle.class,
-                                () -> new ItemStack(ModItems.TERRAPIN.get()), 1f, 1, 0.5f, 1);
-
-                handleEntityDrop(event, Turtle.class,
-                                () -> new ItemStack(Items.SCUTE), 0.3f, 1, 0, 0);
-
                 handleEntityDrop(event, AbstractIllager.class,
                                 () -> new ItemStack(ModItems.TREASURE_SACK.get()), 0.4f, 1, 0.5f, 1);
         }

@@ -12,6 +12,7 @@ import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.event.anvil.ForgeRepairEvent;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
+import com.blueeagle421.functionality.loot.ModLootModifiers;
 import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.recipe.ModRecipes;
 import com.blueeagle421.functionality.worldgen.ModFeatures;
@@ -60,6 +61,7 @@ public class FunctionalityMod {
         ModFeatures.register(modEventBus);
         ModEffects.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 

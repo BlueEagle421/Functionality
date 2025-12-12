@@ -1,0 +1,10 @@
+{
+    "type": "functionality:merge_loot",
+    "lootTable": "functionality:entities/polar_bear",
+    "conditions": [
+        {
+            "condition": "forge:loot_table_id",
+            "loot_table_id": "minecraft:entities/polar_bear"
+        }
+    ]
+}

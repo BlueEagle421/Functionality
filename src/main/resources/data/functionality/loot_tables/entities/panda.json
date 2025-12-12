@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:entity",
+    "pools": [
+        {
+            "rolls": 1,
+            "conditions": [
+                { "condition": "minecraft:random_chance", "chance": 1.0 }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "functionality:bear_venison",
+                    "functions": [
+                        { "function": "minecraft:set_count", "count": 1 },
+                        { "function": "minecraft:looting_enchant", "count": { "min": 0, "max": 4 } }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "functionality:bear_venison",
+                    "conditions": [
+                        { "condition": "minecraft:random_chance", "chance": 0.5 }
+                    ],
+                    "functions": [
+                        { "function": "minecraft:set_count", "count": 1 }
+                    ]
+                }
+            ]
+        }
+    ]
+}
