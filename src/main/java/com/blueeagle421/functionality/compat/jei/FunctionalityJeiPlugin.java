@@ -1,7 +1,6 @@
 package com.blueeagle421.functionality.compat.jei;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.recipe.InformationRecipe;
 
