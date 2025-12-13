@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.compat.jei;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.recipe.InformationRecipe;
 
@@ -58,6 +59,10 @@ public class FunctionalityJeiPlugin implements IModPlugin {
 
         List<InformationRecipe> infoRecipes = recipeManager.getAllRecipesFor(InformationRecipe.Type.INSTANCE);
         registration.addRecipes(InformationCategory.INFORMATION_TYPE, infoRecipes);
+
+        InformationRecipeGenerator.generateRecipes();
+        List<InformationRecipe> list = new ArrayList<>(InformationRecipeGenerator.GENERATED.values());
+        registration.addRecipes(InformationCategory.INFORMATION_TYPE, list);
 
         for (Map.Entry<Item, ItemStack> entry : REPAIRABLE_ITEMS().entrySet()) {
             ItemStack itemStack = new ItemStack(entry.getKey());

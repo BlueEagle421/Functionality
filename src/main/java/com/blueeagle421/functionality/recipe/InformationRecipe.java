@@ -33,6 +33,21 @@ public class InformationRecipe implements Recipe<SimpleContainer> {
         this.id = id;
     }
 
+    public InformationRecipe(NonNullList<Ingredient> inputs, Component description, ResourceLocation id) {
+        this.inputs = inputs;
+
+        NonNullList<ItemStack> outputs = NonNullList.withSize(inputs.size(), ItemStack.EMPTY);
+        for (int i = 0; i < inputs.size(); i++) {
+            Ingredient ing = inputs.get(i);
+            ItemStack[] possible = ing.getItems();
+            outputs.set(i, (possible != null && possible.length > 0) ? possible[0].copy() : ItemStack.EMPTY);
+        }
+
+        this.outputs = outputs;
+        this.description = description;
+        this.id = id;
+    }
+
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
         if (pLevel.isClientSide())

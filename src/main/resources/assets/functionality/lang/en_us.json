@@ -81,8 +81,9 @@
 
     "tooltip.functionality.details": "<Press %s for details>",
 
+    "information.functionality.treasure_sacks": "Over-harvesting treasure sacks empties them in the area. Wait a few days to refill.",
     "information.functionality.infinite_water_cauldron": "Place any of the listed blocks below a cauldron to make it an infinite water source.",
-    "information.functionality.night_vision_potion": "Right click on a glow squid with an empty bottle to get a night vision potion. It might hurt!",
+    "information.functionality.night_vision_potion": "Use an empty bottle on a glow squid to get a night vision potion. It might hurt!",
 
     "creativetab.functionality_tab": "Functionality",
     "category.functionality.information": "Functional Information"
