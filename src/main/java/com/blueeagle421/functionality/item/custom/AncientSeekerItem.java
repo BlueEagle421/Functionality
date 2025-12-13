@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.AncientSeeker;
 import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.utils.TooltipUtils;
 
@@ -24,9 +26,6 @@ import net.minecraft.world.level.block.Blocks;
 
 public class AncientSeekerItem extends Item {
 
-    private static final int REQUIRED_XP_LEVELS = 2;
-    private static final int SEARCH_RADIUS = 24;
-
     public AncientSeekerItem(Properties properties) {
         super(properties);
     }
@@ -41,9 +40,11 @@ public class AncientSeekerItem extends Item {
         if (world.isClientSide())
             return InteractionResultHolder.sidedSuccess(stack, true);
 
-        if (!player.isCreative() && player.experienceLevel < REQUIRED_XP_LEVELS) {
+        if (!player.isCreative() && player.experienceLevel < config().levelsCost.get()) {
             player.displayClientMessage(
-                    Component.translatable("message.functionality.ancient_seeker.not_enough_xp", REQUIRED_XP_LEVELS)
+                    Component
+                            .translatable("message.functionality.ancient_seeker.not_enough_xp",
+                                    config().levelsCost.get())
                             .withStyle(ChatFormatting.RED),
                     true);
 
@@ -51,7 +52,7 @@ public class AncientSeekerItem extends Item {
         }
 
         if (!player.isCreative())
-            player.giveExperienceLevels(-REQUIRED_XP_LEVELS);
+            player.giveExperienceLevels(-config().levelsCost.get());
 
         BlockPos playerPos = player.blockPosition();
 
@@ -93,11 +94,12 @@ public class AncientSeekerItem extends Item {
     private BlockPos findNearestDebris(Level world, BlockPos origin) {
         BlockPos nearest = null;
         double nearestDistance = Double.MAX_VALUE;
+        int radius = config().searchRadius.get();
 
         // holy this code is NESTED
-        for (int x = -SEARCH_RADIUS; x <= SEARCH_RADIUS; x++) {
-            for (int y = -SEARCH_RADIUS; y <= SEARCH_RADIUS; y++) {
-                for (int z = -SEARCH_RADIUS; z <= SEARCH_RADIUS; z++) {
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                for (int z = -radius; z <= radius; z++) {
                     BlockPos pos = origin.offset(x, y, z);
                     if (world.getBlockState(pos).is(Blocks.ANCIENT_DEBRIS)) {
                         double distance = origin.distSqr(pos);
@@ -132,5 +134,9 @@ public class AncientSeekerItem extends Item {
         TooltipUtils.addFormattedTooltip(stack, tooltip);
 
         super.appendHoverText(stack, level, tooltip, isAdvanced);
+    }
+
+    private AncientSeeker config() {
+        return FunctionalityConfig.COMMON.items.ancientSeeker;
     }
 }
