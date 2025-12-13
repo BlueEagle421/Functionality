@@ -6,7 +6,8 @@
         "EntityMixin",
         "LivingEntityTravelMixin",
         "EntityStopRidingMixin",
-        "HorseMobInteractMixin"
+        "HorseMobInteractMixin",
+        "ItemEntityMixin"
     ],
     "client": [ ],
     "server": [ ]
