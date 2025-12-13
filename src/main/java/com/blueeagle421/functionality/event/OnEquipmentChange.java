@@ -2,7 +2,7 @@ package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;
-import com.blueeagle421.functionality.item.custom.GlowingCrownItem;
+import com.blueeagle421.functionality.item.custom.GlowCrownItem;
 import com.blueeagle421.functionality.item.custom.InfernoGearItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -54,13 +54,13 @@ public class OnEquipmentChange {
         ItemStack from = event.getFrom();
         ItemStack to = event.getTo();
 
-        boolean removed = !from.isEmpty() && from.getItem() instanceof GlowingCrownItem;
-        boolean still = !to.isEmpty() && to.getItem() instanceof GlowingCrownItem;
+        boolean removed = !from.isEmpty() && from.getItem() instanceof GlowCrownItem;
+        boolean still = !to.isEmpty() && to.getItem() instanceof GlowCrownItem;
 
         if (removed && !still) {
             MobEffectInstance fr = player.getEffect(ModEffects.GLOW_BLESSING.get());
 
-            if (GlowingCrownItem.isEffectFromGear(fr))
+            if (GlowCrownItem.isEffectFromGear(fr))
                 player.removeEffect(ModEffects.GLOW_BLESSING.get());
         }
     }

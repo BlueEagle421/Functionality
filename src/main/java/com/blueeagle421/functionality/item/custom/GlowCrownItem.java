@@ -8,10 +8,10 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class GlowingCrownItem extends ArmorItem {
+public class GlowCrownItem extends ArmorItem {
     private static final int MARKER_AMPLIFIER = 127;
 
-    public GlowingCrownItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
+    public GlowCrownItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
         super(pMaterial, pType, pProperties);
     }
 

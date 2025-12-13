@@ -45,7 +45,7 @@ public class ModCreativeTabs {
         // with nbt
         acceptIf(out, () -> true, () -> {
             ItemStack glowingHerbStack = new ItemStack(ModItems.GLOW_HERB.get());
-            GlowingHerbItem.setDuration(glowingHerbStack, GlowingHerbItem.DEFAULT_DURATION);
+            GlowHerbItem.setDuration(glowingHerbStack, GlowHerbItem.DEFAULT_DURATION);
             return glowingHerbStack;
         });
 
