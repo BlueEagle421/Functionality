@@ -21,7 +21,7 @@ public class TreasureSacks {
                 "minecraft:pillager");
 
         this.illagerEntities = builder
-                .comment("List of entity IDs (namespace:path) that should receive the illager treasure loot.\n")
+                .comment("List of entity IDs (namespace:path) that should receive the illager treasure loot.")
                 .defineList("illagerEntities", defaults, o -> o instanceof String);
 
         limitEnabled = builder

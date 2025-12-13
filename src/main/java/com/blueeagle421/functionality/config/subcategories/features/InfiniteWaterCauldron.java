@@ -16,7 +16,7 @@ public class InfiniteWaterCauldron {
         builder.push("infinite water cauldron");
 
         enabled = builder
-                .comment("If true, the cauldron will regenerate water with a proper block placed below it.")
+                .comment("If true, the cauldron will regenerate water when a configured block is placed below it.")
                 .define("enabled", true);
 
         List<String> defaults = Arrays.asList(
@@ -29,7 +29,8 @@ public class InfiniteWaterCauldron {
                 .defineInRange("regenWaterTicks", 8, 1, Integer.MAX_VALUE);
 
         this.infiniteWaterBlocks = builder
-                .comment("List of entity IDs (namespace:path) that should receive the illager treasure loot.\n")
+                .comment(
+                        "List of block IDs (namespace:path) that should make a cauldron have infinite water if placed below it.")
                 .defineList("infiniteWaterBlocks", defaults, o -> o instanceof String);
 
         builder.pop();
