@@ -65,7 +65,7 @@
     "tooltip.functionality.phantom_herb": "Makes phantoms spawn like you didn't sleep for a while.",
     "tooltip.functionality.chorus_herb": "Teleports you to your spawn point.",
     "tooltip.functionality.crimson_herb": "Grands immunity to poison and wither.",
-    "tooltip.functionality.glow_herb": "Grands immunity to void damage, levitation and enderman aggro.",
+    "tooltip.functionality.glow_herb": "Grands immunity to void damage, levitation, angering enderman.",
     "tooltip.nbt.functionality.duration": "Duration:",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
