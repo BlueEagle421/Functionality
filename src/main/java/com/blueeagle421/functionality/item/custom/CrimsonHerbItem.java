@@ -18,13 +18,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class GlowingHerbItem extends TooltipItem {
+public class CrimsonHerbItem extends TooltipItem {
 
     public static final String HERB_KEY = "Herb";
     public static final String DURATION_KEY = "Duration";
     public static final int DEFAULT_DURATION = 600;
 
-    public GlowingHerbItem(Properties pProperties) {
+    public CrimsonHerbItem(Properties pProperties) {
         super(pProperties);
     }
 

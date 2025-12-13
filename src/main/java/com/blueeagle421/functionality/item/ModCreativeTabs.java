@@ -37,6 +37,13 @@ public class ModCreativeTabs {
 
         // with nbt
         acceptIf(out, () -> true, () -> {
+            ItemStack crimsonHerbStack = new ItemStack(ModItems.CRIMSON_HERB.get());
+            CrimsonHerbItem.setDuration(crimsonHerbStack, CrimsonHerbItem.DEFAULT_DURATION);
+            return crimsonHerbStack;
+        });
+
+        // with nbt
+        acceptIf(out, () -> true, () -> {
             ItemStack glowingHerbStack = new ItemStack(ModItems.GLOW_HERB.get());
             GlowingHerbItem.setDuration(glowingHerbStack, GlowingHerbItem.DEFAULT_DURATION);
             return glowingHerbStack;

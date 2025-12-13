@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:crimson_fungus"
+        },
+        {
+            "item": "minecraft:kelp"
+        }
+    ],
+    "result": {
+        "type": "forge:nbt",
+        "item": "functionality:crimson_herb",
+        "nbt": "{Herb:{Duration:600}}"
+    }
+}
