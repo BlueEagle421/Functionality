@@ -11,8 +11,8 @@ public class ItemsCategory {
     public ItemsCategory(ForgeConfigSpec.Builder builder) {
         builder.push("items");
 
-        builder.pop();
-
         ancientSeeker = new AncientSeeker(builder);
+
+        builder.pop();
     }
 }

@@ -13,9 +13,9 @@ public class FeaturesCategory {
     public FeaturesCategory(ForgeConfigSpec.Builder builder) {
         builder.push("features");
 
-        builder.pop();
-
         treasureSacks = new TreasureSacks(builder);
         infiniteWaterCauldron = new InfiniteWaterCauldron(builder);
+
+        builder.pop();
     }
 }
