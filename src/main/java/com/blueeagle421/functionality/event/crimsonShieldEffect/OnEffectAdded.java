@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.event.glowBlessingEffect;
+package com.blueeagle421.functionality.event.crimsonShieldEffect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -16,7 +16,9 @@ import com.blueeagle421.functionality.effect.ModEffects;
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID)
 public class OnEffectAdded {
 
-    private static final List<MobEffect> TO_CANCEL = List.of(MobEffects.LEVITATION);
+    private static final List<MobEffect> TO_CANCEL = List.of(
+            MobEffects.POISON,
+            MobEffects.WITHER);
 
     @SubscribeEvent
     public static void onEffectApplicable(MobEffectEvent.Applicable event) {
@@ -25,7 +27,7 @@ public class OnEffectAdded {
         if (entity == null)
             return;
 
-        if (!entity.hasEffect(ModEffects.GLOW_BLESSING.get()))
+        if (!entity.hasEffect(ModEffects.CRIMSON_SHIELD.get()))
             return;
 
         MobEffect incoming = event.getEffectInstance().getEffect();

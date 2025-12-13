@@ -42,7 +42,7 @@ public class CrimsonHerbItem extends TooltipItem {
             duration = tag.getInt(DURATION_KEY);
         }
 
-        MobEffectInstance instance = new MobEffectInstance(ModEffects.GLOW_BLESSING.get(), duration, 0, false, true);
+        MobEffectInstance instance = new MobEffectInstance(ModEffects.CRIMSON_SHIELD.get(), duration, 0, false, true);
         user.addEffect(instance);
 
         return result;

@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.effect;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.effect.custom.CrimsonShieldEffect;
 import com.blueeagle421.functionality.effect.custom.GlowShieldEffect;
 
 import net.minecraft.world.effect.MobEffect;
@@ -13,6 +14,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS,
             FunctionalityMod.MOD_ID);
+
+    public static final RegistryObject<MobEffect> CRIMSON_SHIELD = MOB_EFFECTS.register("crimson_shield",
+            () -> new CrimsonShieldEffect(MobEffectCategory.BENEFICIAL, 0x9a536e));
 
     public static final RegistryObject<MobEffect> GLOW_BLESSING = MOB_EFFECTS.register("glow_blessing",
             () -> new GlowShieldEffect(MobEffectCategory.BENEFICIAL, 0xf4bc58));
