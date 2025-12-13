@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.InfiniteWaterCauldron;
 import com.blueeagle421.functionality.utils.CauldronUtils;
 
 import net.minecraft.core.BlockPos;
@@ -12,7 +14,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -20,30 +21,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-//holy that works
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CauldronEventHandler {
 
     private static final Map<ServerLevel, ConcurrentHashMap<BlockPos, Integer>> PENDING_FILL = new ConcurrentHashMap<>();
-
-    private static final int FILL_INTERVAL_TICKS = 8;
-
-    @SubscribeEvent
-    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        Level world = event.getLevel();
-        BlockPos pos = event.getPos();
-
-        if (world == null || world.isClientSide)
-            return;
-
-        BlockState state = world.getBlockState(pos);
-
-        if (!(state.getBlock() instanceof LayeredCauldronBlock))
-            return;
-
-        if (CauldronUtils.isInfiniteWaterSource(world, pos))
-            scheduleFill((ServerLevel) world, pos);
-    }
 
     @SubscribeEvent
     public static void onNeighborChange(net.minecraftforge.event.level.BlockEvent.NeighborNotifyEvent event) {
@@ -66,7 +47,7 @@ public class CauldronEventHandler {
             scheduleFill((ServerLevel) world, abovePos);
     }
 
-    private static void scheduleFill(ServerLevel level, BlockPos pos) {
+    public static void scheduleFill(ServerLevel level, BlockPos pos) {
         PENDING_FILL.computeIfAbsent(level, l -> new ConcurrentHashMap<>()).putIfAbsent(pos, 0);
     }
 
@@ -95,7 +76,7 @@ public class CauldronEventHandler {
                 continue;
             }
 
-            if (counter >= FILL_INTERVAL_TICKS) {
+            if (counter >= config().regenWaterTicks.get()) {
                 if (state.getBlock() instanceof LayeredCauldronBlock) {
                     int curLvl = state.getValue(LayeredCauldronBlock.LEVEL);
                     if (curLvl < 3) {
@@ -149,6 +130,10 @@ public class CauldronEventHandler {
             double pz = pos.getZ() + world.random.nextDouble() * 1.2 - 0.1; // from -0.1 to 1.1
             world.sendParticles(ParticleTypes.BUBBLE_POP, px, py, pz, 1, 0, 0, 0, 0);
         }
+    }
+
+    private static InfiniteWaterCauldron config() {
+        return FunctionalityConfig.COMMON.features.infiniteWaterCauldron;
     }
 
 }

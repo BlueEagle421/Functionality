@@ -15,6 +15,7 @@ import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.loot.ModLootModifiers;
 import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.recipe.ModRecipes;
+import com.blueeagle421.functionality.utils.CauldronUtils;
 import com.blueeagle421.functionality.worldgen.ModFeatures;
 import com.mojang.logging.LogUtils;
 
@@ -73,11 +74,11 @@ public class FunctionalityMod {
     }
 
     private void onConfigLoad(final ModConfigEvent.Loading event) {
-
+        CauldronUtils.reloadConfig();
     }
 
     private void onConfigReload(final ModConfigEvent.Reloading event) {
-
+        CauldronUtils.reloadConfig();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

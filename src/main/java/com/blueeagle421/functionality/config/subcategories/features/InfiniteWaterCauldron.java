@@ -9,7 +9,7 @@ import com.blueeagle421.functionality.FunctionalityMod;
 
 public class InfiniteWaterCauldron {
     public final ForgeConfigSpec.BooleanValue enabled;
-    public final ForgeConfigSpec.IntValue regenTicks;
+    public final ForgeConfigSpec.IntValue regenWaterTicks;
     public final ForgeConfigSpec.ConfigValue<List<? extends String>> infiniteWaterBlocks;
 
     public InfiniteWaterCauldron(ForgeConfigSpec.Builder builder) {
@@ -24,9 +24,9 @@ public class InfiniteWaterCauldron {
                 "minecraft:dark_prismarine",
                 "minecraft:sea_lantern");
 
-        regenTicks = builder
+        regenWaterTicks = builder
                 .comment("The ticks duration of a single water regeneration in the infinite cauldron.")
-                .defineInRange("regenTicks", 8, 1, Integer.MAX_VALUE);
+                .defineInRange("regenWaterTicks", 8, 1, Integer.MAX_VALUE);
 
         this.infiniteWaterBlocks = builder
                 .comment("List of entity IDs (namespace:path) that should receive the illager treasure loot.\n")
