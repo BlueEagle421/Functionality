@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "functionality:coral_reef"
+      "tag": "functionality:sponge_coral_reef"
     },
     "X": {
       "item": "minecraft:heart_of_the_sea"
