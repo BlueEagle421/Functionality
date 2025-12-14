@@ -28,6 +28,7 @@
     "item.functionality.treasure_sack": "Treasure Sack",
     "item.functionality.large_treasure_sack": "Large Treasure Sack",
     "item.functionality.phantom_lead": "Phantom Lead",
+    "item.functionality.disc_shards": "Disc Shards",
     "item.functionality.ancient_seeker": "Ancient Seeker",
 
     "message.functionality.ancient_seeker.not_enough_xp": "Needs %s experience levels",
@@ -79,6 +80,7 @@
     "tooltip.functionality.large_treasure_sack": "Contains illager plunder.",
     "tooltip.detailed.functionality.treasure_sack": "Right click to open!",
     "tooltip.detailed.functionality.large_treasure_sack": "Right click to open!",
+    "tooltip.functionality.disc_shards": "Used to repair music discs.",
     "tooltip.functionality.ancient_seeker": "Can detect ancient debris.",
     "tooltip.detailed.functionality.ancient_seeker": "Right click to start searching.\nConsumes experience levels.",
 

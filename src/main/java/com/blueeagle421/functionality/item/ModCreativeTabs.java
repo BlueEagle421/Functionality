@@ -72,6 +72,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().lightningCharger.enabled.get(),
                 () -> new ItemStack(ModItems.LIGHTNING_CHARGER.get()));
         acceptIf(out, () -> config().treasureSack.enabled.get(), () -> new ItemStack(ModItems.TREASURE_SACK.get()));
+        acceptIf(out, () -> config().treasureSack.enabled.get(), () -> new ItemStack(ModItems.DISC_SHARDS.get()));
 
         // with nbt
         acceptIf(out, () -> config().phantomRocket.enabled.get(), () -> {

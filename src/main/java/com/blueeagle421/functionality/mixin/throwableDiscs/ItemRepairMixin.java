@@ -4,6 +4,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.crafting.Ingredient;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,8 +28,10 @@ public class ItemRepairMixin {
             return;
         }
 
-        if (repair.is(Items.DISC_FRAGMENT_5)) {
+        Ingredient ingredient = config().getDiscRepairIngredient();
+        if (!ingredient.isEmpty() && ingredient.test(repair)) {
             cir.setReturnValue(true);
+            cir.cancel();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.compat.jei;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.recipe.InformationRecipe;
 
@@ -115,7 +116,9 @@ public class FunctionalityJeiPlugin implements IModPlugin {
                     // repair with fragment (use your mod's fragment item)
                     recipes.add(factory.createAnvilRecipe(
                             dmg100,
-                            Collections.singletonList(new ItemStack(Items.DISC_FRAGMENT_5)), // fragment material shown
+                            Collections.singletonList(
+                                    FunctionalityConfig.COMMON.features.throwableDiscs.getDiscRepairIngredient()
+                                            .getItems()[0]), // fragment material shown
                             Collections.singletonList(dmg75)));
 
                     // combine two damaged discs to get a less-damaged disc

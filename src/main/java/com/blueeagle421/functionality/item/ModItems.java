@@ -147,6 +147,9 @@ public class ModItems {
     public static final RegistryObject<Item> LARGE_TREASURE_SACK = ITEMS.register("large_treasure_sack",
             () -> new TreasureSackItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> DISC_SHARDS = ITEMS.register("disc_shards",
+            () -> new TooltipItem(new Item.Properties()));
+
     public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
             () -> new AncientSeekerItem(new Item.Properties()));
 
