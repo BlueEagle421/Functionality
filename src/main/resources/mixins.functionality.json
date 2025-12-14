@@ -2,6 +2,7 @@
     "required": true,
     "package": "com.blueeagle421.functionality.mixin",
     "compatibilityLevel": "JAVA_17",
+    "minVersion": "0.8",
     "mixins": [
         "EntityMixin",
         "LivingEntityTravelMixin",
@@ -9,7 +10,8 @@
         "HorseMobInteractMixin",
         "ItemEntityMixin",
         "LayeredCauldronBlockMixin",
-        "RecordItemMixin"
+        "RecordItemMixin",
+        "ItemsMixin"
     ],
     "client": [ ],
     "server": [ ]

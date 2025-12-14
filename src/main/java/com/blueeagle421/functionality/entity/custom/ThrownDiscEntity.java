@@ -176,6 +176,8 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
             result.getEntity().hurt(source, DAMAGE);
             float pitch = 1f + (level().random.nextFloat() - 0.5F) * 0.16F;
             playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), pitch);
+
+            damageDisc();
             startReturn();
         }
 
@@ -192,8 +194,35 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
         playImpactSound(blockstate.getSoundType().getHitSound(), result.getLocation(), 1f);
         float pitch = 1f + (level().random.nextFloat() - 0.5F) * 0.16F;
         playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), pitch);
+
+        damageDisc();
         startReturn();
         super.onHitBlock(result);
+    }
+
+    private boolean damageDisc() {
+        if (this.discStack.isEmpty() || !this.discStack.isDamageableItem())
+            return false;
+
+        this.discStack.hurtAndBreak(1, (LivingEntity) this.getOwner(), stack -> {
+            breakDisc(this.position());
+        });
+
+        return this.discStack.isEmpty();
+    }
+
+    private void breakDisc(Vec3 pos) {
+        if (!level().isClientSide) {
+            level().playSound(
+                    null,
+                    pos.x, pos.y, pos.z,
+                    net.minecraft.sounds.SoundEvents.ITEM_BREAK,
+                    net.minecraft.sounds.SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F);
+        }
+
+        this.discard();
     }
 
     private void playImpactSound(SoundEvent sound, Vec3 pos, float pitch) {
