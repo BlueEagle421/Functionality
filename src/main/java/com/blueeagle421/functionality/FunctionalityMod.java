@@ -8,6 +8,8 @@ import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.data.conditions.ConfigEnabledCondition;
+import com.blueeagle421.functionality.data.conditions.ConfigEnabledRegistry;
 import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.event.anvil.ForgeRepairEvent;
@@ -54,6 +56,10 @@ public class FunctionalityMod {
                 "functionality-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, FunctionalityConfig.CLIENT_SPEC,
                 "functionality-client.toml");
+
+        ConfigEnabledCondition.register();
+
+        ConfigEnabledRegistry.autoRegisterAll();
 
         ModCreativeTabs.register(modEventBus);
         ModParticles.register(modEventBus);

@@ -6,5 +6,11 @@
   "ingredient": {
     "item": "functionality:bear_venison"
   },
-  "result": "functionality:cooked_bear_venison"
+  "result": "functionality:cooked_bear_venison",
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.bear_venison.enabled"
+    }
+  ]
 }

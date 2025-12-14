@@ -18,5 +18,11 @@
     "count": 1,
     "item": "functionality:ancient_seeker"
   },
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.ancient_seeker.enabled"
+    }
+  ],
   "show_notification": true
 }

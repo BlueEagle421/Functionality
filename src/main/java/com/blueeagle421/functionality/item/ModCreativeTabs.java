@@ -50,17 +50,18 @@ public class ModCreativeTabs {
         });
 
         acceptIf(out, () -> true, () -> new ItemStack(ModItems.GLOW_CROWN.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.BEAR_VENISON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.CHEVON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.COOKED_CHEVON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.SNIFFON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.COOKED_SNIFFON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.GILDED_SNIFFON.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.FROG_LEG.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.COOKED_FROG_LEG.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.TERRAPIN.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.TERRAPIN_SOUP.get()));
+        acceptIf(out, () -> config().bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_VENISON.get()));
+        acceptIf(out, () -> config().bearVenison.enabled.get(),
+                () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
+        acceptIf(out, () -> config().chevon.enabled.get(), () -> new ItemStack(ModItems.CHEVON.get()));
+        acceptIf(out, () -> config().chevon.enabled.get(), () -> new ItemStack(ModItems.COOKED_CHEVON.get()));
+        acceptIf(out, () -> config().sniffon.enabled.get(), () -> new ItemStack(ModItems.SNIFFON.get()));
+        acceptIf(out, () -> config().sniffon.enabled.get(), () -> new ItemStack(ModItems.COOKED_SNIFFON.get()));
+        acceptIf(out, () -> config().sniffon.enabled.get(), () -> new ItemStack(ModItems.GILDED_SNIFFON.get()));
+        acceptIf(out, () -> config().frogLeg.enabled.get(), () -> new ItemStack(ModItems.FROG_LEG.get()));
+        acceptIf(out, () -> config().frogLeg.enabled.get(), () -> new ItemStack(ModItems.COOKED_FROG_LEG.get()));
+        acceptIf(out, () -> config().terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN.get()));
+        acceptIf(out, () -> config().terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN_SOUP.get()));
         acceptIf(out, () -> true, () -> new ItemStack(ModItems.FINS.get()));
         acceptIf(out, () -> true, () -> new ItemStack(ModItems.OBSIDIAN_FINS.get()));
         acceptIf(out, () -> true, () -> new ItemStack(ModItems.AMETHYST_ARROW.get()));
@@ -93,9 +94,10 @@ public class ModCreativeTabs {
 
     private static void acceptIf(Consumer<ItemStack> output, BooleanSupplier enabled,
             Supplier<ItemStack> stackSupplier) {
-        if (enabled.getAsBoolean()) {
+
+        if (enabled.getAsBoolean())
             output.accept(stackSupplier.get());
-        }
+
     }
 
     private static ItemsCategory config() {

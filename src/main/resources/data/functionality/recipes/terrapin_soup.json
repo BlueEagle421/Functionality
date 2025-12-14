@@ -17,5 +17,11 @@
     ],
     "result": {
         "item": "functionality:terrapin_soup"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.terrapin.enabled"
+        }
+    ]
 }

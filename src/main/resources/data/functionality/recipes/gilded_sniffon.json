@@ -17,5 +17,11 @@
   "result": {
     "item": "functionality:gilded_sniffon"
   },
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.sniffon.enabled"
+    }
+  ],
   "show_notification": true
 }

@@ -6,5 +6,11 @@
   "ingredient": {
     "item": "functionality:chevon"
   },
-  "result": "functionality:cooked_chevon"
+  "result": "functionality:cooked_chevon",
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.chevon.enabled"
+    }
+  ]
 }

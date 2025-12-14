@@ -6,5 +6,11 @@
   "ingredient": {
     "item": "functionality:sniffon"
   },
-  "result": "functionality:cooked_sniffon"
+  "result": "functionality:cooked_sniffon",
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.sniffon.enabled"
+    }
+  ]
 }
