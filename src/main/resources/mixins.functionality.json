@@ -11,7 +11,8 @@
         "ItemEntityMixin",
         "LayeredCauldronBlockMixin",
         "RecordItemMixin",
-        "ItemsMixin"
+        "ItemsMixin",
+        "ItemRepairMixin"
     ],
     "client": [ ],
     "server": [ ]

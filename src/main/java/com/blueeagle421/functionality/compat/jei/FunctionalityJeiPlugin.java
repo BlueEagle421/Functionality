@@ -13,10 +13,12 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Blocks;
 
@@ -91,6 +93,37 @@ public class FunctionalityJeiPlugin implements IModPlugin {
                     Collections.singletonList(dmg75.copy()),
                     Collections.singletonList(dmg50)));
         }
+
+        BuiltInRegistries.ITEM.stream()
+                .filter(i -> i instanceof RecordItem)
+                .forEach(i -> {
+                    ItemStack disc = new ItemStack(i);
+
+                    if (!disc.isDamageableItem())
+                        return; // skip non-damageable discs (safety)
+
+                    ItemStack dmg100 = disc.copy();
+                    dmg100.setDamageValue(dmg100.getMaxDamage());
+
+                    ItemStack dmg75 = disc.copy();
+                    // compute 75% as integer (floor)
+                    dmg75.setDamageValue(disc.getMaxDamage() * 3 / 4);
+
+                    ItemStack dmg50 = disc.copy();
+                    dmg50.setDamageValue(disc.getMaxDamage() / 2);
+
+                    // repair with fragment (use your mod's fragment item)
+                    recipes.add(factory.createAnvilRecipe(
+                            dmg100,
+                            Collections.singletonList(new ItemStack(Items.DISC_FRAGMENT_5)), // fragment material shown
+                            Collections.singletonList(dmg75)));
+
+                    // combine two damaged discs to get a less-damaged disc
+                    recipes.add(factory.createAnvilRecipe(
+                            dmg75,
+                            Collections.singletonList(dmg75.copy()),
+                            Collections.singletonList(dmg50)));
+                });
 
         registration.addRecipes(RecipeTypes.ANVIL, recipes);
     }
