@@ -1,0 +1,17 @@
+{
+    "type": "functionality:information",
+
+    "description": "information.functionality.night_vision_potion",
+
+    "ingredients": [
+        {
+            "item": "minecraft:copper_block"
+        },
+        {
+            "item": "minecraft:torch"
+        },
+        {
+            "item": "minecraft:heart_of_the_sea"
+        }
+    ]
+}

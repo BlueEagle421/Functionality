@@ -1,6 +1,5 @@
 package com.blueeagle421.functionality.compat.jei;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.List;
 
 import com.blueeagle421.functionality.FunctionalityMod;
@@ -73,21 +72,25 @@ public class InformationCategory implements IRecipeCategory<InformationRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, InformationRecipe recipe, IFocusGroup focuses) {
-        AtomicInteger i = new AtomicInteger();
 
-        int outputCount = recipe.getOutputs().size();
-        int rowWidth = outputCount * SLOT_SIZE + (outputCount - 1) * SLOT_PADDING;
+        int maxSlots = 9;
+        int slotCount = Math.min(recipe.getOutputs().size(), maxSlots);
+
+        int rowWidth = slotCount * SLOT_SIZE +
+                (slotCount - 1) * SLOT_PADDING;
+
         int startX = (bgWidth - rowWidth) / 2;
         int y = 0;
 
-        recipe.getOutputs().forEach((ItemStack itemStack) -> {
-            int index = i.getAndIncrement();
+        for (int index = 0; index < slotCount; index++) {
+            ItemStack stack = recipe.getOutputs().get(index);
+
             int x = startX + index * (SLOT_SIZE + SLOT_PADDING);
 
             builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
-                    .addItemStack(itemStack)
-                    .setSlotName("thing" + index);
-        });
+                    .addItemStack(stack)
+                    .setSlotName("thing_" + index);
+        }
     }
 
     @Override

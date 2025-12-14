@@ -18,6 +18,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.registries.ForgeRegistries;
 
+@SuppressWarnings({ "removal", "deprecation" })
 public class InformationRecipeGenerator {
 
     public static final Map<ResourceLocation, InformationRecipe> GENERATED = new HashMap<>();
@@ -30,9 +31,10 @@ public class InformationRecipeGenerator {
 
         if (config().infiniteWaterCauldron.enabled.get())
             generateInfiniteCauldronRecipe();
+
+        generateThrowableDiscsRecipe();
     }
 
-    @SuppressWarnings("removal")
     private static void generateInfiniteCauldronRecipe() {
         Set<ResourceLocation> blockRLs = config().infiniteWaterCauldron.getBlocksAsResourceLocations();
 
@@ -57,7 +59,6 @@ public class InformationRecipeGenerator {
         GENERATED.put(recipeId, recipe);
     }
 
-    @SuppressWarnings("removal")
     private static void generateTreasureSacksRecipe() {
         Set<ResourceLocation> entityRLs = config().treasureSacks.getEntitiesAsResourceLocations();
 
@@ -87,6 +88,31 @@ public class InformationRecipeGenerator {
         ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
                 "information/generated/treasure_sacks");
         Component desc = Component.translatable("information.functionality.treasure_sacks");
+
+        InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
+        GENERATED.put(recipeId, recipe);
+    }
+
+    private static void generateThrowableDiscsRecipe() {
+
+        var discs = ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item.builtInRegistryHolder()
+                        .is(net.minecraft.tags.ItemTags.MUSIC_DISCS))
+                .toList();
+
+        NonNullList<Ingredient> inputs = NonNullList.withSize(discs.size(), Ingredient.EMPTY);
+
+        int index = 0;
+        for (var disc : discs) {
+            inputs.set(index++, Ingredient.of(new ItemStack(disc)));
+        }
+
+        ResourceLocation recipeId = new ResourceLocation(
+                FunctionalityMod.MOD_ID,
+                "information/generated/throwable_discs");
+
+        Component desc = Component.translatable(
+                "information.functionality.throwable_discs");
 
         InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
         GENERATED.put(recipeId, recipe);
