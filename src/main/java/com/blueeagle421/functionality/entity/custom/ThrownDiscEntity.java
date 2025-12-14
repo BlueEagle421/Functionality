@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.InteractionHand;
 
 public class ThrownDiscEntity extends ThrowableItemProjectile {
 
@@ -40,11 +41,20 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
     private ItemStack discStack = ItemStack.EMPTY;
 
+    // Slot constants: -2 => offhand, -1 => unknown, >=0 => hotbar slot index (0-8)
+    private static final int OFFHAND_SLOT = -2;
+    private static final int DEFAULT_SLOT = -1;
+
+    private int returnSlot = DEFAULT_SLOT;
+
     private static final EntityDataAccessor<Boolean> RETURNING = SynchedEntityData.defineId(ThrownDiscEntity.class,
             EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<ItemStack> DISC_STACK = SynchedEntityData.defineId(ThrownDiscEntity.class,
             EntityDataSerializers.ITEM_STACK);
+
+    private static final EntityDataAccessor<Integer> RETURN_SLOT = SynchedEntityData.defineId(ThrownDiscEntity.class,
+            EntityDataSerializers.INT);
 
     public ThrownDiscEntity(EntityType<? extends ThrownDiscEntity> type, Level level) {
         super(type, level);
@@ -66,11 +76,22 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
         return discStack;
     }
 
+    public void setReturnSlot(int slot) {
+        this.returnSlot = slot;
+        if (this.entityData != null)
+            this.entityData.set(RETURN_SLOT, slot);
+    }
+
+    public int getReturnSlot() {
+        return this.returnSlot;
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DISC_STACK, ItemStack.EMPTY);
         this.entityData.define(RETURNING, false);
+        this.entityData.define(RETURN_SLOT, DEFAULT_SLOT);
     }
 
     @Override
@@ -104,8 +125,10 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
 
-        if (this.entityData != null)
+        if (this.entityData != null) {
             this.returning = this.entityData.get(RETURNING);
+            this.returnSlot = this.entityData.get(RETURN_SLOT);
+        }
 
         if (this.startPos == null)
             this.startPos = this.position();
@@ -151,12 +174,53 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
         ItemStack copy = this.discStack.copy();
 
-        if (player.getInventory().add(copy)) {
+        if (attemptReturnToOriginalSlot(player, copy)) {
             this.discard();
             return;
         }
 
+        if (player.getInventory().add(copy)) {
+            this.discard();
+            player.getInventory().setChanged();
+            return;
+        }
+
         changeToItem(player.getX(), player.getY() + 0.5, player.getZ());
+    }
+
+    private boolean attemptReturnToOriginalSlot(Player player, ItemStack stackToReturn) {
+        if (this.returnSlot == OFFHAND_SLOT) {
+            ItemStack off = player.getItemInHand(InteractionHand.OFF_HAND);
+            if (off.isEmpty()) {
+                player.setItemInHand(InteractionHand.OFF_HAND, stackToReturn);
+                player.getInventory().setChanged();
+                return true;
+            } else if (ItemStack.isSameItemSameTags(off, stackToReturn)
+                    && off.getCount() + stackToReturn.getCount() <= off.getMaxStackSize()) {
+                off.grow(stackToReturn.getCount());
+                player.getInventory().setChanged();
+                return true;
+            }
+            return false;
+        } else if (this.returnSlot >= 0) {
+            int slot = this.returnSlot;
+            if (slot < player.getInventory().items.size()) {
+                ItemStack slotStack = player.getInventory().items.get(slot);
+                if (slotStack.isEmpty()) {
+                    player.getInventory().items.set(slot, stackToReturn);
+                    player.getInventory().setChanged();
+                    return true;
+                } else if (ItemStack.isSameItemSameTags(slotStack, stackToReturn)
+                        && slotStack.getCount() + stackToReturn.getCount() <= slotStack.getMaxStackSize()) {
+                    slotStack.grow(stackToReturn.getCount());
+                    player.getInventory().setChanged();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        return false;
     }
 
     private void changeToItem(double x, double y, double z) {

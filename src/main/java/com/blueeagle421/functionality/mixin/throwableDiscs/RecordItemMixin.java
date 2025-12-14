@@ -35,15 +35,24 @@ public class RecordItemMixin {
             return;
 
         if (!level.isClientSide)
-            throwDisc(level, player, stack);
+            throwDisc(level, player, stack, hand);
 
         cir.setReturnValue(InteractionResultHolder.sidedSuccess(stack, level.isClientSide));
         cir.cancel();
     }
 
-    private static void throwDisc(Level level, Player player, ItemStack stack) {
+    private static void throwDisc(Level level, Player player, ItemStack stack, InteractionHand hand) {
         ThrownDiscEntity disc = new ThrownDiscEntity(ModEntities.THROWN_DISC.get(), player, level);
         disc.setDiscStack(stack.copy());
+
+        int slot;
+        if (hand == InteractionHand.OFF_HAND) {
+            slot = -2;
+        } else {
+            slot = player.getInventory().selected;
+        }
+        disc.setReturnSlot(slot);
+
         disc.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.6F, 0.0F);
         level.addFreshEntity(disc);
 
