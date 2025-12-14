@@ -19,5 +19,11 @@
     },
     "result": {
         "item": "functionality:harpoon"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.harpoon.enabled"
+        }
+    ]
 }

@@ -19,5 +19,11 @@
     "count": 4,
     "item": "functionality:glow_torch"
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.glow_torch.enabled"
+    }
+  ]
 }

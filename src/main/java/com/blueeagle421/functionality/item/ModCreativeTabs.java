@@ -31,25 +31,25 @@ public class ModCreativeTabs {
                     .build());
 
     private static void addItemsToTab(Consumer<ItemStack> out) {
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.SLEEPING_HERB.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.PHANTOM_HERB.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.CHORUS_HERB.get()));
+        acceptIf(out, () -> config().sleepingHerb.enabled.get(), () -> new ItemStack(ModItems.SLEEPING_HERB.get()));
+        acceptIf(out, () -> config().phantomHerb.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_HERB.get()));
+        acceptIf(out, () -> config().chorusHerb.enabled.get(), () -> new ItemStack(ModItems.CHORUS_HERB.get()));
 
         // with nbt
-        acceptIf(out, () -> true, () -> {
+        acceptIf(out, () -> config().crimsonHerb.enabled.get(), () -> {
             ItemStack crimsonHerbStack = new ItemStack(ModItems.CRIMSON_HERB.get());
             CrimsonHerbItem.setDuration(crimsonHerbStack, CrimsonHerbItem.DEFAULT_DURATION);
             return crimsonHerbStack;
         });
 
         // with nbt
-        acceptIf(out, () -> true, () -> {
+        acceptIf(out, () -> config().glowHerb.enabled.get(), () -> {
             ItemStack glowingHerbStack = new ItemStack(ModItems.GLOW_HERB.get());
             GlowHerbItem.setDuration(glowingHerbStack, GlowHerbItem.DEFAULT_DURATION);
             return glowingHerbStack;
         });
 
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.GLOW_CROWN.get()));
+        acceptIf(out, () -> config().glowCrown.enabled.get(), () -> new ItemStack(ModItems.GLOW_CROWN.get()));
         acceptIf(out, () -> config().bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_VENISON.get()));
         acceptIf(out, () -> config().bearVenison.enabled.get(),
                 () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
@@ -62,18 +62,19 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().frogLeg.enabled.get(), () -> new ItemStack(ModItems.COOKED_FROG_LEG.get()));
         acceptIf(out, () -> config().terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN.get()));
         acceptIf(out, () -> config().terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN_SOUP.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.FINS.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.OBSIDIAN_FINS.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.AMETHYST_ARROW.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.OBSIDIAN_BOAT.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.INFERNO_GEAR.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.GLOW_TORCH.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.FISH_TRAP.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.LIGHTNING_CHARGER.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.TREASURE_SACK.get()));
+        acceptIf(out, () -> config().fins.enabled.get(), () -> new ItemStack(ModItems.FINS.get()));
+        acceptIf(out, () -> config().obsidianFins.enabled.get(), () -> new ItemStack(ModItems.OBSIDIAN_FINS.get()));
+        acceptIf(out, () -> config().amethystArrow.enabled.get(), () -> new ItemStack(ModItems.AMETHYST_ARROW.get()));
+        acceptIf(out, () -> config().obsidianBoat.enabled.get(), () -> new ItemStack(ModItems.OBSIDIAN_BOAT.get()));
+        acceptIf(out, () -> config().infernoGear.enabled.get(), () -> new ItemStack(ModItems.INFERNO_GEAR.get()));
+        acceptIf(out, () -> config().glowTorch.enabled.get(), () -> new ItemStack(ModItems.GLOW_TORCH.get()));
+        acceptIf(out, () -> config().fishTrap.enabled.get(), () -> new ItemStack(ModItems.FISH_TRAP.get()));
+        acceptIf(out, () -> config().lightningCharger.enabled.get(),
+                () -> new ItemStack(ModItems.LIGHTNING_CHARGER.get()));
+        acceptIf(out, () -> config().treasureSack.enabled.get(), () -> new ItemStack(ModItems.TREASURE_SACK.get()));
 
         // with nbt
-        acceptIf(out, () -> true, () -> {
+        acceptIf(out, () -> config().phantomRocket.enabled.get(), () -> {
             ItemStack rocketStack = new ItemStack(ModItems.PHANTOM_ROCKET.get());
             CompoundTag tag = new CompoundTag();
             tag.putByte("Flight", (byte) 5);
@@ -82,14 +83,11 @@ public class ModCreativeTabs {
             return rocketStack;
         });
 
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.PHEROMONES.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.PHANTOM_TREAT.get()));
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.PHANTOM_LEAD.get()));
-
-        acceptIf(out, () -> config().ancientSeeker.enabled.get(),
-                () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
-
-        acceptIf(out, () -> true, () -> new ItemStack(ModItems.HARPOON.get()));
+        acceptIf(out, () -> config().pheromones.enabled.get(), () -> new ItemStack(ModItems.PHEROMONES.get()));
+        acceptIf(out, () -> config().phantomTreat.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_TREAT.get()));
+        acceptIf(out, () -> config().phantomLead.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_LEAD.get()));
+        acceptIf(out, () -> config().ancientSeeker.enabled.get(), () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
+        acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.HARPOON.get()));
     }
 
     private static void acceptIf(Consumer<ItemStack> output, BooleanSupplier enabled,

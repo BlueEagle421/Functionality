@@ -11,5 +11,11 @@
     ],
     "result": {
         "item": "functionality:chorus_herb"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.chorus_herb.enabled"
+        }
+    ]
 }

@@ -18,5 +18,11 @@
         "type": "forge:nbt",
         "item": "functionality:phantom_rocket",
         "nbt": "{Fireworks:{Flight:5}}"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.phantom_rocket.enabled"
+        }
+    ]
 }

@@ -22,5 +22,11 @@
     },
     "result": {
         "item": "functionality:inferno_gear"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.inferno_gear.enabled"
+        }
+    ]
 }

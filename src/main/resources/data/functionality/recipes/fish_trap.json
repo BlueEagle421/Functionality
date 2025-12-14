@@ -17,5 +17,11 @@
   "result": {
     "item": "functionality:fish_trap"
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.fish_trap.enabled"
+    }
+  ]
 }

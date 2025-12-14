@@ -13,5 +13,11 @@
         "type": "forge:nbt",
         "item": "functionality:crimson_herb",
         "nbt": "{Herb:{Duration:600}}"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.crimson_herb.enabled"
+        }
+    ]
 }

@@ -14,5 +14,11 @@
     ],
     "result": {
         "item": "functionality:phantom_treat"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.phantom_treat.enabled"
+        }
+    ]
 }

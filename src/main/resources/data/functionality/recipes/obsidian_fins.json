@@ -16,5 +16,11 @@
   "result": {
     "item": "functionality:obsidian_fins"
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.obsidian_fins.enabled"
+    }
+  ]
 }

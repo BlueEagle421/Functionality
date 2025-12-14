@@ -11,5 +11,11 @@
     ],
     "result": {
         "item": "functionality:sleeping_herb"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.sleeping_herb.enabled"
+        }
+    ]
 }

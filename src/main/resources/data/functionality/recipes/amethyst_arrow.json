@@ -20,5 +20,11 @@
     "result": {
         "item": "functionality:amethyst_arrow",
         "count": 6
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.amethyst_arrow.enabled"
+        }
+    ]
 }

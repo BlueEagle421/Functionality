@@ -17,5 +17,11 @@
     "count": 1,
     "item": "functionality:glow_crown"
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.glow_crown.enabled"
+    }
+  ]
 }

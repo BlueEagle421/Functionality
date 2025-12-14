@@ -19,5 +19,11 @@
         "type": "forge:nbt",
         "item": "functionality:glow_herb",
         "nbt": "{Herb:{Duration:2400}}"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.glow_herb.enabled"
+        }
+    ]
 }

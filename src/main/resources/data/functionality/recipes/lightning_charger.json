@@ -20,5 +20,11 @@
   "result": {
     "item": "functionality:lightning_charger"
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.lightning_charger.enabled"
+    }
+  ]
 }

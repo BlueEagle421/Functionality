@@ -25,4 +25,11 @@
     "result": {
         "item": "functionality:pheromones"
     }
+    ,
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.pheromones.enabled"
+        }
+    ]
 }

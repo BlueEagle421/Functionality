@@ -11,5 +11,11 @@
     ],
     "result": {
         "item": "functionality:phantom_herb"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.phantom_herb.enabled"
+        }
+    ]
 }
