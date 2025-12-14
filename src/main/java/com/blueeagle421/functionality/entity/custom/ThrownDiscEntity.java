@@ -2,6 +2,7 @@ package com.blueeagle421.functionality.entity.custom;
 
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
+import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.sound.ModSounds;
 
 import net.minecraft.core.Direction;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -299,6 +301,13 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     net.minecraft.sounds.SoundSource.PLAYERS,
                     1.0F,
                     1.0F);
+
+            ItemStack shards = new ItemStack(ModItems.DISC_SHARDS.get());
+            ItemEntity entity = new ItemEntity(
+                    level(),
+                    pos.x, pos.y, pos.z,
+                    shards);
+            level().addFreshEntity(entity);
         }
 
         this.discard();
