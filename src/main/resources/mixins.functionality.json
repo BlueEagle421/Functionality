@@ -10,7 +10,7 @@
         "HorseMobInteractMixin",
         "thunderRitual.ItemEntityMixin",
         "LayeredCauldronBlockMixin",
-        "throwableDiscs.RecordItemMixin",
+        "throwableDiscs.ItemMixin",
         "throwableDiscs.ItemsMixin",
         "throwableDiscs.ItemRepairMixin"
     ],

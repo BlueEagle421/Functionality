@@ -21,7 +21,7 @@ import com.blueeagle421.functionality.sound.ModSounds;
 import net.minecraft.stats.Stats;
 
 @Mixin(Item.class)
-public class RecordItemMixin {
+public class ItemMixin {
 
     @Inject(method = "use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;", at = @At("HEAD"), cancellable = true)
     private void onUse(Level level, Player player, InteractionHand hand,
