@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
 import com.blueeagle421.functionality.item.custom.HarpoonItem;
 
 import net.minecraft.world.entity.Entity;
@@ -17,8 +19,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class OnLivingDeath {
-
-    private static final int ONE_BUBBLE_TICKS = 30;
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
@@ -42,7 +42,7 @@ public class OnLivingDeath {
 
         int currentAir = attacker.getAirSupply();
         int maxAir = attacker.getMaxAirSupply();
-        int newAir = Math.min(maxAir, currentAir + ONE_BUBBLE_TICKS);
+        int newAir = Math.min(maxAir, currentAir + config().airBubblesRegenAmount.get());
         attacker.setAirSupply(newAir);
 
         serverLevel.sendParticles(ParticleTypes.BUBBLE, attacker.getX(), attacker.getY() + 0.5,
@@ -84,5 +84,9 @@ public class OnLivingDeath {
         }
 
         return false;
+    }
+
+    private static Harpoon config() {
+        return FunctionalityConfig.COMMON.items.harpoon;
     }
 }

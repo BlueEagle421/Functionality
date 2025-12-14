@@ -7,6 +7,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class AmethystArrow {
 
     public final ForgeConfigSpec.BooleanValue enabled;
+    public final ForgeConfigSpec.DoubleValue damageMultiplier;
 
     public AmethystArrow(ForgeConfigSpec.Builder builder) {
         builder.push(ModItems.AMETHYST_ARROW.getId().getPath());
@@ -14,6 +15,10 @@ public class AmethystArrow {
         enabled = builder
                 .comment("If false, the item won't be craftable and present in tabs effectively disabling it.")
                 .define("enabled", true);
+
+        damageMultiplier = builder
+                .comment("The damage multiplier that will be applied when attacking with the arrow.")
+                .defineInRange("damageMultiplier", 1.2d, 1d, Double.MAX_VALUE);
 
         builder.pop();
     }

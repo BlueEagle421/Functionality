@@ -17,6 +17,8 @@ import java.util.UUID;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.Fins;
 import com.blueeagle421.functionality.utils.TooltipUtils;
 
 public class FinsItem extends ArmorItem {
@@ -25,8 +27,6 @@ public class FinsItem extends ArmorItem {
     }
 
     private static final UUID FINS_SWIM_UUID = UUID.fromString("a46b3c7a-5f6a-4c2d-9d3e-1a2b3c4d5e6f");
-
-    private static final double MAX_MULTIPLIER = 1.5D;
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
@@ -45,7 +45,7 @@ public class FinsItem extends ArmorItem {
 
             double levelEquivalent = 3.0D;
             double fraction = Math.min(3.0D, levelEquivalent) / 3.0D;
-            double amount = MAX_MULTIPLIER * fraction;
+            double amount = config().maxSpeedMultiplier.get() * fraction;
 
             AttributeModifier modifier = new AttributeModifier(FINS_SWIM_UUID, "fins_swim_boost", amount,
                     AttributeModifier.Operation.MULTIPLY_TOTAL);
@@ -73,5 +73,9 @@ public class FinsItem extends ArmorItem {
         TooltipUtils.addFormattedTooltip(stack, tooltip);
 
         super.appendHoverText(stack, level, tooltip, isAdvanced);
+    }
+
+    private static Fins config() {
+        return FunctionalityConfig.COMMON.items.fins;
     }
 }

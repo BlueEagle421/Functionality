@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
 import com.blueeagle421.functionality.item.custom.HarpoonItem;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -44,7 +46,7 @@ public class OnPlayerTick {
             attr.addTransientModifier(new AttributeModifier(
                     HarpoonItem.WATER_REACH_UUID,
                     "water_reach_bonus",
-                    HarpoonItem.EXTRA_REACH_UNDERWATER,
+                    config().extraReach.get(),
                     AttributeModifier.Operation.ADDITION));
         }
     }
@@ -57,5 +59,9 @@ public class OnPlayerTick {
         var mod = attr.getModifier(HarpoonItem.WATER_REACH_UUID);
         if (mod != null)
             attr.removeModifier(mod);
+    }
+
+    private static Harpoon config() {
+        return FunctionalityConfig.COMMON.items.harpoon;
     }
 }

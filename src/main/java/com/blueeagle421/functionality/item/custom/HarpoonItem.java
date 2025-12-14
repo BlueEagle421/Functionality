@@ -17,7 +17,6 @@ import net.minecraft.world.level.Level;
 public class HarpoonItem extends SwordItem {
 
     public static final UUID WATER_REACH_UUID = UUID.fromString("d71b6f20-35d3-4b1a-a33d-5a139a47db31");
-    public static final double EXTRA_REACH_UNDERWATER = 6.0;
 
     public HarpoonItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);

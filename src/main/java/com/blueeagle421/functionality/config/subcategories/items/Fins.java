@@ -7,6 +7,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class Fins {
 
     public final ForgeConfigSpec.BooleanValue enabled;
+    public final ForgeConfigSpec.DoubleValue maxSpeedMultiplier;
 
     public Fins(ForgeConfigSpec.Builder builder) {
         builder.push(ModItems.FINS.getId().getPath());
@@ -14,6 +15,10 @@ public class Fins {
         enabled = builder
                 .comment("If false, the item won't be craftable and present in tabs effectively disabling it.")
                 .define("enabled", true);
+
+        maxSpeedMultiplier = builder
+                .comment("The max speed multiplier that will be applied while swimming.")
+                .defineInRange("maxSpeedMultiplier", 1.5d, 1d, Double.MAX_VALUE);
 
         builder.pop();
     }

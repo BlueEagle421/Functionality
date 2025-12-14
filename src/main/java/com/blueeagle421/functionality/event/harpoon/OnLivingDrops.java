@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
 import com.blueeagle421.functionality.item.custom.HarpoonItem;
 
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +29,9 @@ public class OnLivingDrops {
         if (event.getEntity().level().isClientSide)
             return;
 
+        if (!config().attractItems.get())
+            return;
+
         List<ItemEntity> drops = new ArrayList<>(event.getDrops());
 
         if (drops == null || drops.isEmpty())
@@ -35,6 +40,9 @@ public class OnLivingDrops {
         Player attacker = findPlayerAttacker(event.getSource());
 
         if (attacker == null)
+            return;
+
+        if (!attacker.isUnderWater())
             return;
 
         if (!playerUsedHarpoon(attacker, event.getSource()))
@@ -102,5 +110,9 @@ public class OnLivingDrops {
         }
 
         return false;
+    }
+
+    private static Harpoon config() {
+        return FunctionalityConfig.COMMON.items.harpoon;
     }
 }
