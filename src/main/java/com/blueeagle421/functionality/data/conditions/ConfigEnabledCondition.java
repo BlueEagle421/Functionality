@@ -9,6 +9,7 @@ import java.util.function.BooleanSupplier;
 
 public class ConfigEnabledCondition implements ICondition {
 
+    @SuppressWarnings("removal")
     public static final ResourceLocation ID = new ResourceLocation("functionality", "enabled");
 
     private final String configPath;
