@@ -89,6 +89,9 @@
     "information.functionality.night_vision_potion": "Use an empty bottle on a glow squid to get a night vision potion. It might hurt!",
     "information.functionality.throwable_discs": "Music discs are throwable. Gotta catch em all!",
 
+    "sounds.functionality.disc_hit": "Music disc hit",
+    "sounds.functionality.disc_throw": "Music disc throw",
+
     "creativetab.functionality_tab": "Functionality",
     "category.functionality.information": "Functional Information"
 }
