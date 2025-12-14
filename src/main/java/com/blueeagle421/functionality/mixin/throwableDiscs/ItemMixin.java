@@ -20,10 +20,10 @@ import com.blueeagle421.functionality.sound.ModSounds;
 
 import net.minecraft.stats.Stats;
 
-@Mixin(Item.class)
+@Mixin(value = Item.class, remap = true)
 public class ItemMixin {
 
-    @Inject(method = "use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void onUse(Level level, Player player, InteractionHand hand,
             CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack stack = player.getItemInHand(hand);
