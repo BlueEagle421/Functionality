@@ -2,6 +2,7 @@ package com.blueeagle421.functionality.entity.custom;
 
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
+import com.blueeagle421.functionality.config.subcategories.items.DiscShards;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.sound.ModSounds;
 
@@ -139,7 +140,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
         if (!this.returning) {
             double distance = this.position().distanceTo(this.startPos);
-            if (distance >= config().maxTravelDistance.get())
+            if (distance >= discConfig().maxTravelDistance.get())
                 startReturn();
         } else {
             this.noPhysics = true;
@@ -252,7 +253,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     .damageSources()
                     .indirectMagic(this, this.getOwner());
 
-            result.getEntity().hurt(source, config().defaultDamage.get());
+            result.getEntity().hurt(source, discConfig().defaultDamage.get());
             playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), DISC_HIT_VOLUME, getRandomPitch());
 
             damageDisc();
@@ -294,14 +295,22 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
     private void breakDisc(Vec3 pos) {
         if (!level().isClientSide) {
-            level().playSound(
-                    null,
-                    pos.x, pos.y, pos.z,
-                    net.minecraft.sounds.SoundEvents.ITEM_BREAK,
-                    net.minecraft.sounds.SoundSource.PLAYERS,
-                    1.0F,
-                    1.0F);
+            breakDiscServer(pos);
+        }
 
+        this.discard();
+    }
+
+    private void breakDiscServer(Vec3 pos) {
+        level().playSound(
+                null,
+                pos.x, pos.y, pos.z,
+                net.minecraft.sounds.SoundEvents.ITEM_BREAK,
+                net.minecraft.sounds.SoundSource.PLAYERS,
+                1.0F,
+                1.0F);
+
+        if (shardsConfig().enabled.get()) {
             ItemStack shards = new ItemStack(ModItems.DISC_SHARDS.get());
             ItemEntity entity = new ItemEntity(
                     level(),
@@ -309,8 +318,6 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     shards);
             level().addFreshEntity(entity);
         }
-
-        this.discard();
     }
 
     private void playImpactSound(SoundEvent sound, Vec3 pos, float volume, float pitch) {
@@ -374,7 +381,11 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
             super.push(entity);
     }
 
-    private static ThrowableDiscs config() {
+    private static ThrowableDiscs discConfig() {
         return FunctionalityConfig.COMMON.features.throwableDiscs;
+    }
+
+    private static DiscShards shardsConfig() {
+        return FunctionalityConfig.COMMON.items.discShards;
     }
 }

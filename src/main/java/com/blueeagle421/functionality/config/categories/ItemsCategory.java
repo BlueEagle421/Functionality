@@ -32,6 +32,7 @@ public class ItemsCategory {
     public final Pheromones pheromones;
     public final SleepingHerb sleepingHerb;
     public final TreasureSack treasureSack;
+    public final DiscShards discShards;
 
     public ItemsCategory(ForgeConfigSpec.Builder builder) {
         builder.push("items");
@@ -62,6 +63,7 @@ public class ItemsCategory {
         pheromones = new Pheromones(builder);
         sleepingHerb = new SleepingHerb(builder);
         treasureSack = new TreasureSack(builder);
+        discShards = new DiscShards(builder);
 
         builder.pop();
     }
