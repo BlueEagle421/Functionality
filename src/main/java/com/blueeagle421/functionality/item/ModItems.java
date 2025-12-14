@@ -12,11 +12,24 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-//Adding new item tutorial for future me and other devs
-//Every item needs:
-//A config class in /config/subcategories/items
-//Recipes controlled by ConfigEnabledCondition
-//creative tab config check
+// Adding new item tutorial for future me and other devs
+
+// Every item needs:
+// A config class in /config/subcategories/items
+// Recipes controlled by ConfigEnabledCondition
+// creative tab config check
+
+// Example recipe condition:
+//    "conditions": [
+//        {
+//            "type": "functionality:enabled",
+//            "configPath": "items.sleeping_herb.enabled"
+//        }
+//    ]
+
+// It uses reflection to get fields from config
+// They are auto converted to snake case for consistency
+// Example field from item config class: sleepingHerb -> sleeping_herb
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
