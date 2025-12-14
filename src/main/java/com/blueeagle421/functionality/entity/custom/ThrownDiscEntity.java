@@ -36,6 +36,8 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
     private static final double PICKUP_DISTANCE = 0.5D;
 
+    private static final float DISC_HIT_VOLUME = 0.6f;
+
     private Vec3 startPos;
     private boolean returning = false;
 
@@ -249,8 +251,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     .indirectMagic(this, this.getOwner());
 
             result.getEntity().hurt(source, config().defaultDamage.get());
-            float pitch = 1f + (level().random.nextFloat() - 0.5F) * 0.16F;
-            playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), pitch);
+            playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), DISC_HIT_VOLUME, getRandomPitch());
 
             damageDisc();
             startReturn();
@@ -266,13 +267,16 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
         spawnDustParticles(result);
         BlockState blockstate = this.level().getBlockState(result.getBlockPos());
-        playImpactSound(blockstate.getSoundType().getHitSound(), result.getLocation(), 1f);
-        float pitch = 1f + (level().random.nextFloat() - 0.5F) * 0.16F;
-        playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), pitch);
+        playImpactSound(blockstate.getSoundType().getHitSound(), result.getLocation(), 1f, 1f);
+        playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), DISC_HIT_VOLUME, getRandomPitch());
 
         damageDisc();
         startReturn();
         super.onHitBlock(result);
+    }
+
+    private float getRandomPitch() {
+        return 1f + (level().random.nextFloat() - 0.5F) * 0.16F;
     }
 
     private boolean damageDisc() {
@@ -300,14 +304,14 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
         this.discard();
     }
 
-    private void playImpactSound(SoundEvent sound, Vec3 pos, float pitch) {
+    private void playImpactSound(SoundEvent sound, Vec3 pos, float volume, float pitch) {
         if (level().isClientSide)
             return;
 
         level().playSound(null, pos.x, pos.y, pos.z,
                 sound,
                 net.minecraft.sounds.SoundSource.PLAYERS,
-                1F, pitch);
+                volume, pitch);
     }
 
     private void spawnDustParticles(BlockHitResult hitResult) {

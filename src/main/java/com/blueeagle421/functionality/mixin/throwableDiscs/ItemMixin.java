@@ -59,7 +59,7 @@ public class ItemMixin {
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
                 ModSounds.DISC_THROW.get(),
                 net.minecraft.sounds.SoundSource.PLAYERS,
-                0.8F,
+                0.65F,
                 1.0F);
 
         if (!player.getAbilities().instabuild) {
