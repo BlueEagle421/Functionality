@@ -43,6 +43,9 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
     private static final EntityDataAccessor<Boolean> RETURNING = SynchedEntityData.defineId(ThrownDiscEntity.class,
             EntityDataSerializers.BOOLEAN);
 
+    private static final EntityDataAccessor<ItemStack> DISC_STACK = SynchedEntityData.defineId(ThrownDiscEntity.class,
+            EntityDataSerializers.ITEM_STACK);
+
     public ThrownDiscEntity(EntityType<? extends ThrownDiscEntity> type, Level level) {
         super(type, level);
         this.setNoGravity(true);
@@ -56,11 +59,17 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
     public void setDiscStack(ItemStack stack) {
         this.discStack = stack.copy();
+        this.entityData.set(DISC_STACK, stack.copy());
+    }
+
+    public ItemStack getDiscStack() {
+        return discStack;
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(DISC_STACK, ItemStack.EMPTY);
         this.entityData.define(RETURNING, false);
     }
 
@@ -81,7 +90,9 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
     @Override
     public ItemStack getItem() {
-        return this.discStack.isEmpty() ? new ItemStack(getDefaultItem()) : this.discStack;
+        if (!this.level().isClientSide)
+            return discStack;
+        return entityData.get(DISC_STACK);
     }
 
     @Override
