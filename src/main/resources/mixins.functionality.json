@@ -12,7 +12,8 @@
         "LayeredCauldronBlockMixin",
         "throwableDiscs.ItemMixin",
         "throwableDiscs.ItemsMixin",
-        "throwableDiscs.ItemRepairMixin"
+        "throwableDiscs.ItemRepairMixin",
+        "throwableDiscs.ItemEnchantabilityMixin"
     ],
     "client": [ ],
     "server": [ ]
