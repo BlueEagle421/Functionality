@@ -4,15 +4,15 @@
     "compatibilityLevel": "JAVA_17",
     "minVersion": "0.8",
     "mixins": [
-        "EntityMixin",
-        "LivingEntityTravelMixin",
-        "EntityStopRidingMixin",
+        "lavaTravel.EntityMixin",
+        "lavaTravel.LivingEntityTravelMixin",
+        "lavaTravel.EntityStopRidingMixin",
         "HorseMobInteractMixin",
-        "ItemEntityMixin",
+        "thunderRitual.ItemEntityMixin",
         "LayeredCauldronBlockMixin",
-        "RecordItemMixin",
-        "ItemsMixin",
-        "ItemRepairMixin"
+        "throwableDiscs.RecordItemMixin",
+        "throwableDiscs.ItemsMixin",
+        "throwableDiscs.ItemRepairMixin"
     ],
     "client": [ ],
     "server": [ ]

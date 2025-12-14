@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.mixin;
+package com.blueeagle421.functionality.mixin.lavaTravel;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.ForgeMod;

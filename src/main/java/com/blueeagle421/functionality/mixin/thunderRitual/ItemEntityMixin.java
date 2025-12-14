@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.mixin;
+package com.blueeagle421.functionality.mixin.thunderRitual;
 
 import com.blueeagle421.functionality.event.ThunderRitualHandler;
 import net.minecraft.world.entity.Entity;

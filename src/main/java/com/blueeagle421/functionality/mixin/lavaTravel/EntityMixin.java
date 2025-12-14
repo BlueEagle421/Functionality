@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.mixin;
+package com.blueeagle421.functionality.mixin.lavaTravel;
 
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
 import com.blueeagle421.functionality.utils.ArmorUtils;
