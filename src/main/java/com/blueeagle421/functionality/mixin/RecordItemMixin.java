@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.entity.custom.ThrownDiscEntity;
 import com.blueeagle421.functionality.sound.ModSounds;
@@ -25,6 +27,9 @@ public class RecordItemMixin {
     private void onUse(Level level, Player player, InteractionHand hand,
             CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack stack = player.getItemInHand(hand);
+
+        if (!config().enabled.get())
+            return;
 
         if (!(stack.getItem() instanceof RecordItem))
             return;
@@ -52,5 +57,9 @@ public class RecordItemMixin {
             stack.shrink(1);
         }
         player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+    }
+
+    private static ThrowableDiscs config() {
+        return FunctionalityConfig.COMMON.features.throwableDiscs;
     }
 }

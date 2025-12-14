@@ -32,7 +32,8 @@ public class InformationRecipeGenerator {
         if (config().infiniteWaterCauldron.enabled.get())
             generateInfiniteCauldronRecipe();
 
-        generateThrowableDiscsRecipe();
+        if (config().throwableDiscs.enabled.get())
+            generateThrowableDiscsRecipe();
     }
 
     private static void generateInfiniteCauldronRecipe() {

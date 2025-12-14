@@ -1,5 +1,7 @@
 package com.blueeagle421.functionality.entity.custom;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
 import com.blueeagle421.functionality.sound.ModSounds;
 
 import net.minecraft.core.Direction;
@@ -26,8 +28,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class ThrownDiscEntity extends ThrowableItemProjectile {
-    private static final double MAX_DISTANCE = 15.0D;
-    private static final float DAMAGE = 6.0F;
 
     private static final double OUTGOING_SPEED = 1.2D;
     private static final double RETURN_SPEED = 0.9D;
@@ -112,7 +112,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
         if (!this.returning) {
             double distance = this.position().distanceTo(this.startPos);
-            if (distance >= MAX_DISTANCE)
+            if (distance >= config().maxTravelDistance.get())
                 startReturn();
         } else {
             this.noPhysics = true;
@@ -184,7 +184,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     .damageSources()
                     .indirectMagic(this, this.getOwner());
 
-            result.getEntity().hurt(source, DAMAGE);
+            result.getEntity().hurt(source, config().defaultDamage.get());
             float pitch = 1f + (level().random.nextFloat() - 0.5F) * 0.16F;
             playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), pitch);
 
@@ -295,5 +295,9 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
     public void push(Entity entity) {
         if (!this.returning)
             super.push(entity);
+    }
+
+    private static ThrowableDiscs config() {
+        return FunctionalityConfig.COMMON.features.throwableDiscs;
     }
 }
