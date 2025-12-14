@@ -23,7 +23,7 @@ public class OnLivingDrops {
         if (!(event.getEntity().level() instanceof ServerLevel server))
             return;
 
-        if (!FunctionalityConfig.COMMON.features.treasureSacks.limitEnabled.get())
+        if (!config().features.treasureSacks.limitEnabled.get())
             return;
 
         // read or create data
@@ -38,7 +38,7 @@ public class OnLivingDrops {
                 data.getCurrentForChunkOrInit(chunkLong);
 
                 // do we have more sacks here?
-                boolean allowed = data.consumeOne(chunkLong);
+                boolean allowed = config().items.treasureSack.enabled.get() && data.consumeOne(chunkLong);
 
                 if (!allowed)
                     itemEntity.remove(RemovalReason.DISCARDED);
@@ -51,5 +51,9 @@ public class OnLivingDrops {
         int chunkX = pos.getX() >> 4;
         int chunkZ = pos.getZ() >> 4;
         return ChunkPos.asLong(chunkX, chunkZ);
+    }
+
+    private static FunctionalityConfig.Common config() {
+        return FunctionalityConfig.COMMON;
     }
 }
