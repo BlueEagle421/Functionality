@@ -1,0 +1,14 @@
+{
+    "disc_hit": {
+        "subtitles": "sounds.functionality.disc_hit",
+        "sounds": [
+            "functionality:disc_hit"
+        ]
+    },
+    "disc_throw": {
+        "subtitle": "sounds.functionality.disc_throw",
+        "sounds": [
+            "functionality:disc_throw"
+        ]
+    }
+}

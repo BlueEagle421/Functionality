@@ -6,6 +6,7 @@ import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.GlowFlameParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
+import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
@@ -15,6 +16,7 @@ import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.loot.ModLootModifiers;
 import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.recipe.ModRecipes;
+import com.blueeagle421.functionality.sound.ModSounds;
 import com.blueeagle421.functionality.utils.CauldronUtils;
 import com.blueeagle421.functionality.worldgen.ModFeatures;
 import com.mojang.logging.LogUtils;
@@ -63,6 +65,7 @@ public class FunctionalityMod {
         ModEffects.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModLootModifiers.register(modEventBus);
+        ModSounds.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -111,6 +114,7 @@ public class FunctionalityMod {
                     pContext -> new ObsidianBoatRenderer(pContext, false));
 
             EntityRenderers.register(ModEntities.ANVIL_MARKER.get(), AnvilMarkerRenderer::new);
+            EntityRenderers.register(ModEntities.THROWN_DISC.get(), context -> new ThrownDiscRenderer(context));
         }
 
         @SubscribeEvent
