@@ -1,6 +1,8 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.food;
 
 import java.util.Optional;
+
+import com.blueeagle421.functionality.item.custom.TooltipItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;

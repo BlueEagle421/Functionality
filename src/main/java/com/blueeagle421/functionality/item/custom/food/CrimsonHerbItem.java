@@ -1,10 +1,11 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.food;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import com.blueeagle421.functionality.effect.ModEffects;
+import com.blueeagle421.functionality.item.custom.TooltipItem;
 import com.blueeagle421.functionality.utils.TooltipUtils;
 
 import net.minecraft.ChatFormatting;
@@ -18,13 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class GlowHerbItem extends TooltipItem {
+public class CrimsonHerbItem extends TooltipItem {
 
     public static final String HERB_KEY = "Herb";
     public static final String DURATION_KEY = "Duration";
     public static final int DEFAULT_DURATION = 600;
 
-    public GlowHerbItem(Properties pProperties) {
+    public CrimsonHerbItem(Properties pProperties) {
         super(pProperties);
     }
 
@@ -42,7 +43,7 @@ public class GlowHerbItem extends TooltipItem {
             duration = tag.getInt(DURATION_KEY);
         }
 
-        MobEffectInstance instance = new MobEffectInstance(ModEffects.GLOW_BLESSING.get(), duration, 0, false, true);
+        MobEffectInstance instance = new MobEffectInstance(ModEffects.CRIMSON_SHIELD.get(), duration, 0, false, true);
         user.addEffect(instance);
 
         return result;

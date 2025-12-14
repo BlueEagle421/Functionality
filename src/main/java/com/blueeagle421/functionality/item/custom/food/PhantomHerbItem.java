@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.food;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
@@ -9,6 +9,9 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import com.blueeagle421.functionality.item.custom.TooltipItem;
+
 import net.minecraft.core.particles.ParticleTypes;
 
 public class PhantomHerbItem extends TooltipItem {
