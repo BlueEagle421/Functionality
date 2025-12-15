@@ -13,7 +13,8 @@
         "throwableDiscs.ItemMixin",
         "throwableDiscs.ItemsMixin",
         "throwableDiscs.ItemRepairMixin",
-        "throwableDiscs.ItemEnchantabilityMixin"
+        "throwableDiscs.ItemEnchantabilityMixin",
+        "throwableDiscs.RecordItemTooltipMixin"
     ],
     "client": [ ],
     "server": [ ]

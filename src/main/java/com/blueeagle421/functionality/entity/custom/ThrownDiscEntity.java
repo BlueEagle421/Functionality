@@ -331,6 +331,14 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
     }
 
     private void spawnDustParticles(BlockHitResult hitResult) {
+        final int min_count = 26;
+        final int max_count = 32;
+
+        final double offset_spread = 0.35;
+        final double clip_offset = 0.01;
+
+        final double max_speed = 18.0;
+        final double velocity_scale = 1.0;
 
         Vec3 hitPos = hitResult.getLocation();
         Level level = level();
@@ -339,15 +347,16 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
         if (state.isAir())
             return;
 
-        int particleCount = level.getRandom().nextInt(26, 32);
+        int particleCount = level.getRandom()
+                .nextInt(min_count, max_count);
 
         Direction face = hitResult.getDirection();
         Vec3 normal = Vec3.atLowerCornerOf(face.getNormal());
 
         for (int i = 0; i < particleCount; i++) {
 
-            double a = (level.getRandom().nextDouble() - 0.5) * 0.2;
-            double b = (level.getRandom().nextDouble() - 0.5) * 0.2;
+            double a = randomCentered(level) * offset_spread;
+            double b = randomCentered(level) * offset_spread;
 
             Vec3 spawnOffset = switch (face.getAxis()) {
                 case X -> new Vec3(0, a, b);
@@ -357,14 +366,14 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
             Vec3 spawnPos = hitPos
                     .add(spawnOffset)
-                    .add(normal.scale(0.01)); // to avoid clipping
+                    .add(normal.scale(clip_offset)); // avoid clipping
 
-            double speed = level.getRandom().nextDouble() * 18.0;
+            double speed = level.getRandom().nextDouble() * max_speed;
 
             Vec3 randomVel = new Vec3(
-                    (level.getRandom().nextDouble() - 0.5) * 1.0,
-                    (level.getRandom().nextDouble() - 0.5) * 1.0,
-                    (level.getRandom().nextDouble() - 0.5) * 1.0);
+                    randomCentered(level) * velocity_scale,
+                    randomCentered(level) * velocity_scale,
+                    randomCentered(level) * velocity_scale);
 
             Vec3 velocity = normal.scale(speed).add(randomVel);
 
@@ -373,6 +382,10 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     spawnPos.x, spawnPos.y, spawnPos.z,
                     velocity.x, velocity.y, velocity.z);
         }
+    }
+
+    private static double randomCentered(Level level) {
+        return level.getRandom().nextDouble() - 0.5;
     }
 
     @Override
