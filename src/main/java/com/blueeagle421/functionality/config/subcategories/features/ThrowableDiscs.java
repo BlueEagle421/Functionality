@@ -22,7 +22,6 @@ public class ThrowableDiscs {
     public final ForgeConfigSpec.BooleanValue enabled;
     public final ForgeConfigSpec.DoubleValue defaultDamage;
     public final ForgeConfigSpec.DoubleValue defaultTravelDistance;
-    public final ForgeConfigSpec.BooleanValue repairWithSelf;
     public final ForgeConfigSpec.ConfigValue<String> repairItem;
     public final ForgeConfigSpec.ConfigValue<List<? extends String>> perItemStats;
 
@@ -42,10 +41,6 @@ public class ThrowableDiscs {
         defaultTravelDistance = builder
                 .comment("The default max travel distance (range) for thrown discs. Overwritten by defaultStats list.")
                 .defineInRange("defaultTravelDistance", 10.0, 0.0, 128.0);
-
-        repairWithSelf = builder
-                .comment("If true, music discs will be repairable by combining two discs.")
-                .define("repairWithSelf", true);
 
         repairItem = builder
                 .comment("Item or tag used to repair music discs.")

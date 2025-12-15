@@ -13,14 +13,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.entity.custom.ThrownDiscEntity;
 import com.blueeagle421.functionality.sound.ModSounds;
 
 import net.minecraft.stats.Stats;
 
-@Mixin(value = Item.class, remap = true)
+@Mixin(Item.class)
 public class ItemMixin {
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
@@ -28,7 +27,7 @@ public class ItemMixin {
             CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!config().enabled.get())
+        if (!FunctionalityConfig.COMMON.features.throwableDiscs.enabled.get())
             return;
 
         if (!(stack.getItem() instanceof RecordItem))
@@ -66,9 +65,5 @@ public class ItemMixin {
             stack.shrink(1);
         }
         player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-    }
-
-    private static ThrowableDiscs config() {
-        return FunctionalityConfig.COMMON.features.throwableDiscs;
     }
 }

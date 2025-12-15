@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
 
 import java.util.List;
 
@@ -29,6 +28,8 @@ public class RecordItemTooltipMixin {
             TooltipFlag flag,
             CallbackInfo ci) {
 
+        var config = FunctionalityConfig.COMMON.features.throwableDiscs;
+
         // category
 
         tooltip.add(Component.literal("").withStyle(ChatFormatting.GRAY));
@@ -38,7 +39,7 @@ public class RecordItemTooltipMixin {
 
         // damage
 
-        String damageString = String.format("%.0f", config().getDamage(stack));
+        String damageString = String.format("%.0f", config.getDamage(stack));
         Component damageAmount = Component.literal(damageString);
         Component damageName = Component.translatable("attribute.name.generic.attack_damage");
 
@@ -50,7 +51,7 @@ public class RecordItemTooltipMixin {
 
         // range
 
-        String rangeString = String.format("%.0f", config().getRange(stack));
+        String rangeString = String.format("%.0f", config.getRange(stack));
         Component rangeAmount = Component.literal(rangeString);
         Component rangeName = Component.translatable("attribute.name.functionality.throw_range");
 
@@ -59,9 +60,5 @@ public class RecordItemTooltipMixin {
                 .withStyle(ChatFormatting.DARK_GREEN);
 
         tooltip.add(CommonComponents.space().append(rangeLine));
-    }
-
-    private static ThrowableDiscs config() {
-        return FunctionalityConfig.COMMON.features.throwableDiscs;
     }
 }
