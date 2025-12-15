@@ -89,6 +89,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().phantomLead.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_LEAD.get()));
         acceptIf(out, () -> config().ancientSeeker.enabled.get(), () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.HARPOON.get()));
+        acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.DRY_LICHEN.get()));
     }
 
     private static void acceptIf(Consumer<ItemStack> output, BooleanSupplier enabled,
