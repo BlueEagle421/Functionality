@@ -140,7 +140,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
         if (!this.returning) {
             double distance = this.position().distanceTo(this.startPos);
-            if (distance >= discConfig().maxTravelDistance.get())
+            if (distance >= discConfig().getRange(discStack))
                 startReturn();
         } else {
             this.noPhysics = true;
@@ -253,7 +253,7 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
                     .damageSources()
                     .indirectMagic(this, this.getOwner());
 
-            result.getEntity().hurt(source, discConfig().defaultDamage.get());
+            result.getEntity().hurt(source, discConfig().getDamage(discStack));
             playImpactSound(ModSounds.DISC_HIT.get(), result.getLocation(), DISC_HIT_VOLUME, getRandomPitch());
 
             damageDisc();

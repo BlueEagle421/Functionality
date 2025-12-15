@@ -30,7 +30,7 @@ public class RecordItemTooltipMixin {
         tooltip.add(
                 Component.translatable("attribute.category.functionality.when_thrown").withStyle(ChatFormatting.GRAY));
 
-        String damageString = String.format("%.0f", config().defaultDamage.get().floatValue());
+        String damageString = String.format("%.0f", config().getDamage(stack));
         Component amountComp = Component.literal(damageString);
         Component attrNameComp = Component.translatable("attribute.name.generic.attack_damage");
         Component modifierLine = Component.translatable("attribute.modifier.equals.0", amountComp, attrNameComp)

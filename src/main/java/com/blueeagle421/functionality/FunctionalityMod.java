@@ -81,10 +81,12 @@ public class FunctionalityMod {
 
     private void onConfigLoad(final ModConfigEvent.Loading event) {
         CauldronUtils.reloadConfig();
+        FunctionalityConfig.COMMON.features.throwableDiscs.reloadStats();
     }
 
     private void onConfigReload(final ModConfigEvent.Reloading event) {
         CauldronUtils.reloadConfig();
+        FunctionalityConfig.COMMON.features.throwableDiscs.reloadStats();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
