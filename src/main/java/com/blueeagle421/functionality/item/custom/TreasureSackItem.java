@@ -19,7 +19,7 @@ import java.util.List;
 
 public class TreasureSackItem extends TooltipItem {
 
-    private final Float XP_DROP_CHANCE = 0.25f;
+    private final Float XP_DROP_CHANCE = 0.75f;
 
     @SuppressWarnings("removal")
     private static final ResourceLocation LOOT_TABLE = new ResourceLocation("functionality", "gameplay/treasure_sack");
@@ -54,7 +54,7 @@ public class TreasureSackItem extends TooltipItem {
         }
 
         if (serverLevel.random.nextFloat() < XP_DROP_CHANCE) {
-            int xpAmount = 3 + serverLevel.random.nextInt(5) + serverLevel.random.nextInt(5);
+            int xpAmount = 4 + serverLevel.random.nextInt(6) + serverLevel.random.nextInt(6);
             ExperienceOrb.award(serverLevel, player.position(), xpAmount);
         }
 
