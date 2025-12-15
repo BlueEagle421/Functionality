@@ -52,9 +52,9 @@ public class ThrowableDiscs {
                 .define("repairItem", "functionality:disc_shards");
 
         List<String> defaultStats = Arrays.asList(
-                "minecraft:music_disc_pigstep;8;8.0",
-                "minecraft:music_disc_5;8;8.0",
-                "minecraft:music_disc_relic;8;8.0",
+                "minecraft:music_disc_pigstep;8;6.0",
+                "minecraft:music_disc_5;8;6.0",
+                "minecraft:music_disc_relic;8;6.0",
                 "minecraft:music_disc_otherside;7;12.0",
                 "minecraft:music_disc_11;7;12.0",
                 "minecraft:music_disc_wait;7;12.0");
