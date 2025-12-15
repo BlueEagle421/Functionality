@@ -37,11 +37,11 @@ public class ThrowableDiscs {
 
         defaultDamage = builder
                 .comment("The default amount of damage the disc deals to entities. Overwritten by defaultStats list.")
-                .defineInRange("defaultDamage", 5d, 0d, Double.MAX_VALUE);
+                .defineInRange("defaultDamage", 5.0, 0.0, 128.0);
 
         defaultTravelDistance = builder
                 .comment("The default max travel distance (range) for thrown discs. Overwritten by defaultStats list.")
-                .defineInRange("defaultTravelDistance", 10d, 0d, Double.MAX_VALUE);
+                .defineInRange("defaultTravelDistance", 10.0, 0.0, 128.0);
 
         repairWithSelf = builder
                 .comment("If true, music discs will be repairable by combining two discs.")

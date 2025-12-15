@@ -18,7 +18,7 @@ public class Fins {
 
         maxSpeedMultiplier = builder
                 .comment("The max speed multiplier that will be applied while swimming.")
-                .defineInRange("maxSpeedMultiplier", 1.5d, 1d, Double.MAX_VALUE);
+                .defineInRange("maxSpeedMultiplier", 1.5, 1.0, 64.0);
 
         builder.pop();
     }

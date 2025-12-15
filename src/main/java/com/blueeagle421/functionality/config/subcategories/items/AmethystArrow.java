@@ -18,7 +18,7 @@ public class AmethystArrow {
 
         damageMultiplier = builder
                 .comment("The damage multiplier that will be applied when attacking with the arrow.")
-                .defineInRange("damageMultiplier", 1.2d, 1d, Double.MAX_VALUE);
+                .defineInRange("damageMultiplier", 1.2, 1.0, 64.0);
 
         builder.pop();
     }
