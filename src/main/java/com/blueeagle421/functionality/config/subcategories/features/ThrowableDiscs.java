@@ -15,6 +15,10 @@ import java.util.*;
 
 @SuppressWarnings("removal")
 public class ThrowableDiscs {
+
+    // impossible to configure from what I know unfortunately. Read by mixin
+    public static final int DURABILITY = 48;
+
     public final ForgeConfigSpec.BooleanValue enabled;
     public final ForgeConfigSpec.DoubleValue defaultDamage;
     public final ForgeConfigSpec.DoubleValue defaultTravelDistance;
@@ -33,11 +37,11 @@ public class ThrowableDiscs {
 
         defaultDamage = builder
                 .comment("The default amount of damage the disc deals to entities. Overwritten by defaultStats list.")
-                .defineInRange("defaultDamage", 6d, 0d, Double.MAX_VALUE);
+                .defineInRange("defaultDamage", 5d, 0d, Double.MAX_VALUE);
 
         defaultTravelDistance = builder
                 .comment("The default max travel distance (range) for thrown discs. Overwritten by defaultStats list.")
-                .defineInRange("defaultTravelDistance", 15d, 0d, Double.MAX_VALUE);
+                .defineInRange("defaultTravelDistance", 10d, 0d, Double.MAX_VALUE);
 
         repairWithSelf = builder
                 .comment("If true, music discs will be repairable by combining two discs.")
@@ -48,12 +52,12 @@ public class ThrowableDiscs {
                 .define("repairItem", "functionality:disc_shards");
 
         List<String> defaultStats = Arrays.asList(
-                "minecraft:music_disc_pigstep;8;13.0",
-                "minecraft:music_disc_5;8;13.0",
-                "minecraft:music_disc_relic;8;13.0",
-                "minecraft:music_disc_otherside;7;17.0",
-                "minecraft:music_disc_11;7;17.0",
-                "minecraft:music_disc_wait;7;17.0");
+                "minecraft:music_disc_pigstep;8;8.0",
+                "minecraft:music_disc_5;8;8.0",
+                "minecraft:music_disc_relic;8;8.0",
+                "minecraft:music_disc_otherside;7;12.0",
+                "minecraft:music_disc_11;7;12.0",
+                "minecraft:music_disc_wait;7;12.0");
 
         perItemStats = builder
                 .comment(

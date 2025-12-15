@@ -87,6 +87,7 @@
     "tooltip.functionality.details": "<Press %s for details>",
 
     "attribute.category.functionality.when_thrown": "When thrown:",
+    "attribute.name.functionality.throw_range": "Range",
 
     "information.functionality.treasure_sacks": "Over-harvesting treasure sacks empties them in the area. Wait a few days to refill.",
     "information.functionality.infinite_water_cauldron": "Place any of the listed blocks below a cauldron to make it an infinite water source.",
