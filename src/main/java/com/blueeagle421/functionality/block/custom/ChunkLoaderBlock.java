@@ -2,7 +2,6 @@ package com.blueeagle421.functionality.block.custom;
 
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.block.entity.custom.ChunkLoaderEntity;
-import com.blueeagle421.functionality.network.ModNetworking;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -46,7 +45,9 @@ public class ChunkLoaderBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
-            ModNetworking.sendChunkHighlight(player, pos);
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof ChunkLoaderEntity loader)
+                loader.toggleMode(player, pos);
         }
         return InteractionResult.SUCCESS;
     }
