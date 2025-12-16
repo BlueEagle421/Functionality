@@ -3,7 +3,7 @@ package com.blueeagle421.functionality.block.entity.custom;
 import org.jetbrains.annotations.Nullable;
 
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
-import com.blueeagle421.functionality.network.ModNetworking;
+import com.blueeagle421.functionality.network.ChunkHighlightClient;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -37,14 +37,18 @@ public class ChunkLoaderEntity extends BlockEntity {
             setChanged();
 
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-
-            int r = nineChunks ? 1 : 0;
-            ModNetworking.sendChunkHighlight(player, pos, r);
         }
     }
 
     public boolean isNineChunks() {
         return nineChunks;
+    }
+
+    public int radius() {
+        if (nineChunks)
+            return 1;
+
+        return 0;
     }
 
     private void updateTickets(ServerLevel server) {
@@ -81,7 +85,16 @@ public class ChunkLoaderEntity extends BlockEntity {
 
     @Override
     public void handleUpdateTag(CompoundTag tag) {
+        // load the new data first
         this.load(tag);
+
+        // Now that the BE has been updated on the client, refresh the chunk highlight
+        // for this loader
+        // (only relevant on the client side)
+        if (level != null && level.isClientSide) {
+            // use immutable position to match keys stored in ChunkHighlightClient
+            ChunkHighlightClient.update(worldPosition.immutable(), this.radius());
+        }
     }
 
     @Override

@@ -49,11 +49,9 @@ public class ChunkLoaderBlock extends BaseEntityBlock {
         if (player.isShiftKeyDown()) {
             if (level.isClientSide) {
                 BlockEntity be = level.getBlockEntity(pos);
-                int radius = 0;
-                if (be instanceof ChunkLoaderEntity loader && loader.isNineChunks()) {
-                    radius = 1;
+                if (be instanceof ChunkLoaderEntity loader) {
+                    ChunkHighlightClient.toggle(pos.immutable(), loader.radius());
                 }
-                ChunkHighlightClient.toggle(pos, radius);
             }
             return InteractionResult.SUCCESS;
         }

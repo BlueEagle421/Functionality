@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Collections;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ChunkHighlightRenderEvent {
@@ -24,9 +22,7 @@ public class ChunkHighlightRenderEvent {
     private static final float PIXEL_WIDTH = 1.5f; // screen-space thickness in pixels
     private static final int R = 178, G = 132, B = 215;
 
-    // Alpha to use for client-toggled "always render" chunks. Tweak this if you
-    // prefer.
-    private static final float CLIENT_ALPHA = 1.0f;
+    private static final float ALPHA = 1.0f;
 
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
@@ -37,16 +33,11 @@ public class ChunkHighlightRenderEvent {
         if (mc.level == null || mc.getCameraEntity() == null)
             return;
 
-        // Collect server-controlled chunks only if the server highlight state is active
-        List<ChunkPos> serverChunks = ChunkHighlightState.isActive() ? ChunkHighlightState.chunks()
-                : Collections.emptyList();
-        Set<ChunkPos> chunkSet = new HashSet<>(serverChunks);
+        Set<ChunkPos> chunkSet = new HashSet<>();
 
-        // Build a set of client-toggled chunk positions and add them to the render set
         Set<ChunkPos> clientChunkSet = ChunkHighlightClient.getAll();
         chunkSet.addAll(clientChunkSet);
 
-        // If there are no chunks from either source, skip rendering
         if (chunkSet.isEmpty())
             return;
 
@@ -55,21 +46,15 @@ public class ChunkHighlightRenderEvent {
         poseStack.pushPose();
         poseStack.translate(-camPos.x, -camPos.y, -camPos.z);
 
-        float serverAlpha = ChunkHighlightState.isActive() ? ChunkHighlightState.alpha() : 1.0f;
         MultiBufferSource.BufferSource buffer = mc.renderBuffers().bufferSource();
         var builder = buffer.getBuffer(RenderType.debugQuads());
 
         double minY = mc.level.getMinBuildHeight();
         double maxY = mc.level.getMaxBuildHeight();
 
-        // For each chunk in the list, draw its outer bounding cube + grid lines
         for (ChunkPos c : List.copyOf(chunkSet)) {
-            // Decide alpha for this chunk: client-toggled uses CLIENT_ALPHA, server uses
-            // serverAlpha
-            final float chunkAlpha = clientChunkSet.contains(c) ? CLIENT_ALPHA : serverAlpha;
 
-            // neighbor checks in chunk coordinates (use chunkSet which contains both
-            // sources)
+            // neighbor checks in chunk coords
             boolean hasNegX = chunkSet.contains(new ChunkPos(c.x - 1, c.z));
             boolean hasPosX = chunkSet.contains(new ChunkPos(c.x + 1, c.z));
             boolean hasNegZ = chunkSet.contains(new ChunkPos(c.x, c.z - 1));
@@ -80,7 +65,7 @@ public class ChunkHighlightRenderEvent {
             double maxX = c.getMaxBlockX() + 1;
             double maxZ = c.getMaxBlockZ() + 1;
 
-            // Helper to draw a thick line as a camera-facing quad (captures chunkAlpha)
+            // draw a thick line as a camera-facing quad
             java.util.function.BiConsumer<Vec3, Vec3> addThickLine = (start, end) -> {
                 Vec3 mid = start.add(end).scale(0.5);
                 double dist = mid.distanceTo(camPos);
@@ -107,50 +92,47 @@ public class ChunkHighlightRenderEvent {
                 Vec3 b2 = end.add(side);
 
                 var mat = poseStack.last().pose();
-                float a = chunkAlpha;
                 float r = R / 255f, g = G / 255f, b = B / 255f;
 
-                builder.vertex(mat, (float) a1.x, (float) a1.y, (float) a1.z).color(r, g, b, a).endVertex();
-                builder.vertex(mat, (float) b1.x, (float) b1.y, (float) b1.z).color(r, g, b, a).endVertex();
-                builder.vertex(mat, (float) b2.x, (float) b2.y, (float) b2.z).color(r, g, b, a).endVertex();
-                builder.vertex(mat, (float) a2.x, (float) a2.y, (float) a2.z).color(r, g, b, a).endVertex();
+                builder.vertex(mat, (float) a1.x, (float) a1.y, (float) a1.z).color(r, g, b, ALPHA).endVertex();
+                builder.vertex(mat, (float) b1.x, (float) b1.y, (float) b1.z).color(r, g, b, ALPHA).endVertex();
+                builder.vertex(mat, (float) b2.x, (float) b2.y, (float) b2.z).color(r, g, b, ALPHA).endVertex();
+                builder.vertex(mat, (float) a2.x, (float) a2.y, (float) a2.z).color(r, g, b, ALPHA).endVertex();
             };
 
-            // 12 edges of the chunk — skip edges that lie on an internal plane (neighbor
-            // exists)
-            // bottom face edges (y = minY)
+            // 12 edges of the chunk — skip edges that lie on an internal plane
             if (!hasNegZ)
-                addThickLine.accept(new Vec3(minX, minY, minZ), new Vec3(maxX, minY, minZ)); // z = minZ
+                addThickLine.accept(new Vec3(minX, minY, minZ), new Vec3(maxX, minY, minZ));
             if (!hasPosX)
-                addThickLine.accept(new Vec3(maxX, minY, minZ), new Vec3(maxX, minY, maxZ)); // x = maxX
+                addThickLine.accept(new Vec3(maxX, minY, minZ), new Vec3(maxX, minY, maxZ));
             if (!hasPosZ)
-                addThickLine.accept(new Vec3(maxX, minY, maxZ), new Vec3(minX, minY, maxZ)); // z = maxZ
+                addThickLine.accept(new Vec3(maxX, minY, maxZ), new Vec3(minX, minY, maxZ));
             if (!hasNegX)
-                addThickLine.accept(new Vec3(minX, minY, maxZ), new Vec3(minX, minY, minZ)); // x = minX
+                addThickLine.accept(new Vec3(minX, minY, maxZ), new Vec3(minX, minY, minZ));
 
-            // top face edges (y = maxY)
+            // top face edges
             if (!hasNegZ)
-                addThickLine.accept(new Vec3(minX, maxY, minZ), new Vec3(maxX, maxY, minZ)); // z = minZ
+                addThickLine.accept(new Vec3(minX, maxY, minZ), new Vec3(maxX, maxY, minZ));
             if (!hasPosX)
-                addThickLine.accept(new Vec3(maxX, maxY, minZ), new Vec3(maxX, maxY, maxZ)); // x = maxX
+                addThickLine.accept(new Vec3(maxX, maxY, minZ), new Vec3(maxX, maxY, maxZ));
             if (!hasPosZ)
-                addThickLine.accept(new Vec3(maxX, maxY, maxZ), new Vec3(minX, maxY, maxZ)); // z = maxZ
+                addThickLine.accept(new Vec3(maxX, maxY, maxZ), new Vec3(minX, maxY, maxZ));
             if (!hasNegX)
-                addThickLine.accept(new Vec3(minX, maxY, maxZ), new Vec3(minX, maxY, minZ)); // x = minX
+                addThickLine.accept(new Vec3(minX, maxY, maxZ), new Vec3(minX, maxY, minZ));
 
             // vertical edges — skip if either plane that contains the edge is internal
             if (!(hasNegX || hasNegZ))
-                addThickLine.accept(new Vec3(minX, minY, minZ), new Vec3(minX, maxY, minZ)); // corner minX,minZ
+                addThickLine.accept(new Vec3(minX, minY, minZ), new Vec3(minX, maxY, minZ));
             if (!(hasPosX || hasNegZ))
-                addThickLine.accept(new Vec3(maxX, minY, minZ), new Vec3(maxX, maxY, minZ)); // corner maxX,minZ
+                addThickLine.accept(new Vec3(maxX, minY, minZ), new Vec3(maxX, maxY, minZ));
             if (!(hasPosX || hasPosZ))
-                addThickLine.accept(new Vec3(maxX, minY, maxZ), new Vec3(maxX, maxY, maxZ)); // corner maxX,maxZ
+                addThickLine.accept(new Vec3(maxX, minY, maxZ), new Vec3(maxX, maxY, maxZ));
             if (!(hasNegX || hasPosZ))
-                addThickLine.accept(new Vec3(minX, minY, maxZ), new Vec3(minX, maxY, maxZ)); // corner minX,maxZ
+                addThickLine.accept(new Vec3(minX, minY, maxZ), new Vec3(minX, maxY, maxZ));
 
             double step = 1.0;
 
-            // Draw vertical grid lines along z and x edges for this chunk
+            // Draw vertical grid lines along edges
             if (!hasNegX) {
                 for (double z = minZ; z <= maxZ; z += step) {
                     addThickLine.accept(new Vec3(minX, minY, z), new Vec3(minX, maxY, z));
@@ -162,8 +144,7 @@ public class ChunkHighlightRenderEvent {
                 }
             }
 
-            // vertical lines at z = minZ and z = maxZ for each x (these are on the
-            // z-planes)
+            // more vertical grid lines
             if (!hasNegZ) {
                 for (double x = minX; x <= maxX; x += step) {
                     addThickLine.accept(new Vec3(x, minY, minZ), new Vec3(x, maxY, minZ));
@@ -175,7 +156,7 @@ public class ChunkHighlightRenderEvent {
                 }
             }
 
-            // Draw horizontal grid lines within this chunk (y levels)
+            // horizontal grid lines
             for (double y = minY; y <= maxY; y += step) {
                 if (!hasNegZ)
                     addThickLine.accept(new Vec3(minX, y, minZ), new Vec3(maxX, y, minZ));
