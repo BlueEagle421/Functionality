@@ -3,6 +3,8 @@ package com.blueeagle421.functionality.client.renderer;
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.block.entity.custom.ChunkLoaderEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -53,11 +55,11 @@ public class ChunkLoaderRenderer implements BlockEntityRenderer<ChunkLoaderEntit
 
         // Model + spacing
         final float modelWidthPixels = 4f;
-        final float gapPixels = 1f;
+        final float gapPixels = 0.01f;
         final float spacingBlocks = (modelWidthPixels + gapPixels) / 16f;
 
         // Wave
-        final float amplitude = 1.4f / 16f;
+        final float amplitude = 2f / 16f;
         final float waveSpeed = 0.25f;
         final float phaseStep = 0.7f;
 
@@ -65,9 +67,9 @@ public class ChunkLoaderRenderer implements BlockEntityRenderer<ChunkLoaderEntit
 
         poseStack.pushPose();
 
-        // poseStack.translate(0.5, 0.0, 0.5);
-        // poseStack.mulPose(Axis.YP.rotationDegrees(rotationDeg));
-        // poseStack.translate(-0.5, 0.0, -0.5);
+        poseStack.translate(0.5, 0.0, 0.5);
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotationDeg));
+        poseStack.translate(-0.5, 0.0, -0.5);
 
         for (int ix = -1; ix <= 1; ix++) {
             for (int iz = -1; iz <= 1; iz++) {
@@ -107,6 +109,6 @@ public class ChunkLoaderRenderer implements BlockEntityRenderer<ChunkLoaderEntit
 
     private float getRotation(Level level, BlockPos pos, float partialTicks) {
         long time = level.getGameTime();
-        return (time + partialTicks) * 4f; // degrees per tick
+        return (time + partialTicks) * 2f; // degrees per tick
     }
 }

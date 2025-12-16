@@ -17,6 +17,7 @@ import com.blueeagle421.functionality.event.anvil.ForgeRepairEvent;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.loot.ModLootModifiers;
+import com.blueeagle421.functionality.network.ModNetworking;
 import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.recipe.ModRecipes;
 import com.blueeagle421.functionality.sound.ModSounds;
@@ -93,7 +94,7 @@ public class FunctionalityMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(ModNetworking::register);
     }
 
     @SubscribeEvent
