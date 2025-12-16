@@ -12,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.block.custom.ChunkLoaderBlock;
 import com.blueeagle421.functionality.block.custom.FishTrapBlock;
 import com.blueeagle421.functionality.block.custom.GlowTorchBlock;
 import com.blueeagle421.functionality.block.custom.GlowWallTorchBlock;
@@ -24,9 +25,11 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch",
             () -> new GlowTorchBlock(
-                    BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
-                        return 14;
-                    }).sound(SoundType.WOOD), ModParticles.GLOW_FLAME));
+                    BlockBehaviour.Properties.of().noCollission().instabreak()
+                            .lightLevel((p_50755_) -> {
+                                return 14;
+                            }).sound(SoundType.WOOD),
+                    ModParticles.GLOW_FLAME));
 
     public static final RegistryObject<Block> WALL_GLOW_TORCH = BLOCKS.register("wall_glow_torch",
             () -> new GlowWallTorchBlock(BlockBehaviour.Properties.copy(GLOW_TORCH.get()),
@@ -34,10 +37,14 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> FISH_TRAP = BLOCKS.register("fish_trap",
             () -> new FishTrapBlock(
-                    BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.BAMBOO)));
+                    BlockBehaviour.Properties.of().noOcclusion().instabreak()
+                            .sound(SoundType.BAMBOO)));
 
     public static final RegistryObject<Block> LIGHTNING_CHARGER = BLOCKS.register("lightning_charger",
             () -> new LightningChargerBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
+
+    public static final RegistryObject<Block> CHUNK_LOADER = BLOCKS.register("chunk_loader",
+            () -> new ChunkLoaderBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

@@ -1,0 +1,22 @@
+{
+	"render_type": "cutout",
+	"texture_size": [ 64, 64 ],
+	"textures": {
+		"0": "functionality:block/chunk_loader",
+		"particle": "functionality:block/chunk_loader"
+	},
+	"elements": [
+		{
+			"from": [ 6, 14, 6 ],
+			"to": [ 10, 18, 10 ],
+			"faces": {
+				"north": { "uv": [ 1, 1, 2, 2 ], "texture": "#0" },
+				"east": { "uv": [ 0, 1, 1, 2 ], "texture": "#0" },
+				"south": { "uv": [ 3, 1, 4, 2 ], "texture": "#0" },
+				"west": { "uv": [ 2, 1, 3, 2 ], "texture": "#0" },
+				"up": { "uv": [ 2, 1, 1, 0 ], "texture": "#0" },
+				"down": { "uv": [ 3, 0, 2, 1 ], "texture": "#0" }
+			}
+		}
+	]
+}
