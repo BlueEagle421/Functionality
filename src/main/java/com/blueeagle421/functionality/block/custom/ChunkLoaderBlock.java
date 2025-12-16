@@ -5,6 +5,8 @@ import com.blueeagle421.functionality.block.entity.custom.ChunkLoaderEntity;
 import com.blueeagle421.functionality.network.ChunkHighlightClient;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -66,4 +68,59 @@ public class ChunkLoaderBlock extends BaseEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (oldState.getBlock() != newState.getBlock()) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof ChunkLoaderEntity loader) {
+                if (level.isClientSide) {
+                    ChunkHighlightClient.removeChunksForLoader(pos.immutable());
+                }
+            }
+        }
+        super.onRemove(oldState, level, pos, newState, isMoving);
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (!(be instanceof ChunkLoaderEntity loader))
+            return;
+
+        float frequency = 0.35f;
+        float ySpeed = -0.025f;
+
+        if (random.nextFloat() > frequency)
+            return;
+
+        // random side of the block
+        int side = random.nextInt(4);
+
+        double x = pos.getX() + 0.5;
+        double z = pos.getZ() + 0.5;
+
+        double offsetFromFace = 0.1; // slightly outside block
+        double faceDistance = 0.5f;
+        double jitter = 0.1;
+
+        double finalOffset = faceDistance + offsetFromFace;
+
+        switch (side) {
+            case 0 -> x += finalOffset;
+            case 1 -> x -= finalOffset;
+            case 2 -> z += finalOffset;
+            case 3 -> z -= finalOffset;
+        }
+
+        x += (random.nextDouble() - 0.5) * jitter;
+        z += (random.nextDouble() - 0.5) * jitter;
+
+        double y = pos.getY() + 0.15 + random.nextDouble() * 0.6;
+
+        level.addParticle(
+                ParticleTypes.END_ROD,
+                x, y, z,
+                0.0, ySpeed, 0.0);
+    }
 }

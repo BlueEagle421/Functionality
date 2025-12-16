@@ -85,14 +85,9 @@ public class ChunkLoaderEntity extends BlockEntity {
 
     @Override
     public void handleUpdateTag(CompoundTag tag) {
-        // load the new data first
         this.load(tag);
 
-        // Now that the BE has been updated on the client, refresh the chunk highlight
-        // for this loader
-        // (only relevant on the client side)
         if (level != null && level.isClientSide) {
-            // use immutable position to match keys stored in ChunkHighlightClient
             ChunkHighlightClient.update(worldPosition.immutable(), this.radius());
         }
     }
