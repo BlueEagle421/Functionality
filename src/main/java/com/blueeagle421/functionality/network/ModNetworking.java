@@ -31,10 +31,10 @@ public class ModNetworking {
                 ChunkHighlightPacket::handle);
     }
 
-    public static void sendChunkHighlight(Player player, BlockPos pos) {
+    public static void sendChunkHighlight(Player player, BlockPos pos, int radius) {
         if (player instanceof ServerPlayer sp) {
             CHANNEL.send(PacketDistributor.PLAYER.with(() -> sp),
-                    new ChunkHighlightPacket(pos));
+                    new ChunkHighlightPacket(pos, radius));
         }
     }
 }

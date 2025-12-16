@@ -2,6 +2,7 @@ package com.blueeagle421.functionality.block.custom;
 
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.block.entity.custom.ChunkLoaderEntity;
+import com.blueeagle421.functionality.network.ChunkHighlightClient;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -44,11 +45,27 @@ public class ChunkLoaderBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
+
+        if (player.isShiftKeyDown()) {
+            if (level.isClientSide) {
+                BlockEntity be = level.getBlockEntity(pos);
+                int radius = 0;
+                if (be instanceof ChunkLoaderEntity loader && loader.isNineChunks()) {
+                    radius = 1;
+                }
+                ChunkHighlightClient.toggle(pos, radius);
+            }
+            return InteractionResult.SUCCESS;
+        }
+
         if (!level.isClientSide) {
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof ChunkLoaderEntity loader)
+            if (be instanceof ChunkLoaderEntity loader) {
                 loader.toggleMode(player, pos);
+            }
         }
+
         return InteractionResult.SUCCESS;
     }
+
 }

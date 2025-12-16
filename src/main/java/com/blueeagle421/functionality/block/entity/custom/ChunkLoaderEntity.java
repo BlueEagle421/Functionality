@@ -37,7 +37,9 @@ public class ChunkLoaderEntity extends BlockEntity {
             setChanged();
 
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-            ModNetworking.sendChunkHighlight(player, pos);
+
+            int r = nineChunks ? 1 : 0;
+            ModNetworking.sendChunkHighlight(player, pos, r);
         }
     }
 
