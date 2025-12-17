@@ -25,7 +25,7 @@ public class ChunkHighlightRenderEvent {
     // alpha ping-pong
     private static final float MIN_ALPHA = 0.5f;
     private static final float MAX_ALPHA = 1f;
-    private static final double PERIOD_SECONDS = 0.65;
+    private static final double PERIOD_SECONDS = 1;
 
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
