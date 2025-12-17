@@ -22,7 +22,10 @@ public class ChunkHighlightRenderEvent {
     private static final float PIXEL_WIDTH = 1.5f; // screen-space thickness in pixels
     private static final int R = 178, G = 132, B = 215;
 
-    private static final float ALPHA = 1.0f;
+    // alpha ping-pong
+    private static final float MIN_ALPHA = 0.5f;
+    private static final float MAX_ALPHA = 1f;
+    private static final double PERIOD_SECONDS = 0.65;
 
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
@@ -40,6 +43,10 @@ public class ChunkHighlightRenderEvent {
 
         if (chunkSet.isEmpty())
             return;
+
+        double t = System.currentTimeMillis() / 1000.0; // seconds
+        double s = Math.sin(2.0 * Math.PI * t / PERIOD_SECONDS); // -1..1
+        float alpha = (float) (MIN_ALPHA + (MAX_ALPHA - MIN_ALPHA) * (0.5 * (1.0 + s)));
 
         Vec3 camPos = event.getCamera().getPosition();
         PoseStack poseStack = event.getPoseStack();
@@ -94,10 +101,10 @@ public class ChunkHighlightRenderEvent {
                 var mat = poseStack.last().pose();
                 float r = R / 255f, g = G / 255f, b = B / 255f;
 
-                builder.vertex(mat, (float) a1.x, (float) a1.y, (float) a1.z).color(r, g, b, ALPHA).endVertex();
-                builder.vertex(mat, (float) b1.x, (float) b1.y, (float) b1.z).color(r, g, b, ALPHA).endVertex();
-                builder.vertex(mat, (float) b2.x, (float) b2.y, (float) b2.z).color(r, g, b, ALPHA).endVertex();
-                builder.vertex(mat, (float) a2.x, (float) a2.y, (float) a2.z).color(r, g, b, ALPHA).endVertex();
+                builder.vertex(mat, (float) a1.x, (float) a1.y, (float) a1.z).color(r, g, b, alpha).endVertex();
+                builder.vertex(mat, (float) b1.x, (float) b1.y, (float) b1.z).color(r, g, b, alpha).endVertex();
+                builder.vertex(mat, (float) b2.x, (float) b2.y, (float) b2.z).color(r, g, b, alpha).endVertex();
+                builder.vertex(mat, (float) a2.x, (float) a2.y, (float) a2.z).color(r, g, b, alpha).endVertex();
             };
 
             // 12 edges of the chunk — skip edges that lie on an internal plane
