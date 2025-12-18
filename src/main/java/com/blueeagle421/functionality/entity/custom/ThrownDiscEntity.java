@@ -179,6 +179,11 @@ public class ThrownDiscEntity extends ThrowableItemProjectile {
 
         ItemStack copy = this.discStack.copy();
 
+        if (player.getInventory().contains(copy) && player.getAbilities().instabuild) {
+            this.discard();
+            return;
+        }
+
         if (attemptReturnToOriginalSlot(player, copy)) {
             this.discard();
             return;
