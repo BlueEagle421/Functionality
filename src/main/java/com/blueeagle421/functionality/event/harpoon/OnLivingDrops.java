@@ -102,13 +102,6 @@ public class OnLivingDrops {
         if (player.getOffhandItem().getItem() instanceof HarpoonItem)
             return true;
 
-        Entity direct = source.getDirectEntity();
-        if (direct instanceof Projectile proj) {
-            Entity owner = proj.getOwner();
-            if (owner == player)
-                return true;
-        }
-
         return false;
     }
 
