@@ -76,7 +76,7 @@ public class ModFoods {
 
         public static final FoodProperties TERRAPIN_SOUP = new FoodProperties.Builder()
                         .nutrition(8).saturationMod(0.6f)
-                        .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 3600, 0), 1f)
+                        .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 3600, 1), 1f)
                         .alwaysEat()
                         .build();
 
