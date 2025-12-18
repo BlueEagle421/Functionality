@@ -68,20 +68,6 @@ public class ChunkLoaderBlock extends BaseEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (oldState.getBlock() != newState.getBlock()) {
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof ChunkLoaderEntity loader) {
-                if (level.isClientSide) {
-                    ChunkHighlightClient.removeChunksForLoader(pos.immutable());
-                }
-            }
-        }
-        super.onRemove(oldState, level, pos, newState, isMoving);
-    }
-
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         BlockEntity be = level.getBlockEntity(pos);

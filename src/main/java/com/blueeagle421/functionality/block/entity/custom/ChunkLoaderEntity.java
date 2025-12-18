@@ -109,6 +109,9 @@ public class ChunkLoaderEntity extends BlockEntity {
 
     @Override
     public void setRemoved() {
+        if (this.level != null && this.level.isClientSide) {
+            ChunkHighlightClient.removeChunksForLoader(this.worldPosition.immutable());
+        }
         if (!this.remove && level instanceof ServerLevel server) {
             removeTickets(server);
         }

@@ -43,6 +43,8 @@ public class ChunkHighlightClient {
     }
 
     public static synchronized void toggle(BlockPos pos, int radius) {
+        pos = pos.immutable();
+
         if (loaderRadius.containsKey(pos)) {
             removeChunksForLoader(pos);
         } else {
@@ -51,9 +53,12 @@ public class ChunkHighlightClient {
     }
 
     public static synchronized void removeChunksForLoader(BlockPos pos) {
+        pos = pos.immutable();
+
         Integer prev = loaderRadius.remove(pos);
         if (prev == null)
             return;
+
         ChunkPos center = new ChunkPos(pos);
         for (int dx = -prev; dx <= prev; dx++) {
             for (int dz = -prev; dz <= prev; dz++) {
@@ -76,6 +81,8 @@ public class ChunkHighlightClient {
     }
 
     public static synchronized void update(BlockPos pos, int radius) {
+        pos = pos.immutable();
+
         if (!loaderRadius.containsKey(pos))
             return;
 
