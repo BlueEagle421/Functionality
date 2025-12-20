@@ -37,7 +37,7 @@ public class MultifaceGrowthFeatureMixin {
         if (config.placeBlock != Blocks.GLOW_LICHEN)
             return;
 
-        MultifaceBlock dryLichen = (MultifaceBlock) ModBlocks.DRY_LICHEN.get();
+        MultifaceBlock dryLichen = (MultifaceBlock) ModBlocks.LICHEN.get();
 
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {

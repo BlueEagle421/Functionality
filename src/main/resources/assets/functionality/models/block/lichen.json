@@ -1,8 +1,8 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "functionality:block/dry_lichen",
-        "glow_lichen": "functionality:block/dry_lichen"
+        "particle": "functionality:block/lichen",
+        "glow_lichen": "functionality:block/lichen"
     },
     "elements": [
         { "from": [ 0, 0, 0.1 ],
