@@ -58,13 +58,17 @@ public class MultifaceGrowthFeatureMixin {
         if (!cir.getReturnValue())
             return;
 
-        replaceVanillaLichen(level, pos);
+        replaceVanillaLichen(level, pos, random);
         placeSurroundingLichen(level, pos, state, config, random, directions);
     }
 
     private static void replaceVanillaLichen(WorldGenLevel level,
-            BlockPos pos) {
+            BlockPos pos, RandomSource random) {
         BlockState vanillaState = level.getBlockState(pos);
+        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
+
+        if (random.nextFloat() > modConfig.lichenOverrideChance.get())
+            return;
 
         if (vanillaState.is(Blocks.GLOW_LICHEN)) {
 

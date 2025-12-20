@@ -11,9 +11,10 @@ import com.blueeagle421.functionality.config.FunctionalityConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.util.RandomSource;
 
 @Mixin(MultifaceSpreader.DefaultSpreaderConfig.class)
 public class MixinMultifaceSpreader_DefaultSpreaderConfig {
@@ -21,11 +22,16 @@ public class MixinMultifaceSpreader_DefaultSpreaderConfig {
     @Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
     private void onGetStateForPlacement(BlockState currentState, BlockGetter level, BlockPos pos,
             Direction lookingDirection, CallbackInfoReturnable<BlockState> cir) {
-        BlockState returned = cir.getReturnValue();
 
+        BlockState returned = cir.getReturnValue();
         var config = FunctionalityConfig.COMMON.features.betterLichens;
 
-        if (config.enabled.get() && returned != null && returned.is(Blocks.GLOW_LICHEN))
+        if (!config.enabled.get() || returned == null || !returned.is(Blocks.GLOW_LICHEN))
+            return;
+
+        RandomSource random = RandomSource.create();
+        if (random.nextFloat() <= config.lichenOverrideChance.get()) {
             cir.setReturnValue(ModBlocks.GLOW_LICHEN.get().defaultBlockState());
+        }
     }
 }
