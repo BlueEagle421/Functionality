@@ -47,8 +47,10 @@
     "tooltip.functionality.fish_trap": "Catches fish over time.",
     "tooltip.detailed.functionality.fish_trap": "Place to increase luck:\n • Amethyst crystals\n • Gold blocks\n • Mob heads\nWorks within 5 blocks (2 of each for max luck).\nHigher light level speeds it up.\nWater depth increases catch amount.",
     "message.functionality.fish_trap.stats": "Luck: %s Max catch: %s Speed: %s%%",
-
-    "tooltip.functionality.lightning_charger": "Smelts items using lightnings.",
+    "tooltip.functionality.lightning_charger": "Smelts and charges items. Place a lightning rod on top.",
+    "tooltip.functionality.dry_lichen": "Ancient remains of a lichen.",
+    "tooltip.functionality.lichen": "A hybrid colony of algae and fungus.",
+    "tooltip.functionality.glow_lichen": "A lichen adapted to dark environments.",
     "tooltip.functionality.chunk_loader": "Keeps designated chunks loaded.",
     "tooltip.detailed.functionality.chunk_loader": " • Right click - configure radius.\n • Sneak + Right click - Toggle radius rendering.",
 
