@@ -92,7 +92,6 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.DRY_LICHEN.get()));
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.LICHEN.get()));
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.GLOW_LICHEN.get()));
-        acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.ABLOOM_LICHEN.get()));
     }
 
     private static void acceptIf(Consumer<ItemStack> output, BooleanSupplier enabled,
