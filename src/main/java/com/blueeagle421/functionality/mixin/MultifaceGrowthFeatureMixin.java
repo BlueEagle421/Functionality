@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.blueeagle421.functionality.block.ModBlocks;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 
 import java.util.List;
 
@@ -27,9 +28,10 @@ public class MultifaceGrowthFeatureMixin {
             CallbackInfoReturnable<Boolean> cir) {
         MultifaceGrowthConfiguration config = context.config();
         RandomSource random = context.random();
+        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
 
-        if (config.placeBlock == Blocks.GLOW_LICHEN) {
-            if (random.nextFloat() < 0.65f) {
+        if (modConfig.enabled.get() && config.placeBlock == Blocks.GLOW_LICHEN) {
+            if (random.nextFloat() > modConfig.lichenFeatureGenChance.get()) {
                 cir.setReturnValue(false);
             }
         }
@@ -44,6 +46,11 @@ public class MultifaceGrowthFeatureMixin {
             RandomSource random,
             List<Direction> directions,
             CallbackInfoReturnable<Boolean> cir) {
+
+        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
+
+        if (!modConfig.enabled.get())
+            return;
 
         if (config.placeBlock != Blocks.GLOW_LICHEN)
             return;
@@ -82,6 +89,9 @@ public class MultifaceGrowthFeatureMixin {
             MultifaceGrowthConfiguration config,
             RandomSource random,
             List<Direction> directions) {
+
+        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
+
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 if (dx == 0 && dz == 0)
@@ -90,13 +100,13 @@ public class MultifaceGrowthFeatureMixin {
                 BlockPos targetPos = pos.offset(dx, 0, dz);
                 BlockState targetState = level.getBlockState(targetPos);
 
-                if (random.nextFloat() > 0.55f)
+                if (random.nextFloat() > modConfig.surroundingLichenGenChance.get())
                     continue;
 
                 if (!targetState.isAir() && !targetState.is(Blocks.WATER))
                     continue;
 
-                MultifaceBlock lichen = random.nextFloat() < 0.35f
+                MultifaceBlock lichen = random.nextFloat() < modConfig.dryLichenGenChance.get()
                         ? (MultifaceBlock) ModBlocks.DRY_LICHEN.get()
                         : (MultifaceBlock) ModBlocks.LICHEN.get();
 

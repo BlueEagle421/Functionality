@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.blueeagle421.functionality.block.ModBlocks;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,8 +23,9 @@ public class MixinMultifaceSpreader_DefaultSpreaderConfig {
             Direction lookingDirection, CallbackInfoReturnable<BlockState> cir) {
         BlockState returned = cir.getReturnValue();
 
-        if (returned != null && returned.is(Blocks.GLOW_LICHEN))
-            cir.setReturnValue(ModBlocks.GLOW_LICHEN.get().defaultBlockState());
+        var config = FunctionalityConfig.COMMON.features.betterLichens;
 
+        if (config.enabled.get() && returned != null && returned.is(Blocks.GLOW_LICHEN))
+            cir.setReturnValue(ModBlocks.GLOW_LICHEN.get().defaultBlockState());
     }
 }
