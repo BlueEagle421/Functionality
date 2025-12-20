@@ -46,6 +46,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> DRY_LICHEN = BLOCKS.register("dry_lichen", () -> new GlowLichenBlock(
             BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(0))));
 
+    public static final RegistryObject<Block> ABLOOM_LICHEN = BLOCKS.register("abloom_lichen",
+            () -> new GlowLichenBlock(
+                    BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(9))));
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         return toReturn;

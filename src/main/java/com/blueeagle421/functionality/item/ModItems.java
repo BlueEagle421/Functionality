@@ -133,6 +133,9 @@ public class ModItems {
     public static final RegistryObject<Item> DRY_LICHEN = ITEMS.register("dry_lichen",
             () -> new TooltipBlockItem(ModBlocks.DRY_LICHEN.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> ABLOOM_LICHEN = ITEMS.register("abloom_lichen",
+            () -> new TooltipBlockItem(ModBlocks.ABLOOM_LICHEN.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> PHEROMONES = ITEMS.register("pheromones",
             () -> new PheromonesItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
