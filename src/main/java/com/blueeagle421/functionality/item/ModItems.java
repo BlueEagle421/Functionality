@@ -133,6 +133,9 @@ public class ModItems {
         public static final RegistryObject<Item> GLOW_LICHEN = ITEMS.register("glow_lichen",
                         () -> new TooltipBlockItem(ModBlocks.GLOW_LICHEN.get(), new Item.Properties()));
 
+        public static final RegistryObject<Item> DRY_LICHEN = ITEMS.register("dry_lichen",
+                        () -> new TooltipBlockItem(ModBlocks.DRY_LICHEN.get(), new Item.Properties()));
+
         public static final RegistryObject<Item> LICHEN = ITEMS.register("lichen",
                         () -> new TooltipBlockItem(ModBlocks.LICHEN.get(), new Item.Properties()));
 

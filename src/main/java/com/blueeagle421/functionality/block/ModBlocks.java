@@ -47,6 +47,9 @@ public class ModBlocks {
                         () -> new GlowLichenBlock(
                                         BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN)));
 
+        public static final RegistryObject<Block> DRY_LICHEN = BLOCKS.register("dry_lichen", () -> new GlowLichenBlock(
+                        BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(0))));
+
         public static final RegistryObject<Block> LICHEN = BLOCKS.register("lichen", () -> new GlowLichenBlock(
                         BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(0))));
 
