@@ -37,9 +37,12 @@
     "effect.functionality.glow_blessing": "Glow Blessing",
 
     "block.functionality.glow_torch": "Glow Torch",
-
     "block.functionality.fish_trap": "Fish Trap",
     "block.functionality.lightning_charger": "Lightning Altar",
+    "block.functionality.dry_lichen": "Dry Lichen",
+    "block.functionality.lichen": "Lichen",
+    "block.functionality.glow_lichen": "Glow Lichen",
+    "block.functionality.abloom_lichen": "Abloom Lichen",
 
     "tooltip.functionality.fish_trap": "Catches fish over time.",
     "tooltip.detailed.functionality.fish_trap": "Place to increase luck:\n • Amethyst crystals\n • Gold blocks\n • Mob heads\nWorks within 5 blocks (2 of each for max luck).\nHigher light level speeds it up.\nWater depth increases catch amount.",
