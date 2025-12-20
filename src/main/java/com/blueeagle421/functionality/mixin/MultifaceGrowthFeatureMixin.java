@@ -31,14 +31,43 @@ public class MultifaceGrowthFeatureMixin {
             List<Direction> directions,
             CallbackInfoReturnable<Boolean> cir) {
 
-        if (!cir.getReturnValue())
-            return;
-
         if (config.placeBlock != Blocks.GLOW_LICHEN)
             return;
 
-        MultifaceBlock dryLichen = (MultifaceBlock) ModBlocks.LICHEN.get();
+        if (!cir.getReturnValue())
+            return;
 
+        replaceVanillaLichen(level, pos);
+        placeSurroundingLichen(level, pos, state, config, random, directions);
+    }
+
+    private static void replaceVanillaLichen(WorldGenLevel level,
+            BlockPos pos) {
+        BlockState vanillaState = level.getBlockState(pos);
+
+        if (vanillaState.is(Blocks.GLOW_LICHEN)) {
+
+            BlockState modState = ModBlocks.GLOW_LICHEN.get().defaultBlockState();
+
+            for (Direction dir : Direction.values()) {
+                if (vanillaState.hasProperty(MultifaceBlock.getFaceProperty(dir))
+                        && vanillaState.getValue(MultifaceBlock.getFaceProperty(dir))) {
+                    modState = modState.setValue(
+                            MultifaceBlock.getFaceProperty(dir),
+                            true);
+                }
+            }
+
+            level.setBlock(pos, modState, 3);
+        }
+    }
+
+    private static void placeSurroundingLichen(WorldGenLevel level,
+            BlockPos pos,
+            BlockState state,
+            MultifaceGrowthConfiguration config,
+            RandomSource random,
+            List<Direction> directions) {
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 if (dx == 0 && dz == 0)
@@ -47,8 +76,15 @@ public class MultifaceGrowthFeatureMixin {
                 BlockPos targetPos = pos.offset(dx, 0, dz);
                 BlockState targetState = level.getBlockState(targetPos);
 
+                if (random.nextFloat() > 0.55f)
+                    continue;
+
                 if (!targetState.isAir() && !targetState.is(Blocks.WATER))
                     continue;
+
+                MultifaceBlock lichen = random.nextFloat() < 0.35f
+                        ? (MultifaceBlock) ModBlocks.DRY_LICHEN.get()
+                        : (MultifaceBlock) ModBlocks.LICHEN.get();
 
                 for (Direction dir : directions) {
                     BlockPos supportPos = targetPos.relative(dir);
@@ -57,7 +93,7 @@ public class MultifaceGrowthFeatureMixin {
                     if (!supportState.is(config.canBePlacedOn))
                         continue;
 
-                    BlockState placedState = dryLichen.getStateForPlacement(targetState, level, targetPos, dir);
+                    BlockState placedState = lichen.getStateForPlacement(targetState, level, targetPos, dir);
                     if (placedState == null)
                         continue;
 
@@ -65,7 +101,7 @@ public class MultifaceGrowthFeatureMixin {
                     level.getChunk(targetPos).markPosForPostprocessing(targetPos);
 
                     if (random.nextFloat() < config.chanceOfSpreading) {
-                        dryLichen.getSpreader().spreadFromFaceTowardRandomDirection(
+                        lichen.getSpreader().spreadFromFaceTowardRandomDirection(
                                 placedState, level, targetPos, dir, random, true);
 
                         break;
