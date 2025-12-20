@@ -43,6 +43,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> LIGHTNING_CHARGER = BLOCKS.register("lightning_charger",
             () -> new LightningChargerBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
 
+    public static final RegistryObject<Block> GLOW_LICHEN = BLOCKS.register("glow_lichen",
+            () -> new GlowLichenBlock(
+                    BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN)));
+
     public static final RegistryObject<Block> DRY_LICHEN = BLOCKS.register("dry_lichen", () -> new GlowLichenBlock(
             BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(0))));
 
