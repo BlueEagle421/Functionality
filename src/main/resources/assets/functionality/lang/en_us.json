@@ -39,6 +39,9 @@
     "block.functionality.glow_torch": "Glow Torch",
     "block.functionality.fish_trap": "Fish Trap",
     "block.functionality.lightning_charger": "Lightning Altar",
+    "block.functionality.dry_lichen": "Dry Lichen",
+    "block.functionality.lichen": "Lichen",
+    "block.functionality.glow_lichen": "Bloom Lichen",
     "block.functionality.chunk_loader": "Chunk Keeper",
 
     "tooltip.functionality.fish_trap": "Catches fish over time.",

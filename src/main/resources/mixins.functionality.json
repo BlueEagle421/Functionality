@@ -15,7 +15,9 @@
         "throwableDiscs.ItemsMixin",
         "throwableDiscs.ItemRepairMixin",
         "throwableDiscs.ItemEnchantabilityMixin",
-        "throwableDiscs.RecordItemTooltipMixin"
+        "throwableDiscs.RecordItemTooltipMixin",
+        "MultifaceGrowthFeatureMixin",
+        "MixinMultifaceSpreader_DefaultSpreaderConfig"
     ],
     "client": [ ],
     "server": [ ]

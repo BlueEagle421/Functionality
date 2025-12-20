@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.categories.ItemsCategory;
+import com.blueeagle421.functionality.config.subcategories.features.BetterLichens;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -91,6 +92,9 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().phantomLead.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_LEAD.get()));
         acceptIf(out, () -> config().ancientSeeker.enabled.get(), () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.HARPOON.get()));
+        acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.DRY_LICHEN.get()));
+        acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.LICHEN.get()));
+        acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.GLOW_LICHEN.get()));
     }
 
     private static void acceptIf(Consumer<ItemStack> output, BooleanSupplier enabled,
@@ -103,6 +107,10 @@ public class ModCreativeTabs {
 
     private static ItemsCategory config() {
         return FunctionalityConfig.COMMON.items;
+    }
+
+    private static BetterLichens lichenConfig() {
+        return FunctionalityConfig.COMMON.features.betterLichens;
     }
 
     public static void register(IEventBus eventBus) {
