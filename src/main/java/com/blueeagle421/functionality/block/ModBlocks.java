@@ -60,7 +60,7 @@ public class ModBlocks {
             () -> new BloomLichenBlock(
                     BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN)
                             .strength(0.08F)
-                            .lightLevel(GlowLichenBlock.emission(7))));
+                            .lightLevel(GlowLichenBlock.emission(11))));
 
     public static final RegistryObject<Block> CHUNK_LOADER = BLOCKS.register("chunk_loader",
             () -> new ChunkLoaderBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
