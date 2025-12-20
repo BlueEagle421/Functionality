@@ -4,6 +4,7 @@ import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
+import com.blueeagle421.functionality.client.particle.CustomSuspendedParticle;
 import com.blueeagle421.functionality.client.particle.GlowSmokeParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
@@ -128,6 +129,8 @@ public class FunctionalityMod {
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(ModParticles.GLOW_SMOKE.get(), GlowSmokeParticle.Provider::new);
             event.registerSpriteSet(ModParticles.ANCIENT_SEEKER.get(), AncientSeekerParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.BLOOM_LICHEN_AIR.get(),
+                    CustomSuspendedParticle.BloomLichenAirProvider::new);
         }
 
         @SubscribeEvent

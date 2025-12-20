@@ -19,6 +19,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> ANCIENT_SEEKER = PARTICLE_TYPES
             .register("ancient_seeker", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BLOOM_LICHEN_AIR = PARTICLE_TYPES
+            .register("bloom_lichen_air", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }
