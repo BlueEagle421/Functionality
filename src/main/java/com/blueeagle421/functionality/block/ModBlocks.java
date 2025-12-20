@@ -45,13 +45,14 @@ public class ModBlocks {
 
         public static final RegistryObject<Block> GLOW_LICHEN = BLOCKS.register("glow_lichen",
                         () -> new GlowLichenBlock(
-                                        BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN)));
+                                        BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN)
+                                                        .lightLevel(GlowLichenBlock.emission(11))));
 
         public static final RegistryObject<Block> DRY_LICHEN = BLOCKS.register("dry_lichen", () -> new GlowLichenBlock(
                         BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(0))));
 
         public static final RegistryObject<Block> LICHEN = BLOCKS.register("lichen", () -> new GlowLichenBlock(
-                        BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(0))));
+                        BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).lightLevel(GlowLichenBlock.emission(5))));
 
         public static final RegistryObject<Block> ABLOOM_LICHEN = BLOCKS.register("abloom_lichen",
                         () -> new GlowLichenBlock(

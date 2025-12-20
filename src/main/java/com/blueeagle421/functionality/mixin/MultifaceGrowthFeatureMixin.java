@@ -7,6 +7,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +21,19 @@ import java.util.List;
 
 @Mixin(MultifaceGrowthFeature.class)
 public class MultifaceGrowthFeatureMixin {
+
+    @Inject(method = "place", at = @At("HEAD"), cancellable = true)
+    private void beforePlace(FeaturePlaceContext<MultifaceGrowthConfiguration> context,
+            CallbackInfoReturnable<Boolean> cir) {
+        MultifaceGrowthConfiguration config = context.config();
+        RandomSource random = context.random();
+
+        if (config.placeBlock == Blocks.GLOW_LICHEN) {
+            if (random.nextFloat() < 0.65f) {
+                cir.setReturnValue(false);
+            }
+        }
+    }
 
     @Inject(method = "placeGrowthIfPossible", at = @At("RETURN"))
     private static void afterPlaceGrowth(
