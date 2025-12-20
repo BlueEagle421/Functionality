@@ -77,7 +77,7 @@ public class GlowTorchBlock extends TorchBlock implements SimpleWaterloggedBlock
         double d0 = (double) pPos.getX() + 0.5D;
         double d1 = (double) pPos.getY() + 0.7D;
         double d2 = (double) pPos.getZ() + 0.5D;
-        pLevel.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+
         pLevel.addParticle(pTypeRegistryObject.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 

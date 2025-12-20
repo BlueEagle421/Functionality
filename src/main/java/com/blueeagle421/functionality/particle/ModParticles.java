@@ -16,6 +16,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> GLOW_FLAME = PARTICLE_TYPES
             .register("glow_flame", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> GLOW_SMOKE = PARTICLE_TYPES
+            .register("glow_smoke", () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> ANCIENT_SEEKER = PARTICLE_TYPES
             .register("ancient_seeker", () -> new SimpleParticleType(true));
 

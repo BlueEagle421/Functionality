@@ -32,11 +32,11 @@ public class ModBlocks {
                                                                 return 14;
                                                         }).sound(SoundType.WOOD),
 
-                                        ModParticles.GLOW_FLAME));
+                                        ModParticles.GLOW_SMOKE));
 
         public static final RegistryObject<Block> WALL_GLOW_TORCH = BLOCKS.register("wall_glow_torch",
                         () -> new GlowWallTorchBlock(BlockBehaviour.Properties.copy(GLOW_TORCH.get()),
-                                        ModParticles.GLOW_FLAME));
+                                        ModParticles.GLOW_SMOKE));
 
         public static final RegistryObject<Block> FISH_TRAP = BLOCKS.register("fish_trap",
                         () -> new FishTrapBlock(
