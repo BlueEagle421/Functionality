@@ -31,7 +31,7 @@ public class MixinMultifaceSpreader_DefaultSpreaderConfig {
 
         RandomSource random = RandomSource.create();
         if (random.nextFloat() <= config.lichenOverrideChance.get()) {
-            cir.setReturnValue(ModBlocks.GLOW_LICHEN.get().defaultBlockState());
+            cir.setReturnValue(ModBlocks.BLOOM_LICHEN.get().defaultBlockState());
         }
     }
 }

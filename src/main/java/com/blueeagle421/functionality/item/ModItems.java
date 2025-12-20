@@ -130,8 +130,8 @@ public class ModItems {
         public static final RegistryObject<Item> LIGHTNING_CHARGER = ITEMS.register("lightning_charger",
                         () -> new TooltipBlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
 
-        public static final RegistryObject<Item> GLOW_LICHEN = ITEMS.register("glow_lichen",
-                        () -> new TooltipBlockItem(ModBlocks.GLOW_LICHEN.get(), new Item.Properties()));
+        public static final RegistryObject<Item> BLOOM_LICHEN = ITEMS.register("bloom_lichen",
+                        () -> new TooltipBlockItem(ModBlocks.BLOOM_LICHEN.get(), new Item.Properties()));
 
         public static final RegistryObject<Item> DRY_LICHEN = ITEMS.register("dry_lichen",
                         () -> new TooltipBlockItem(ModBlocks.DRY_LICHEN.get(), new Item.Properties()));
@@ -140,9 +140,9 @@ public class ModItems {
                         () -> new TooltipBlockItem(ModBlocks.LICHEN.get(), new Item.Properties()));
 
         public static final RegistryObject<Item> CHUNK_LOADER = ITEMS.register("chunk_loader",
-            () -> new TooltipBlockItem(ModBlocks.CHUNK_LOADER.get(), new Item.Properties()));
+                        () -> new TooltipBlockItem(ModBlocks.CHUNK_LOADER.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> PHEROMONES = ITEMS.register("pheromones",
+        public static final RegistryObject<Item> PHEROMONES = ITEMS.register("pheromones",
                         () -> new PheromonesItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
         public static final RegistryObject<Item> PHANTOM_TREAT = ITEMS.register("phantom_treat",

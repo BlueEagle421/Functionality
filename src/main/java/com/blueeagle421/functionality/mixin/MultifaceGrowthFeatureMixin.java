@@ -72,7 +72,7 @@ public class MultifaceGrowthFeatureMixin {
 
         if (vanillaState.is(Blocks.GLOW_LICHEN)) {
 
-            BlockState modState = ModBlocks.GLOW_LICHEN.get().defaultBlockState();
+            BlockState modState = ModBlocks.BLOOM_LICHEN.get().defaultBlockState();
 
             for (Direction dir : Direction.values()) {
                 if (vanillaState.hasProperty(MultifaceBlock.getFaceProperty(dir))

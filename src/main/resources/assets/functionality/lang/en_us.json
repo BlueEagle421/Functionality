@@ -41,7 +41,7 @@
     "block.functionality.lightning_charger": "Lightning Altar",
     "block.functionality.dry_lichen": "Dry Lichen",
     "block.functionality.lichen": "Lichen",
-    "block.functionality.glow_lichen": "Bloom Lichen",
+    "block.functionality.bloom_lichen": "Bloom Lichen",
     "block.functionality.chunk_loader": "Chunk Keeper",
 
     "tooltip.functionality.fish_trap": "Catches fish over time.",
@@ -50,7 +50,7 @@
     "tooltip.functionality.lightning_charger": "Smelts and charges items. Place a lightning rod on top.",
     "tooltip.functionality.dry_lichen": "Ancient remains of a lichen.",
     "tooltip.functionality.lichen": "A hybrid colony of algae and fungus.",
-    "tooltip.functionality.glow_lichen": "A lichen adapted to dark environments.",
+    "tooltip.functionality.bloom_lichen": "A lichen adapted to dark environments.",
     "tooltip.functionality.chunk_loader": "Keeps designated chunks loaded.",
     "tooltip.detailed.functionality.chunk_loader": " • Right click - configure radius.\n • Sneak + Right click - Toggle radius rendering.",
 
