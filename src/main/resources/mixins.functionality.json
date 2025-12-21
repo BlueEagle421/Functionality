@@ -8,6 +8,7 @@
         "lavaTravel.EntityMixin",
         "lavaTravel.LivingEntityTravelMixin",
         "lavaTravel.EntityStopRidingMixin",
+        "lavaTravel.FluidTypeMixin",
         "HorseMobInteractMixin",
         "thunderRitual.ItemEntityMixin",
         "LayeredCauldronBlockMixin",
