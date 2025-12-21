@@ -23,6 +23,7 @@ public class ItemsCategory {
     public final Harpoon harpoon;
     public final InfernoGear infernoGear;
     public final LightningCharger lightningCharger;
+    public final ChunkLoader chunkLoader;
     public final ObsidianBoat obsidianBoat;
     public final ObsidianFins obsidianFins;
     public final PhantomHerb phantomHerb;
@@ -54,6 +55,7 @@ public class ItemsCategory {
         harpoon = new Harpoon(builder);
         infernoGear = new InfernoGear(builder);
         lightningCharger = new LightningCharger(builder);
+        chunkLoader = new ChunkLoader(builder);
         obsidianBoat = new ObsidianBoat(builder);
         obsidianFins = new ObsidianFins(builder);
         phantomHerb = new PhantomHerb(builder);

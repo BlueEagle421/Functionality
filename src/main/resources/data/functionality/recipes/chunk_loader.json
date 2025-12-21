@@ -22,5 +22,11 @@
   "result": {
     "item": "functionality:chunk_loader"
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.chunk_loader.enabled"
+    }
+  ]
 }
