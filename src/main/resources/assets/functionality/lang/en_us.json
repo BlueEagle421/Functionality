@@ -30,6 +30,7 @@
     "item.functionality.phantom_lead": "Phantom Lead",
     "item.functionality.disc_shards": "Disc Shards",
     "item.functionality.ancient_seeker": "Ancient Seeker",
+    "item.functionality.potion.effect.haste": "Potion of Haste",
 
     "message.functionality.ancient_seeker.not_enough_xp": "Needs %s experience levels",
 
