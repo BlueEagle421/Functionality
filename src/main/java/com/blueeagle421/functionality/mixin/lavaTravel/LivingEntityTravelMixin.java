@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(LivingEntity.class)
 public class LivingEntityTravelMixin {
 
-    private static final float LAVA_MOVE_MULTIPLIER = 1.25f;
-    private static final double LAVA_SLOWDOWN_REDUCTION = 0.92d;
-    private static final float LAVA_VERTICAL_DAMPING = 0.35f;
-    private static final double LAVA_FALL_REDUCTION = 0.85d;
+    private static final float LAVA_MOVE_MULTIPLIER = 1.15f;
+    private static final double LAVA_SLOWDOWN_REDUCTION = 0.85d;
+    private static final float LAVA_VERTICAL_DAMPING = 0.45f;
+    private static final double LAVA_FALL_REDUCTION = 0.8d;
 
     @ModifyArg(method = "travel(Lnet/minecraft/world/phys/Vec3;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;moveRelative(FLnet/minecraft/world/phys/Vec3;)V"), index = 0)
     private float modifyMoveRelative(float originalValue, Vec3 travel) {
