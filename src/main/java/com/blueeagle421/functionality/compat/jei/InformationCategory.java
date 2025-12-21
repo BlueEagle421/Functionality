@@ -36,7 +36,7 @@ public class InformationCategory implements IRecipeCategory<InformationRecipe> {
     private final int SLOT_SIZE = 16;
     private final int SLOT_PADDING = 2;
 
-    private final int DESCRIPTION_HEIGHT = 32;
+    private final int DESCRIPTION_HEIGHT = 36;
     private final int TEXT_PADDING = 2;
 
     private final int bgWidth;

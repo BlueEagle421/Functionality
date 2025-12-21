@@ -1,6 +1,8 @@
 package com.blueeagle421.functionality.compat.jei;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,8 +13,14 @@ import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.recipe.InformationRecipe;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.chat.Component;
@@ -25,6 +33,9 @@ public class InformationRecipeGenerator {
 
     public static void generateRecipes() {
         GENERATED.clear();
+        
+        if (config().hastePotionHarvesting.enabled.get())
+            generateHasteHarvestingRecipe();
 
         if (config().treasureSacks.limitEnabled.get())
             generateTreasureSacksRecipe();
@@ -144,6 +155,34 @@ public class InformationRecipeGenerator {
         ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
                 "information/generated/thunder_ritual");
         Component desc = Component.translatable("information.functionality.thunder_ritual");
+
+        InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
+        GENERATED.put(recipeId, recipe);
+    }
+
+    private static void generateHasteHarvestingRecipe() {
+        NonNullList<Ingredient> inputs = NonNullList.withSize(3, Ingredient.EMPTY);
+        inputs.set(0, Ingredient.of(new ItemStack(ModItems.BLOOM_LICHEN.get())));
+        inputs.set(1, Ingredient.of(new ItemStack(Items.GLASS_BOTTLE)));
+
+        ItemStack hastePotionStack = new ItemStack(Items.POTION);
+        PotionUtils.setPotion(hastePotionStack, Potions.WATER);
+        List<MobEffectInstance> effects = new ArrayList<>();
+        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED,
+                config().hastePotionHarvesting.ticksDurationPerHarvest.get()));
+        CompoundTag tag = hastePotionStack.getOrCreateTag();
+        ListTag listTag = new ListTag();
+        for (MobEffectInstance inst : effects) {
+            listTag.add(inst.save(new CompoundTag()));
+        }
+        tag.put("CustomPotionEffects", listTag);
+        hastePotionStack.setHoverName(Component.translatable("item.functionality.potion.effect.haste"));
+
+        inputs.set(2, Ingredient.of(hastePotionStack));
+
+        ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
+                "information/generated/haste_harvesting");
+        Component desc = Component.translatable("information.functionality.haste_harvesting");
 
         InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
         GENERATED.put(recipeId, recipe);
