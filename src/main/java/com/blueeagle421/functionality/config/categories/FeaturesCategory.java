@@ -1,10 +1,6 @@
 package com.blueeagle421.functionality.config.categories;
 
-import com.blueeagle421.functionality.config.subcategories.features.BetterLichens;
-import com.blueeagle421.functionality.config.subcategories.features.InfiniteWaterCauldron;
-import com.blueeagle421.functionality.config.subcategories.features.ThrowableDiscs;
-import com.blueeagle421.functionality.config.subcategories.features.ThunderRitual;
-import com.blueeagle421.functionality.config.subcategories.features.TreasureSacks;
+import com.blueeagle421.functionality.config.subcategories.features.*;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -15,6 +11,7 @@ public class FeaturesCategory {
     public final ThrowableDiscs throwableDiscs;
     public final BetterLichens betterLichens;
     public final ThunderRitual thunderRitual;
+    public final HastePotionHarvesting hastePotionHarvesting;
 
     public FeaturesCategory(ForgeConfigSpec.Builder builder) {
         builder.push("features");
@@ -23,6 +20,7 @@ public class FeaturesCategory {
         infiniteWaterCauldron = new InfiniteWaterCauldron(builder);
         throwableDiscs = new ThrowableDiscs(builder);
         betterLichens = new BetterLichens(builder);
+        hastePotionHarvesting = new HastePotionHarvesting(builder);
         thunderRitual = new ThunderRitual(builder);
 
         builder.pop();

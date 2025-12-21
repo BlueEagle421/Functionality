@@ -3,6 +3,8 @@ package com.blueeagle421.functionality.block.custom;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.HastePotionHarvesting;
 import com.blueeagle421.functionality.particle.ModParticles;
 
 import net.minecraft.client.Minecraft;
@@ -34,9 +36,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BloomLichenBlock extends GlowLichenBlock {
 
-    private static final int SECONDS_TICKS = 20 * 8;
-    private static final int MAX_SECONDS_TICKS = 20 * 80;
-
     public BloomLichenBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -45,7 +44,12 @@ public class BloomLichenBlock extends GlowLichenBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
             BlockHitResult hit) {
 
+        if (!config().enabled.get())
+            return InteractionResult.PASS;
+
         ItemStack held = player.getItemInHand(hand);
+        int ticksPerHarvest = config().ticksDurationPerHarvest.get();
+        int maxPotionTicks = config().maxPotionDuration.get();
 
         if (held.getItem() == Items.GLASS_BOTTLE) {
 
@@ -54,9 +58,10 @@ public class BloomLichenBlock extends GlowLichenBlock {
                     held.shrink(1);
                 }
 
-                ItemStack hastePotion = createHastePotion();
+                ItemStack hastePotion = createHastePotion(ticksPerHarvest);
                 giveItemToPlayerOrDrop(player, hastePotion);
-                potionHarvested(level, pos);
+                playPotionSound(level, pos);
+                destroySelf(level, pos);
             }
 
             if (level.isClientSide) {
@@ -74,14 +79,15 @@ public class BloomLichenBlock extends GlowLichenBlock {
                     .max()
                     .orElse(0);
 
-            if (currentHasteDuration >= MAX_SECONDS_TICKS) {
+            if (currentHasteDuration >= maxPotionTicks) {
                 return InteractionResult.PASS;
             }
 
-            boolean changed = addHasteDurationToPotion(held, SECONDS_TICKS);
+            boolean changed = addHasteDurationToPotion(held, ticksPerHarvest, maxPotionTicks);
             if (changed) {
                 if (!level.isClientSide) {
-                    potionHarvested(level, pos);
+                    playPotionSound(level, pos);
+                    destroySelf(level, pos);
                 }
 
                 if (level.isClientSide) {
@@ -95,13 +101,12 @@ public class BloomLichenBlock extends GlowLichenBlock {
         return InteractionResult.PASS;
     }
 
-    private ItemStack createHastePotion() {
+    private ItemStack createHastePotion(int durationTicks) {
         ItemStack stack = new ItemStack(Items.POTION);
-
         PotionUtils.setPotion(stack, Potions.WATER);
 
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED, SECONDS_TICKS, 0, false, true));
+        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED, durationTicks, 0, false, true));
 
         writeEffectsToStack(stack, effects);
         setPotionBaseAndColor(stack, effects);
@@ -111,7 +116,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
         return stack;
     }
 
-    private boolean addHasteDurationToPotion(ItemStack potionStack, int additionalTicks) {
+    private boolean addHasteDurationToPotion(ItemStack potionStack, int additionalTicks, int maxTicks) {
         List<MobEffectInstance> current = PotionUtils.getMobEffects(potionStack);
         boolean hadHaste = false;
         List<MobEffectInstance> newEffects = new ArrayList<>(current.size());
@@ -119,9 +124,10 @@ public class BloomLichenBlock extends GlowLichenBlock {
         for (MobEffectInstance inst : current) {
             if (inst.getEffect() == MobEffects.DIG_SPEED) {
                 hadHaste = true;
+                int newDuration = Math.min(inst.getDuration() + additionalTicks, maxTicks);
                 MobEffectInstance bumped = new MobEffectInstance(
                         inst.getEffect(),
-                        inst.getDuration() + additionalTicks,
+                        newDuration,
                         inst.getAmplifier(),
                         inst.isAmbient(),
                         inst.isVisible());
@@ -137,15 +143,13 @@ public class BloomLichenBlock extends GlowLichenBlock {
             }
         }
 
-        if (!hadHaste) {
+        if (!hadHaste)
             return false;
-        }
 
         writeEffectsToStack(potionStack, newEffects);
         setPotionBaseAndColor(potionStack, newEffects);
 
         potionStack.setHoverName(Component.translatable("item.functionality.potion.effect.haste"));
-
         return true;
     }
 
@@ -160,7 +164,6 @@ public class BloomLichenBlock extends GlowLichenBlock {
 
     private void setPotionBaseAndColor(ItemStack stack, List<MobEffectInstance> effects) {
         PotionUtils.setPotion(stack, Potions.WATER);
-
         int color = PotionUtils.getColor(effects);
         stack.getOrCreateTag().putInt("CustomPotionColor", color);
     }
@@ -171,8 +174,11 @@ public class BloomLichenBlock extends GlowLichenBlock {
         }
     }
 
-    private void potionHarvested(Level level, BlockPos pos) {
+    private void playPotionSound(Level level, BlockPos pos) {
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+    }
+
+    private void destroySelf(Level level, BlockPos pos) {
         level.destroyBlock(pos, false);
     }
 
@@ -183,15 +189,12 @@ public class BloomLichenBlock extends GlowLichenBlock {
         Minecraft mc = Minecraft.getInstance();
         ParticleEngine engine = mc.particleEngine;
 
-        int color = PotionUtils.getColor(
-                List.of(new MobEffectInstance(MobEffects.DIG_SPEED, 1)));
-
+        int color = PotionUtils.getColor(List.of(new MobEffectInstance(MobEffects.DIG_SPEED, 1)));
         float r = ((color >> 16) & 0xFF) / 255.0F;
         float g = ((color >> 8) & 0xFF) / 255.0F;
         float b = (color & 0xFF) / 255.0F;
 
         RandomSource random = level.random;
-
         double cx = hit.getLocation().x;
         double cy = hit.getLocation().y;
         double cz = hit.getLocation().z;
@@ -239,5 +242,9 @@ public class BloomLichenBlock extends GlowLichenBlock {
                 client.addParticle(ModParticles.BLOOM_LICHEN_AIR.get(), px, py, pz, 0.0D, 0.0D, 0.0D);
             }
         }
+    }
+
+    private static HastePotionHarvesting config() {
+        return FunctionalityConfig.COMMON.features.hastePotionHarvesting;
     }
 }
