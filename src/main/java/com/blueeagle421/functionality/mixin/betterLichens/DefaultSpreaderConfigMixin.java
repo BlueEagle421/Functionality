@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.mixin;
+package com.blueeagle421.functionality.mixin.betterLichens;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.util.RandomSource;
 
 @Mixin(MultifaceSpreader.DefaultSpreaderConfig.class)
-public class MixinMultifaceSpreader_DefaultSpreaderConfig {
+public class DefaultSpreaderConfigMixin {
 
     @Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
     private void onGetStateForPlacement(BlockState currentState, BlockGetter level, BlockPos pos,
@@ -30,8 +30,8 @@ public class MixinMultifaceSpreader_DefaultSpreaderConfig {
             return;
 
         RandomSource random = RandomSource.create();
-        if (random.nextFloat() <= config.lichenOverrideChance.get()) {
+
+        if (random.nextFloat() <= config.lichenOverrideChance.get())
             cir.setReturnValue(ModBlocks.BLOOM_LICHEN.get().defaultBlockState());
-        }
     }
 }

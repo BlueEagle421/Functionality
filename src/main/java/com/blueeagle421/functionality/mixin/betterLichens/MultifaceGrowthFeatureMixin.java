@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.mixin;
+package com.blueeagle421.functionality.mixin.betterLichens;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
