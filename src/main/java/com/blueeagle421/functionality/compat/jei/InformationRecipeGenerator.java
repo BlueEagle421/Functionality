@@ -34,6 +34,9 @@ public class InformationRecipeGenerator {
 
         if (config().throwableDiscs.enabled.get())
             generateThrowableDiscsRecipe();
+
+        if (config().thunderRitual.enabled.get())
+            generateThunderRitualRecipe();
     }
 
     private static void generateInfiniteCauldronRecipe() {
@@ -114,6 +117,33 @@ public class InformationRecipeGenerator {
 
         Component desc = Component.translatable(
                 "information.functionality.throwable_discs");
+
+        InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
+        GENERATED.put(recipeId, recipe);
+    }
+
+    private static void generateThunderRitualRecipe() {
+        String ritualItemStr = config().thunderRitual.ritualItem.get();
+        ResourceLocation ritualRL = null;
+        try {
+            ritualRL = new ResourceLocation(ritualItemStr);
+        } catch (Exception e) {
+            ritualRL = null;
+        }
+
+        ItemStack ritualStack = ItemStack.EMPTY;
+        if (ritualRL != null && ForgeRegistries.ITEMS.containsKey(ritualRL)) {
+            ritualStack = new ItemStack(ForgeRegistries.ITEMS.getValue(ritualRL));
+        }
+
+        NonNullList<Ingredient> inputs = NonNullList.withSize(3, Ingredient.EMPTY);
+        inputs.set(0, Ingredient.of(new ItemStack(Items.COPPER_BLOCK)));
+        inputs.set(1, Ingredient.of(ritualStack));
+        inputs.set(2, Ingredient.of(new ItemStack(Items.TORCH)));
+
+        ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
+                "information/generated/thunder_ritual");
+        Component desc = Component.translatable("information.functionality.thunder_ritual");
 
         InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
         GENERATED.put(recipeId, recipe);
