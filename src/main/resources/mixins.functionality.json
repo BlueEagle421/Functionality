@@ -6,7 +6,7 @@
     "minVersion": "0.8",
     "mixins": [
         "betterLichens.MultifaceGrowthFeatureMixin",
-        "betterLichens.MixinMultifaceSpreader_DefaultSpreaderConfig",
+        "betterLichens.DefaultSpreaderConfigMixin",
         "lavaTravel.EntityMixin",
         "lavaTravel.LivingEntityTravelMixin",
         "lavaTravel.EntityStopRidingMixin",
