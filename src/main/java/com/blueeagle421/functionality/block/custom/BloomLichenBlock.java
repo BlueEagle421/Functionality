@@ -34,7 +34,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BloomLichenBlock extends GlowLichenBlock {
 
-    private static final int TEN_SECONDS_TICKS = 20 * 10;
+    private static final int SECONDS_TICKS = 20 * 8;
+    private static final int MAX_SECONDS_TICKS = 20 * 80;
 
     public BloomLichenBlock(Properties pProperties) {
         super(pProperties);
@@ -66,7 +67,18 @@ public class BloomLichenBlock extends GlowLichenBlock {
         }
 
         if (held.getItem() == Items.POTION) {
-            boolean changed = addHasteDurationToPotion(held, TEN_SECONDS_TICKS);
+
+            int currentHasteDuration = PotionUtils.getMobEffects(held).stream()
+                    .filter(e -> e.getEffect() == MobEffects.DIG_SPEED)
+                    .mapToInt(MobEffectInstance::getDuration)
+                    .max()
+                    .orElse(0);
+
+            if (currentHasteDuration >= MAX_SECONDS_TICKS) {
+                return InteractionResult.PASS;
+            }
+
+            boolean changed = addHasteDurationToPotion(held, SECONDS_TICKS);
             if (changed) {
                 if (!level.isClientSide) {
                     potionHarvested(level, pos);
@@ -89,7 +101,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
         PotionUtils.setPotion(stack, Potions.WATER);
 
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED, TEN_SECONDS_TICKS, 0, false, true));
+        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED, SECONDS_TICKS, 0, false, true));
 
         writeEffectsToStack(stack, effects);
         setPotionBaseAndColor(stack, effects);
