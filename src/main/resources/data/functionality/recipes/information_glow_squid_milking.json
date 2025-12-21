@@ -17,5 +17,12 @@
                 "Potion": "minecraft:night_vision"
             }
         }
+
+    ],
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "features.glow_squid_milking.enabled"
+        }
     ]
 }

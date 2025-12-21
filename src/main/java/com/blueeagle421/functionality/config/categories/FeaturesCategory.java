@@ -7,6 +7,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class FeaturesCategory {
 
     public final TreasureSacks treasureSacks;
+    public final GlowSquidMilking glowSquidMilking;
     public final InfiniteWaterCauldron infiniteWaterCauldron;
     public final ThrowableDiscs throwableDiscs;
     public final BetterLichens betterLichens;
@@ -17,6 +18,7 @@ public class FeaturesCategory {
         builder.push("features");
 
         treasureSacks = new TreasureSacks(builder);
+        glowSquidMilking = new GlowSquidMilking(builder);
         infiniteWaterCauldron = new InfiniteWaterCauldron(builder);
         throwableDiscs = new ThrowableDiscs(builder);
         betterLichens = new BetterLichens(builder);

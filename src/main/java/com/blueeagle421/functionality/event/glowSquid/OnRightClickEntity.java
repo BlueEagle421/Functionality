@@ -16,12 +16,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.GlowSquidMilking;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID)
 public class OnRightClickEntity {
 
     @SubscribeEvent
     public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+
+        if (!config().enabled.get())
+            return;
 
         if (event.getLevel().isClientSide())
             return;
@@ -56,5 +61,9 @@ public class OnRightClickEntity {
 
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
+    }
+
+    private static GlowSquidMilking config() {
+        return FunctionalityConfig.COMMON.features.glowSquidMilking;
     }
 }
