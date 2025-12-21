@@ -17,6 +17,7 @@ import java.util.List;
 public class ThunderRitualHandler {
 
     private static final int BASE_DURATION_TICKS = 72000;
+    private static final float EXPLOSION_RADIUS = 2.0f;
 
     public static boolean tryTriggerRitual(ItemEntity itemEntity) {
         Level level = itemEntity.level();
@@ -46,7 +47,7 @@ public class ThunderRitualHandler {
         if (copperPositions.isEmpty())
             return false;
 
-        createLightning(server, topCopperPos);
+        createExplosiveLightning(server, topCopperPos);
 
         int copperCount = copperPositions.size();
 
@@ -67,7 +68,7 @@ public class ThunderRitualHandler {
         server.setWeatherParameters(0, duration, true, true);
     }
 
-    private static void createLightning(ServerLevel server, BlockPos pos) {
+    private static void createExplosiveLightning(ServerLevel server, BlockPos pos) {
         LightningBolt lightning = (LightningBolt) EntityType.LIGHTNING_BOLT.create(server);
         if (lightning != null) {
             double x = pos.getX() + 0.5;
@@ -75,6 +76,12 @@ public class ThunderRitualHandler {
             double z = pos.getZ() + 0.5;
             lightning.moveTo(x, y, z);
             server.addFreshEntity(lightning);
+
+            server.explode(
+                    null,
+                    x, y, z,
+                    EXPLOSION_RADIUS,
+                    Level.ExplosionInteraction.MOB);
         }
     }
 
