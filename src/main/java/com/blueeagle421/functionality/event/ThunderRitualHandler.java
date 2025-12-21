@@ -65,8 +65,6 @@ public class ThunderRitualHandler {
 
     private static void setThunderWeather(ServerLevel server, int duration) {
         server.setWeatherParameters(0, duration, true, true);
-        server.setRainLevel(1.0F);
-        server.setThunderLevel(1.0F);
     }
 
     private static void createLightning(ServerLevel server, BlockPos pos) {
