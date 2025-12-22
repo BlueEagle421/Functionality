@@ -33,6 +33,15 @@
     "item.functionality.potion.effect.haste": "Potion of Haste",
 
     "message.functionality.ancient_seeker.not_enough_xp": "Needs %s experience levels",
+    "message.functionality.phantom_treat.start": "%s enjoyed the treat. It wants more!",
+    "message.functionality.phantom_treat.random1": "%s feels increasing momentum.",
+    "message.functionality.phantom_treat.random2": "%s is happy for that treat.",
+    "message.functionality.phantom_treat.random3": "%s is grateful for your treat.",
+    "message.functionality.phantom_treat.random4": "%s feels a bit faster.",
+    "message.functionality.phantom_treat.random5": "%s is getting exited.",
+    "message.functionality.phantom_treat.random6": "%s stares at you hungry for more treats.",
+    "message.functionality.phantom_treat.last": "%s has reached peak form. It's swift as the wind now.",
+    "message.functionality.phantom_treat.too_much": "%s is tired of the treat. It won't accept more.",
 
     "effect.functionality.crimson_shield": "Crimson Shield",
     "effect.functionality.glow_blessing": "Glow Blessing",
