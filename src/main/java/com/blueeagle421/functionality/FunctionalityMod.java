@@ -2,6 +2,7 @@ package com.blueeagle421.functionality;
 
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
+import com.blueeagle421.functionality.client.InfernoGearHumanoidModel;
 import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.CustomSuspendedParticle;
@@ -28,6 +29,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -136,6 +138,12 @@ public class FunctionalityMod {
         @SubscribeEvent
         public static void onModelRegistry(ModelEvent.RegisterAdditional event) {
             event.register(new ResourceLocation(FunctionalityMod.MOD_ID, "block/chunk_loader_top"));
+        }
+
+        @SubscribeEvent
+        public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(InfernoGearHumanoidModel.LAYER_LOCATION,
+                    InfernoGearHumanoidModel::createBodyLayer);
         }
     }
 }
