@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Horse.class)
 public class HorseMobInteractMixin {
 
-    @Inject(method = "mobInteract(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void onMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.isEmpty())
