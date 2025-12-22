@@ -58,7 +58,7 @@
     "tooltip.functionality.bear_venison": "An uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",
     "tooltip.functionality.chevon": "Has earthy scent and firm texture.",
-    "tooltip.functionality.cooked_chevon": "Very chewy and has jump-boosting capabilities.",
+    "tooltip.functionality.cooked_chevon": "It's very chewy.\nHas jump-boosting capabilities.",
     "tooltip.functionality.sniffon": "It has a herbal, old smell.",
     "tooltip.functionality.cooked_sniffon": "An ancient treat with healthy properties.",
     "tooltip.functionality.gilded_sniffon": "Even healthier than its plain variant.",
@@ -66,17 +66,28 @@
     "tooltip.functionality.cooked_frog_leg": "A light, crunchy snack.",
     "tooltip.detailed.functionality.cooked_frog_leg": "Removes one negative effect.",
     "tooltip.functionality.terrapin": "Stinks of mud and might be poisonous.",
-    "tooltip.functionality.terrapin_soup": "Smells delicious. Perfect for underwater travels.",
+    "tooltip.functionality.terrapin_soup": "Smells delicious.\nPerfect for underwater travels.",
     "tooltip.functionality.fins": "They make you swim much faster!",
     "tooltip.functionality.obsidian_fins": "They make you swim in lava!",
     "tooltip.detailed.functionality.obsidian_fins": "You might want to be fire resistant for that.",
     "tooltip.functionality.inferno_gear": "Provides fire resistance.",
     "tooltip.detailed.functionality.inferno_gear": "Also makes you see clearly in lava.",
-    "tooltip.functionality.sleeping_herb": "Makes you able to sleep during the night no matter what.",
-    "tooltip.functionality.phantom_herb": "Makes phantoms spawn like you didn't sleep for a while.",
-    "tooltip.functionality.chorus_herb": "Teleports you to spawn point.",
-    "tooltip.functionality.crimson_herb": "Grants immunity to poison and wither.",
-    "tooltip.functionality.glow_herb": "Grants immunity to void damage, levitation, and angering Endermen.",
+
+    "tooltip.functionality.sleeping_herb": "Its soft leaves smell of dreams.",
+    "tooltip.detailed.functionality.sleeping_herb": "Allows you to sleep through the night no matter what.",
+
+    "tooltip.functionality.phantom_herb": "An ominous, hissing plant.",
+    "tooltip.detailed.functionality.phantom_herb": "Causes phantoms to spawn as if you haven't slept.",
+
+    "tooltip.functionality.chorus_herb": "A strange plant that moves on its own.",
+    "tooltip.detailed.functionality.chorus_herb": "Teleports you to your spawn point.",
+
+    "tooltip.functionality.crimson_herb": "It radiates a strong, disturbing aura.",
+    "tooltip.detailed.functionality.crimson_herb": "Grants immunity to poison and wither effects.",
+
+    "tooltip.functionality.glow_herb": "Its leaves are warm and softly glowing.",
+    "tooltip.detailed.functionality.glow_herb": "Grants immunity to:\n • Void damage\n • Levitation\n • Angering Endermen",
+
     "tooltip.nbt.functionality.duration": "Duration:",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
