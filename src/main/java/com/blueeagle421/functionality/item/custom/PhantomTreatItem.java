@@ -18,17 +18,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.UUID;
-import java.util.WeakHashMap;
 
 public class PhantomTreatItem extends TooltipItem {
-
     private static final RandomSource RANDOM = RandomSource.create();
 
-    private static final WeakHashMap<LivingEntity, Integer> usageCounts = new WeakHashMap<>();
+    private static final int RANDOM_MSG_COUNT = 6;
+
+    private static final int MAX_USES = 4;
+    private static final double SPEED_INCREASE_PER_USE = 0.075;
+
+    private static final String NBT_USES = "PhantomTreatUses";
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("c8c87d9a-9f4b-4e2e-87c7-1f5e0a7a5b23");
 
-    public PhantomTreatItem(Properties pProperties) {
-        super(pProperties);
+    public PhantomTreatItem(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -39,13 +42,22 @@ public class PhantomTreatItem extends TooltipItem {
             return InteractionResult.PASS;
 
         if (!player.level().isClientSide) {
-            int usesBefore = usageCounts.getOrDefault(target, 0);
+
+            int usesBefore = getUses(target);
+
             sendTreatMessage(player, target, usesBefore);
 
             applySpeed(target);
 
-            target.level().playSound(null, target.getX(), target.getY(), target.getZ(),
-                    SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 1.0F, 1.0F);
+            target.level().playSound(
+                    null,
+                    target.getX(),
+                    target.getY(),
+                    target.getZ(),
+                    SoundEvents.GENERIC_EAT,
+                    SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F);
 
             spawnItemParticles(target, stack, 8);
         }
@@ -53,27 +65,37 @@ public class PhantomTreatItem extends TooltipItem {
         return InteractionResult.SUCCESS;
     }
 
-    public static void applySpeed(LivingEntity entity) {
-        int uses = usageCounts.getOrDefault(entity, 0);
+    private static int getUses(LivingEntity entity) {
+        return entity.getPersistentData().getInt(NBT_USES);
+    }
 
-        if (uses >= 4) {
+    private static void setUses(LivingEntity entity, int value) {
+        entity.getPersistentData().putInt(NBT_USES, value);
+    }
+
+    private static void applySpeed(LivingEntity entity) {
+        int uses = getUses(entity);
+
+        if (uses >= MAX_USES)
             return;
-        }
 
-        double speedIncrease = 0.075;
+        var attribute = entity.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (attribute == null)
+            return;
 
-        if (entity.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_MODIFIER_UUID) != null) {
-            entity.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_MODIFIER_UUID);
+        if (attribute.getModifier(SPEED_MODIFIER_UUID) != null) {
+            attribute.removeModifier(SPEED_MODIFIER_UUID);
         }
 
         AttributeModifier modifier = new AttributeModifier(
                 SPEED_MODIFIER_UUID,
                 "phantom_treat_speed_boost",
-                speedIncrease * (uses + 1),
+                SPEED_INCREASE_PER_USE * (uses + 1),
                 AttributeModifier.Operation.MULTIPLY_TOTAL);
-        entity.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(modifier);
 
-        usageCounts.put(entity, uses + 1);
+        attribute.addPermanentModifier(modifier);
+
+        setUses(entity, uses + 1);
     }
 
     private record MessageResult(String key, boolean tooMuch) {
@@ -81,14 +103,10 @@ public class PhantomTreatItem extends TooltipItem {
 
     private static void sendTreatMessage(Player player, LivingEntity target, int usesBefore) {
         MessageResult result = getMessage(usesBefore);
+        Component msg = Component.translatable(result.key(), target.getDisplayName());
 
-        Component msg = Component.translatable(
-                result.key(),
-                target.getDisplayName());
-
-        if (result.tooMuch()) {
+        if (result.tooMuch())
             msg = msg.copy().withStyle(ChatFormatting.DARK_RED);
-        }
 
         player.displayClientMessage(msg, true);
     }
@@ -96,10 +114,8 @@ public class PhantomTreatItem extends TooltipItem {
     private static MessageResult getMessage(int usesBefore) {
         String result;
         boolean tooMuch = false;
-
         int randomKeysCount = 6;
         int maxUses = 4;
-
         if (usesBefore >= maxUses) {
             result = "message.functionality.phantom_treat.too_much";
             tooMuch = true;
@@ -111,7 +127,6 @@ public class PhantomTreatItem extends TooltipItem {
             int roll = RANDOM.nextInt(randomKeysCount) + 1;
             result = "message.functionality.phantom_treat.random" + roll;
         }
-
         return new MessageResult(result, tooMuch);
     }
 
