@@ -19,7 +19,7 @@ public class PhantomTreat {
 
         maxUses = builder
                 .comment("The max amount of times the item can be applied on an entity.")
-                .defineInRange("maxUses", 6, 1, Integer.MAX_VALUE);
+                .defineInRange("maxUses", 7, 1, Integer.MAX_VALUE);
 
         speedIncreasePerUse = builder
                 .comment("Movement speed multiplier applied per use (0.05 = +5% per use).")
