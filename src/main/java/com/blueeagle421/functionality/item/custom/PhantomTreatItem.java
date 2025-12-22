@@ -19,14 +19,14 @@ import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.PhantomTreat;
+
 public class PhantomTreatItem extends TooltipItem {
-    private static final RandomSource RANDOM = RandomSource.create();
 
     private static final int RANDOM_MSG_COUNT = 6;
 
-    private static final int MAX_USES = 4;
-    private static final double SPEED_INCREASE_PER_USE = 0.075;
-
+    private static final RandomSource RANDOM = RandomSource.create();
     private static final String NBT_USES = "PhantomTreatUses";
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("c8c87d9a-9f4b-4e2e-87c7-1f5e0a7a5b23");
 
@@ -76,7 +76,7 @@ public class PhantomTreatItem extends TooltipItem {
     private static void applySpeed(LivingEntity entity) {
         int uses = getUses(entity);
 
-        if (uses >= MAX_USES)
+        if (uses >= config().maxUses.get())
             return;
 
         var attribute = entity.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -90,7 +90,7 @@ public class PhantomTreatItem extends TooltipItem {
         AttributeModifier modifier = new AttributeModifier(
                 SPEED_MODIFIER_UUID,
                 "phantom_treat_speed_boost",
-                SPEED_INCREASE_PER_USE * (uses + 1),
+                config().speedIncreasePerUse.get() * (uses + 1),
                 AttributeModifier.Operation.MULTIPLY_TOTAL);
 
         attribute.addPermanentModifier(modifier);
@@ -114,17 +114,16 @@ public class PhantomTreatItem extends TooltipItem {
     private static MessageResult getMessage(int usesBefore) {
         String result;
         boolean tooMuch = false;
-        int randomKeysCount = 6;
-        int maxUses = 4;
-        if (usesBefore >= maxUses) {
+
+        if (usesBefore >= config().maxUses.get()) {
             result = "message.functionality.phantom_treat.too_much";
             tooMuch = true;
         } else if (usesBefore == 0)
             result = "message.functionality.phantom_treat.start";
-        else if (usesBefore == maxUses - 1)
+        else if (usesBefore == config().maxUses.get() - 1)
             result = "message.functionality.phantom_treat.last";
         else {
-            int roll = RANDOM.nextInt(randomKeysCount) + 1;
+            int roll = RANDOM.nextInt(RANDOM_MSG_COUNT) + 1;
             result = "message.functionality.phantom_treat.random" + roll;
         }
         return new MessageResult(result, tooMuch);
@@ -164,5 +163,9 @@ public class PhantomTreatItem extends TooltipItem {
                         0, 0, 0);
             }
         }
+    }
+
+    private static PhantomTreat config() {
+        return FunctionalityConfig.COMMON.items.phantomTreat;
     }
 }
