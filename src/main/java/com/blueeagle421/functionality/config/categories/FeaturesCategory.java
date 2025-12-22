@@ -13,6 +13,7 @@ public class FeaturesCategory {
     public final BetterLichens betterLichens;
     public final ThunderRitual thunderRitual;
     public final HastePotionHarvesting hastePotionHarvesting;
+    public final SpongeRecipe spongeRecipe;
 
     public FeaturesCategory(ForgeConfigSpec.Builder builder) {
         builder.push("features");
@@ -24,6 +25,7 @@ public class FeaturesCategory {
         betterLichens = new BetterLichens(builder);
         hastePotionHarvesting = new HastePotionHarvesting(builder);
         thunderRitual = new ThunderRitual(builder);
+        spongeRecipe = new SpongeRecipe(builder);
 
         builder.pop();
     }

@@ -18,5 +18,11 @@
     "item": "minecraft:sponge",
     "count": 8
   },
-  "show_notification": true
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "features.sponge_recipe.enabled"
+    }
+  ]
 }
