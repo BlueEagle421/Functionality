@@ -146,7 +146,7 @@ public class ModItems {
                         () -> new PheromonesItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
         public static final RegistryObject<Item> PHANTOM_TREAT = ITEMS.register("phantom_treat",
-                        () -> new TooltipItem(new Item.Properties()));
+                        () -> new PhantomTreatItem(new Item.Properties()));
 
         public static final RegistryObject<Item> PHANTOM_ROCKET = ITEMS.register("phantom_rocket",
                         () -> new FireworkRocketItem(new Item.Properties()));
