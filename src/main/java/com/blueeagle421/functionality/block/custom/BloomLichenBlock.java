@@ -231,7 +231,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
         for (int i = 0; i < ATTEMPTS; ++i) {
             BlockPos target = pos.offset(
                     Mth.nextInt(rand, -RADIUS, RADIUS),
-                    -rand.nextInt(10),
+                    Mth.nextInt(rand, -RADIUS, RADIUS),
                     Mth.nextInt(rand, -RADIUS, RADIUS));
 
             BlockState blockstate = client.getBlockState(target);
