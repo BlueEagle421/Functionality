@@ -20,10 +20,19 @@ public class TooltipUtils {
 
         String registryName = key.getPath();
 
-        String baseKey = "tooltip.functionality." + registryName;
-        String detailKey = "tooltip.detailed.functionality." + registryName;
+        handleBaseTooltip(tooltip, registryName);
+        handleDetailTooltip(tooltip, registryName);
+    }
 
-        tooltip.add(Component.translatable(baseKey).withStyle(ChatFormatting.GRAY));
+    private static void handleBaseTooltip(List<Component> tooltip, String registryName) {
+        String baseKey = "tooltip.functionality." + registryName;
+
+        Component.translatable(baseKey).getString().lines()
+                .forEach(line -> tooltip.add(Component.literal(line).withStyle(ChatFormatting.GRAY)));
+    }
+
+    private static void handleDetailTooltip(List<Component> tooltip, String registryName) {
+        String detailKey = "tooltip.detailed.functionality." + registryName;
 
         String translatedDetail = Component.translatable(detailKey).getString();
 
