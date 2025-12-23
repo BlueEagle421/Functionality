@@ -24,6 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.registries.ForgeRegistries;
 
+// durability handled in mixin
 public class BottomlessWaterBucketItem extends BucketItem {
 
     private static final String LIQUID_PLACING_TAG = "LiquidPlacing";
