@@ -20,6 +20,13 @@ public class BucketItemMixin {
         if (!bucketStack.is(ModItems.BOTTOMLESS_WATER_BUCKET.get()))
             return;
 
-        cir.setReturnValue(bucketStack.copy());
+        ItemStack copy = bucketStack.copy();
+
+        if (!player.getAbilities().instabuild) {
+            copy.hurtAndBreak(1, player,
+                    p -> p.broadcastBreakEvent(player.getUsedItemHand()));
+        }
+
+        cir.setReturnValue(copy);
     }
 }
