@@ -30,10 +30,10 @@ public class InfernoGearHumanoidModel<T extends LivingEntity> extends HumanoidMo
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
-		PartDefinition partdefinition = meshdefinition.getRoot();
+		MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
+		PartDefinition part = mesh.getRoot();
 
-		PartDefinition inferno_gear = partdefinition.addOrReplaceChild("inferno_gear", CubeListBuilder.create(),
+		PartDefinition inferno_gear = part.addOrReplaceChild("inferno_gear", CubeListBuilder.create(),
 				PartPose.offset(0.0F, 12.0F, 0.0F));
 
 		PartDefinition cube_r1 = inferno_gear.addOrReplaceChild("cube_r1",
@@ -46,7 +46,7 @@ public class InfernoGearHumanoidModel<T extends LivingEntity> extends HumanoidMo
 						new CubeDeformation(0.0F)),
 				PartPose.offsetAndRotation(0.0F, -12.5F, 0.0F, 0.0F, -0.0873F, 0.0436F));
 
-		return LayerDefinition.create(meshdefinition, 32, 32);
+		return LayerDefinition.create(mesh, 32, 32);
 	}
 
 	@Override
