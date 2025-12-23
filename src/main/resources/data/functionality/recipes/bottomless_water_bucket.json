@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " X ",
+        "WYW",
+        " Z "
+    ],
+    "key": {
+        "X": {
+            "item": "minecraft:wet_sponge"
+        },
+        "Y": {
+            "item": "minecraft:water_bucket"
+        },
+        "Z": {
+            "item": "minecraft:heart_of_the_sea"
+        },
+        "W": {
+            "item": "minecraft:nautilus_shell"
+        }
+    },
+    "result": {
+        "item": "functionality:bottomless_water_bucket"
+    }
+    ,
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.pheromones.enabled"
+        }
+    ]
+}

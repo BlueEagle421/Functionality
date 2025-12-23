@@ -18,7 +18,8 @@
         "throwableDiscs.RecordItemTooltipMixin",
         "thunderRitual.ItemEntityMixin",
         "HorseMobInteractMixin",
-        "LayeredCauldronBlockMixin"
+        "LayeredCauldronBlockMixin",
+        "BucketItemMixin"
     ],
     "client": [ ],
     "server": [ ]

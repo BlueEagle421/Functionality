@@ -166,6 +166,9 @@ public class ModItems {
         public static final RegistryObject<Item> ANCIENT_SEEKER = ITEMS.register("ancient_seeker",
                         () -> new AncientSeekerItem(new Item.Properties()));
 
+        public static final RegistryObject<Item> BOTTOMLESS_WATER_BUCKET = ITEMS.register("bottomless_water_bucket",
+                        () -> new BottomlessWaterBucketItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
+
         public static void register(IEventBus eventBus) {
                 ITEMS.register(eventBus);
         }

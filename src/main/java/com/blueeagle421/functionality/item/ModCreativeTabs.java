@@ -92,6 +92,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().phantomLead.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_LEAD.get()));
         acceptIf(out, () -> config().ancientSeeker.enabled.get(), () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.HARPOON.get()));
+        acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.BOTTOMLESS_WATER_BUCKET.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.DRY_LICHEN.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.LICHEN.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.BLOOM_LICHEN.get()));
