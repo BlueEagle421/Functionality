@@ -63,7 +63,7 @@ public class InfernoGearItem extends ArmorItem {
             EquipmentSlot slot,
             String type) {
 
-        return FunctionalityMod.MOD_ID + ":textures/entity/inferno_gear.png";
+        return FunctionalityMod.MOD_ID + ":textures/models/armor/inferno_gear.png";
     }
 
     @Override

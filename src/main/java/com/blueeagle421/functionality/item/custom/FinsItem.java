@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.item.custom;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -17,16 +18,28 @@ import java.util.UUID;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.subcategories.items.Fins;
 import com.blueeagle421.functionality.utils.TooltipUtils;
 
 public class FinsItem extends ArmorItem {
+
+    private static final UUID FINS_SWIM_UUID = UUID.fromString("a46b3c7a-5f6a-4c2d-9d3e-1a2b3c4d5e6f");
+
     public FinsItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
         super(pMaterial, pType, pProperties);
     }
 
-    private static final UUID FINS_SWIM_UUID = UUID.fromString("a46b3c7a-5f6a-4c2d-9d3e-1a2b3c4d5e6f");
+    @Override
+    public String getArmorTexture(
+            ItemStack stack,
+            Entity entity,
+            EquipmentSlot slot,
+            String type) {
+
+        return FunctionalityMod.MOD_ID + ":textures/models/armor/fins.png";
+    }
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
