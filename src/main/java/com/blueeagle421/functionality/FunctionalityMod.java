@@ -10,6 +10,7 @@ import com.blueeagle421.functionality.client.particle.GlowSmokeParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
+import com.blueeagle421.functionality.client.screen.RepairAltarScreen;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.data.conditions.ConfigEnabledCondition;
 import com.blueeagle421.functionality.data.conditions.ConfigEnabledRegistry;
@@ -19,6 +20,7 @@ import com.blueeagle421.functionality.event.anvil.ForgeRepairEvent;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.loot.ModLootModifiers;
+import com.blueeagle421.functionality.menu.ModMenus;
 import com.blueeagle421.functionality.particle.ModParticles;
 import com.blueeagle421.functionality.recipe.ModRecipes;
 import com.blueeagle421.functionality.sound.ModSounds;
@@ -26,6 +28,7 @@ import com.blueeagle421.functionality.utils.CauldronUtils;
 import com.blueeagle421.functionality.worldgen.ModFeatures;
 import com.mojang.logging.LogUtils;
 
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -67,6 +70,7 @@ public class FunctionalityMod {
 
         ModCreativeTabs.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModMenus.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlockEntities.register(modEventBus);
@@ -119,6 +123,10 @@ public class FunctionalityMod {
 
             EntityRenderers.register(ModEntities.ANVIL_MARKER.get(), AnvilMarkerRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISC.get(), context -> new ThrownDiscRenderer(context));
+
+            MenuScreens.register(
+                    ModMenus.REPAIR_ALTAR_MENU.get(),
+                    RepairAltarScreen::new);
 
             event.enqueueWork(() -> {
                 net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(

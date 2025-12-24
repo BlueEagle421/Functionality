@@ -1,12 +1,18 @@
 package com.blueeagle421.functionality.block.custom;
 
+import javax.annotation.Nullable;
+
 import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.block.entity.custom.RepairAltarEntity;
+import com.blueeagle421.functionality.menu.RepairAltarMenu;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -15,11 +21,19 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraft.world.phys.shapes.Shapes;
 
 public class RepairAltarBlock extends BaseEntityBlock {
@@ -35,9 +49,32 @@ public class RepairAltarBlock extends BaseEntityBlock {
     private static final VoxelShape X_AXIS_SHAPE = Shapes.or(BASE, NARROW, WIDE_X, TOP);
     private static final VoxelShape Z_AXIS_SHAPE = Shapes.or(BASE, NARROW, WIDE_Z, TOP);
 
+    private static final Component CONTAINER_TITLE = Component.literal("Repair Altar");
+
     public RepairAltarBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos,
+            Player player, InteractionHand hand, BlockHitResult hit) {
+
+        if (!level.isClientSide) {
+            NetworkHooks.openScreen(
+                    (ServerPlayer) player,
+                    state.getMenuProvider(level, pos),
+                    pos);
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Nullable
+    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
+        return new SimpleMenuProvider((containerId, access, player) -> {
+            return new RepairAltarMenu(containerId, access, ContainerLevelAccess.create(pLevel, pPos));
+        }, CONTAINER_TITLE);
     }
 
     @Override
