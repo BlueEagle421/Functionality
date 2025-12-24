@@ -34,6 +34,7 @@ public class ItemsCategory {
     public final SleepingHerb sleepingHerb;
     public final TreasureSack treasureSack;
     public final DiscShards discShards;
+    public final NautilusBucket nautilusBucket;
 
     public ItemsCategory(ForgeConfigSpec.Builder builder) {
         builder.push("items");
@@ -66,6 +67,7 @@ public class ItemsCategory {
         sleepingHerb = new SleepingHerb(builder);
         treasureSack = new TreasureSack(builder);
         discShards = new DiscShards(builder);
+        nautilusBucket = new NautilusBucket(builder);
 
         builder.pop();
     }

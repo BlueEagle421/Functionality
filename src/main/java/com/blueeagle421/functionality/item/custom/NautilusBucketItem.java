@@ -25,11 +25,11 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.registries.ForgeRegistries;
 
 // durability handled in mixin
-public class BottomlessWaterBucketItem extends BucketItem {
+public class NautilusBucketItem extends BucketItem {
 
     private static final String LIQUID_PLACING_TAG = "LiquidPlacing";
 
-    public BottomlessWaterBucketItem(Properties properties) {
+    public NautilusBucketItem(Properties properties) {
         super(ForgeRegistries.FLUIDS.getDelegateOrThrow(Fluids.WATER), properties);
     }
 

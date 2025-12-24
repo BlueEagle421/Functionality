@@ -167,7 +167,7 @@ public class ModItems {
                         () -> new AncientSeekerItem(new Item.Properties()));
 
         public static final RegistryObject<Item> NAUTILUS_BUCKET = ITEMS.register("nautilus_bucket",
-                        () -> new BottomlessWaterBucketItem(
+                        () -> new NautilusBucketItem(
                                         new Item.Properties().rarity(Rarity.UNCOMMON).durability(196)));
 
         public static void register(IEventBus eventBus) {
