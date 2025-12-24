@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "minecraft:copper_ingot"
+    },
+    "Y": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "YYY",
+    " X ",
+    "XXX"
+  ],
+  "result": {
+    "item": "functionality:repair_altar"
+  },
+  "show_notification": true,
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.chunk_loader.enabled"
+    }
+  ]
+}

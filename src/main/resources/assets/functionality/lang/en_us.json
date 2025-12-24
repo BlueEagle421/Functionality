@@ -54,6 +54,7 @@
     "block.functionality.lichen": "Lichen",
     "block.functionality.bloom_lichen": "Bloom Lichen",
     "block.functionality.chunk_loader": "Chunk Keeper",
+    "block.functionality.repair_altar": "Repair Altar",
 
     "tooltip.functionality.fish_trap": "Catches fish over time.",
     "tooltip.detailed.functionality.fish_trap": "Place to increase luck:\n • Amethyst crystals\n • Gold blocks\n • Mob heads\nWorks within 5 blocks (2 of each for max luck).\nHigher light level speeds it up.\nWater depth increases catch amount.",
@@ -64,6 +65,7 @@
     "tooltip.functionality.bloom_lichen": "A lichen adapted to dark environments.",
     "tooltip.functionality.chunk_loader": "Keeps designated chunks loaded.",
     "tooltip.detailed.functionality.chunk_loader": " • Right click - configure radius.\n • Sneak + Right click - Toggle radius rendering.",
+    "tooltip.functionality.repair_altar": "Repairs items with without experience.",
 
     "tooltip.functionality.bear_venison": "An uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",

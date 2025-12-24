@@ -5,6 +5,7 @@ import com.blueeagle421.functionality.block.*;
 import com.blueeagle421.functionality.block.entity.custom.ChunkLoaderEntity;
 import com.blueeagle421.functionality.block.entity.custom.FishTrapEntity;
 import com.blueeagle421.functionality.block.entity.custom.LightningChargerEntity;
+import com.blueeagle421.functionality.block.entity.custom.RepairAltarEntity;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,7 +30,13 @@ public class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<ChunkLoaderEntity>> CHUNK_LOADER = BLOCK_ENTITIES.register(
             "chunk_loader",
-            () -> BlockEntityType.Builder.of(ChunkLoaderEntity::new, ModBlocks.CHUNK_LOADER.get()).build(null));
+            () -> BlockEntityType.Builder.of(ChunkLoaderEntity::new, ModBlocks.CHUNK_LOADER.get())
+                    .build(null));
+
+    public static final RegistryObject<BlockEntityType<RepairAltarEntity>> REPAIR_ALTAR = BLOCK_ENTITIES.register(
+            "repair_altar",
+            () -> BlockEntityType.Builder.of(RepairAltarEntity::new, ModBlocks.REPAIR_ALTAR.get())
+                    .build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

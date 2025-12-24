@@ -142,6 +142,9 @@ public class ModItems {
         public static final RegistryObject<Item> CHUNK_LOADER = ITEMS.register("chunk_loader",
                         () -> new TooltipBlockItem(ModBlocks.CHUNK_LOADER.get(), new Item.Properties()));
 
+        public static final RegistryObject<Item> REPAIR_ALTAR = ITEMS.register("repair_altar",
+                        () -> new TooltipBlockItem(ModBlocks.REPAIR_ALTAR.get(), new Item.Properties()));
+
         public static final RegistryObject<Item> PHEROMONES = ITEMS.register("pheromones",
                         () -> new PheromonesItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 

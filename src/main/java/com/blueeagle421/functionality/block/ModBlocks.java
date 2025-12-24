@@ -19,6 +19,7 @@ import com.blueeagle421.functionality.block.custom.FishTrapBlock;
 import com.blueeagle421.functionality.block.custom.GlowTorchBlock;
 import com.blueeagle421.functionality.block.custom.GlowWallTorchBlock;
 import com.blueeagle421.functionality.block.custom.LightningChargerBlock;
+import com.blueeagle421.functionality.block.custom.RepairAltarBlock;
 import com.blueeagle421.functionality.particle.ModParticles;
 
 public class ModBlocks {
@@ -64,6 +65,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> CHUNK_LOADER = BLOCKS.register("chunk_loader",
             () -> new ChunkLoaderBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
+
+    public static final RegistryObject<Block> REPAIR_ALTAR = BLOCKS.register("repair_altar",
+            () -> new RepairAltarBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
