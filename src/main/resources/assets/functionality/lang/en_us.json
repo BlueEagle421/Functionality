@@ -30,7 +30,7 @@
     "item.functionality.phantom_lead": "Phantom Lead",
     "item.functionality.disc_shards": "Disc Shards",
     "item.functionality.ancient_seeker": "Ancient Seeker",
-    "item.functionality.bottomless_water_bucket": "Nautilus Bucket",
+    "item.functionality.nautilus_bucket": "Nautilus Bucket",
     "item.functionality.potion.effect.haste": "Potion of Haste",
 
     "message.functionality.ancient_seeker.not_enough_xp": "Needs %s experience levels",
@@ -114,8 +114,8 @@
     "tooltip.functionality.disc_shards": "Used to repair music discs.",
     "tooltip.functionality.ancient_seeker": "Can detect ancient debris.",
     "tooltip.detailed.functionality.ancient_seeker": "Right click to start searching.\nConsumes experience levels.",
-    "tooltip.functionality.bottomless_water_bucket": "Bound to nearly endless tides.",
-    "tooltip.detailed.functionality.bottomless_water_bucket": "Sneak + Right click - Toggle liquid placing mode.",
+    "tooltip.functionality.nautilus_bucket": "Bound to nearly endless tides.",
+    "tooltip.detailed.functionality.nautilus_bucket": "Sneak + Right click - Toggle liquid placing mode.",
 
     "tooltip.functionality.details": "<Press %s for details>",
 

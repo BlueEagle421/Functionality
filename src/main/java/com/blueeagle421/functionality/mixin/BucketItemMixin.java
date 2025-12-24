@@ -17,7 +17,7 @@ public class BucketItemMixin {
     private static void makeInfiniteBucket(ItemStack bucketStack, Player player,
             CallbackInfoReturnable<ItemStack> cir) {
 
-        if (!bucketStack.is(ModItems.BOTTOMLESS_WATER_BUCKET.get()))
+        if (!bucketStack.is(ModItems.NAUTILUS_BUCKET.get()))
             return;
 
         ItemStack copy = bucketStack.copy();
