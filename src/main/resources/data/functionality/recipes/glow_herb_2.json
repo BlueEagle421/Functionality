@@ -21,7 +21,7 @@
     "result": {
         "type": "forge:nbt",
         "item": "functionality:glow_herb",
-        "nbt": "{Herb:{Duration:4200}}"
+        "nbt": "{Herb:{Duration:1800}}"
     },
     "conditions": [
         {

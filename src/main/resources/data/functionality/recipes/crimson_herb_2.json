@@ -18,7 +18,7 @@
     "result": {
         "type": "forge:nbt",
         "item": "functionality:crimson_herb",
-        "nbt": "{Herb:{Duration:4200}}"
+        "nbt": "{Herb:{Duration:1800}}"
     },
     "conditions": [
         {
