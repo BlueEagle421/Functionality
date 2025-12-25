@@ -1,6 +1,10 @@
 package com.blueeagle421.functionality.menu;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -60,19 +64,38 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
         int cost = repairCost.get();
 
+        clearInputSlot();
+        consumeAdditionalMaterial(cost);
+        consumeCopperBlock();
+        repairCost.set(0);
+
+        access.execute((level, pos) -> {
+            if (!(level instanceof ServerLevel server))
+                return;
+
+            playSound(server, pos);
+            spawnParticles(server, pos);
+        });
+    }
+
+    private void clearInputSlot() {
         inputSlots.setItem(INPUT_SLOT, ItemStack.EMPTY);
+    }
 
-        if (cost > 0) {
-            ItemStack material = inputSlots.getItem(ADDITIONAL_SLOT);
+    private void consumeAdditionalMaterial(int cost) {
+        if (cost <= 0)
+            return;
 
-            if (!material.isEmpty() && material.getCount() > cost) {
-                material.shrink(cost);
-                inputSlots.setItem(ADDITIONAL_SLOT, material);
-            } else {
-                inputSlots.setItem(ADDITIONAL_SLOT, ItemStack.EMPTY);
-            }
+        ItemStack material = inputSlots.getItem(ADDITIONAL_SLOT);
+        if (!material.isEmpty() && material.getCount() > cost) {
+            material.shrink(cost);
+            inputSlots.setItem(ADDITIONAL_SLOT, material);
+        } else {
+            inputSlots.setItem(ADDITIONAL_SLOT, ItemStack.EMPTY);
         }
+    }
 
+    private void consumeCopperBlock() {
         ItemStack copper = inputSlots.getItem(COPPER_BLOCK_SLOT);
         if (!copper.isEmpty()) {
             copper.shrink(1);
@@ -80,20 +103,31 @@ public class RepairAltarMenu extends ItemCombinerMenu {
                 inputSlots.setItem(COPPER_BLOCK_SLOT, ItemStack.EMPTY);
             }
         }
+    }
 
-        repairCost.set(0);
+    private void playSound(ServerLevel server, BlockPos pos) {
+        server.playSound(
+                null,
+                pos.getX() + 0.5,
+                pos.getY() + 0.5,
+                pos.getZ() + 0.5,
+                ModSounds.REPAIR_ALTAR_USE.get(),
+                net.minecraft.sounds.SoundSource.BLOCKS,
+                1.0f,
+                1.0f);
+    }
 
-        access.execute((level, pos) -> {
-            level.playSound(
-                    null,
-                    pos.getX() + 0.5,
-                    pos.getY() + 0.5,
-                    pos.getZ() + 0.5,
-                    ModSounds.REPAIR_ALTAR_USE.get(),
-                    net.minecraft.sounds.SoundSource.BLOCKS,
-                    1.0f,
-                    1.0f);
-        });
+    private static void spawnParticles(ServerLevel server, BlockPos pos) {
+        int count = 12;
+        double spread = 0.25d;
+        double speed = 0.08d;
+
+        double px = pos.getX() + 0.5;
+        double py = pos.getY() + 0.95;
+        double pz = pos.getZ() + 0.5;
+
+        ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.COPPER_BLOCK));
+        server.sendParticles(particle, px, py, pz, count, spread, spread, spread, speed);
     }
 
     @Override
