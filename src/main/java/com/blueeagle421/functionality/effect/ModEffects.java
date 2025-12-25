@@ -4,6 +4,7 @@ import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.custom.CalmnessEffect;
 import com.blueeagle421.functionality.effect.custom.CrimsonShieldEffect;
 import com.blueeagle421.functionality.effect.custom.GlowShieldEffect;
+import com.blueeagle421.functionality.effect.custom.VoidCorruptionEffect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -25,6 +26,9 @@ public class ModEffects {
 
     public static final RegistryObject<MobEffect> CALMNESS = MOB_EFFECTS.register("calmness",
             () -> new CalmnessEffect(MobEffectCategory.BENEFICIAL, 0x009295));
+
+    public static final RegistryObject<MobEffect> VOID_CORRUPTION = MOB_EFFECTS.register("void_corruption",
+            () -> new VoidCorruptionEffect(MobEffectCategory.HARMFUL, 0x1b1b1b));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

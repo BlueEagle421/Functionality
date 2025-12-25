@@ -2,6 +2,8 @@ package com.blueeagle421.functionality.event.glowBlessingEffect;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;
+import com.blueeagle421.functionality.effect.custom.VoidCorruptionEffect;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -9,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,6 +55,8 @@ public class VoidProtection {
 
         event.setCanceled(true);
 
+        addVoidCorruption(player);
+
         Vec3 lastPos = LAST_GROUND_POS.get(player.getUUID());
         if (lastPos == null)
             return;
@@ -84,6 +89,13 @@ public class VoidProtection {
 
         // spawn particles
         spawnParticles(server, teleportPos);
+    }
+
+    private static void addVoidCorruption(Player player) {
+        player.removeEffect(ModEffects.VOID_CORRUPTION.get());
+        player.addEffect(new MobEffectInstance(
+                ModEffects.VOID_CORRUPTION.get(),
+                VoidCorruptionEffect.POST_VOID_DURATION));
     }
 
     private static BlockPos findNearestSafeBlock(Level level, BlockPos center, int radius) {

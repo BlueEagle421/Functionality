@@ -47,6 +47,7 @@
     "effect.functionality.crimson_shield": "Crimson Shield",
     "effect.functionality.glow_blessing": "Glow Blessing",
     "effect.functionality.calmness": "Calmness",
+    "effect.functionality.void_corruption": "Void Corruption",
 
     "block.functionality.glow_torch": "Glow Torch",
     "block.functionality.fish_trap": "Fish Trap",
@@ -100,7 +101,7 @@
     "tooltip.detailed.functionality.crimson_herb": "Grants immunity to poison and wither effects.",
 
     "tooltip.functionality.glow_herb": "Its leaves are warm and softly glowing.",
-    "tooltip.detailed.functionality.glow_herb": "Grants immunity to:\n • Void damage\n • Levitation\n • Angering Endermen",
+    "tooltip.detailed.functionality.glow_herb": "Grants immunity to:\n • Void damage\n • Levitation\n • Angering Endermen\n\nTaking void damage rapidly corrupts you.\nIt can only be cured with regeneration effect.",
 
     "tooltip.nbt.functionality.duration": "Duration:",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
