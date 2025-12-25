@@ -133,6 +133,7 @@
 
     "sounds.functionality.disc_hit": "Music disc hit",
     "sounds.functionality.disc_throw": "Music disc throw",
+    "sounds.functionality.repair_altar_use": "Repair altar use",
 
     "creativetab.functionality_tab": "Functionality",
     "category.functionality.information": "Functional Information"

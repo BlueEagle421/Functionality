@@ -10,5 +10,11 @@
         "sounds": [
             "functionality:disc_throw"
         ]
+    },
+    "repair_altar_use": {
+        "subtitle": "sounds.functionality.repair_altar_use",
+        "sounds": [
+            "functionality:repair_altar_use"
+        ]
     }
 }

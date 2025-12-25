@@ -12,6 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 
 import com.blueeagle421.functionality.block.ModBlocks;
+import com.blueeagle421.functionality.sound.ModSounds;
 
 public class RepairAltarMenu extends ItemCombinerMenu {
     public static final int INPUT_SLOT = 0;
@@ -82,7 +83,17 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
         repairCost.set(0);
 
-        access.execute((level, pos) -> level.levelEvent(1030, pos, 0));
+        access.execute((level, pos) -> {
+            level.playSound(
+                    null,
+                    pos.getX() + 0.5,
+                    pos.getY() + 0.5,
+                    pos.getZ() + 0.5,
+                    ModSounds.REPAIR_ALTAR_USE.get(),
+                    net.minecraft.sounds.SoundSource.BLOCKS,
+                    1.0f,
+                    1.0f);
+        });
     }
 
     @Override

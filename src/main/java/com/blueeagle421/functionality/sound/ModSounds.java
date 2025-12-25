@@ -16,6 +16,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> DISC_THROW = registerSoundEvents("disc_throw");
     public static final RegistryObject<SoundEvent> DISC_HIT = registerSoundEvents("disc_hit");
+    public static final RegistryObject<SoundEvent> REPAIR_ALTAR_USE = registerSoundEvents("repair_altar_use");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name,
