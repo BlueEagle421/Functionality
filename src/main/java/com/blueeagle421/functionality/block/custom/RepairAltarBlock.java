@@ -148,7 +148,7 @@ public class RepairAltarBlock extends BaseEntityBlock {
 
         BlockEntity be = level.getBlockEntity(pos);
         if (!(be instanceof RepairAltarEntity))
-            return InteractionResult.PASS;
+            return InteractionResult.sidedSuccess(level.isClientSide);
 
         RepairAltarEntity altar = (RepairAltarEntity) be;
 
@@ -174,7 +174,7 @@ public class RepairAltarBlock extends BaseEntityBlock {
             }
         }
 
-        return InteractionResult.PASS;
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
