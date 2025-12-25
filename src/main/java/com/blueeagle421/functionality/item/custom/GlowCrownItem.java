@@ -1,7 +1,10 @@
 package com.blueeagle421.functionality.item.custom;
 
+import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -13,6 +16,16 @@ public class GlowCrownItem extends ArmorItem {
 
     public GlowCrownItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
         super(pMaterial, pType, pProperties);
+    }
+
+    @Override
+    public String getArmorTexture(
+            ItemStack stack,
+            Entity entity,
+            EquipmentSlot slot,
+            String type) {
+
+        return FunctionalityMod.MOD_ID + ":textures/models/armor/glow_crown.png";
     }
 
     @Override
