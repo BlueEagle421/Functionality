@@ -9,6 +9,7 @@ import com.blueeagle421.functionality.client.particle.CustomSuspendedParticle;
 import com.blueeagle421.functionality.client.particle.GlowSmokeParticle;
 import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
+import com.blueeagle421.functionality.client.renderer.RepairAltarRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
 import com.blueeagle421.functionality.client.screen.RepairAltarScreen;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
@@ -29,6 +30,7 @@ import com.blueeagle421.functionality.worldgen.ModFeatures;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -123,6 +125,7 @@ public class FunctionalityMod {
 
             EntityRenderers.register(ModEntities.ANVIL_MARKER.get(), AnvilMarkerRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISC.get(), context -> new ThrownDiscRenderer(context));
+            BlockEntityRenderers.register(ModBlockEntities.REPAIR_ALTAR.get(), RepairAltarRenderer::new);
 
             MenuScreens.register(
                     ModMenus.REPAIR_ALTAR_MENU.get(),
@@ -152,6 +155,7 @@ public class FunctionalityMod {
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(InfernoGearHumanoidModel.LAYER_LOCATION,
                     InfernoGearHumanoidModel::createBodyLayer);
+            event.registerLayerDefinition(RepairAltarRenderer.LAYER_LOCATION, RepairAltarRenderer::createLayer);
         }
     }
 }
