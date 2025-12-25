@@ -5,6 +5,9 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -13,9 +16,14 @@ import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeHooks;
 
 import com.blueeagle421.functionality.block.ModBlocks;
+import com.blueeagle421.functionality.block.custom.RepairAltarBlock;
+import com.blueeagle421.functionality.block.entity.custom.RepairAltarEntity;
 import com.blueeagle421.functionality.sound.ModSounds;
 
 public class RepairAltarMenu extends ItemCombinerMenu {
@@ -64,6 +72,9 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
         int cost = repairCost.get();
 
+        float breakChance = ForgeHooks.onAnvilRepair(
+                player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
+
         clearInputSlot();
         consumeAdditionalMaterial(cost);
         consumeCopperBlock();
@@ -73,9 +84,36 @@ public class RepairAltarMenu extends ItemCombinerMenu {
             if (!(level instanceof ServerLevel server))
                 return;
 
-            playSound(server, pos);
+            playRepairSound(server, pos);
             spawnParticles(server, pos);
+
+            // "breaking" checks
+            BlockState state = level.getBlockState(pos);
+            if (!player.getAbilities().instabuild && state.is(BlockTags.ANVIL)
+                    && player.getRandom().nextFloat() < breakChance) {
+
+                if (player instanceof ServerPlayer serverPlayer)
+                    serverPlayer.closeContainer();
+
+                setInactive(level, state, pos);
+            }
         });
+    }
+
+    private void setInactive(Level level, BlockState state, BlockPos pos) {
+        BlockState newState = state;
+
+        if (state.hasProperty(RepairAltarBlock.ACTIVE)) {
+            newState = state.setValue(RepairAltarBlock.ACTIVE, false);
+            level.setBlock(pos, newState, 3);
+        }
+
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof RepairAltarEntity altar) {
+            altar.setActive(false);
+        }
+
+        playBreakSound((ServerLevel) level, pos);
     }
 
     private void clearInputSlot() {
@@ -105,13 +143,25 @@ public class RepairAltarMenu extends ItemCombinerMenu {
         }
     }
 
-    private void playSound(ServerLevel server, BlockPos pos) {
+    private void playRepairSound(ServerLevel server, BlockPos pos) {
         server.playSound(
                 null,
                 pos.getX() + 0.5,
                 pos.getY() + 0.5,
                 pos.getZ() + 0.5,
                 ModSounds.REPAIR_ALTAR_USE.get(),
+                net.minecraft.sounds.SoundSource.BLOCKS,
+                1.0f,
+                1.0f);
+    }
+
+    private void playBreakSound(ServerLevel server, BlockPos pos) {
+        server.playSound(
+                null,
+                pos.getX() + 0.5,
+                pos.getY() + 0.5,
+                pos.getZ() + 0.5,
+                SoundEvents.ITEM_BREAK,
                 net.minecraft.sounds.SoundSource.BLOCKS,
                 1.0f,
                 1.0f);
