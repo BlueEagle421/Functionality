@@ -24,13 +24,13 @@ import net.minecraftforge.registries.RegistryObject;
 //    "conditions": [
 //        {
 //            "type": "functionality:enabled",
-//            "configPath": "items.sleeping_herb.enabled"
+//            "configPath": "items.whispering_herb.enabled"
 //        }
 //    ]
 
 // It uses reflection to get fields from config
 // They are auto converted to snake case for consistency
-// Example field from item config class: sleepingHerb -> sleeping_herb
+// Example field from item config class: sleepingHerb -> whispering_herb
 
 public class ModItems {
         public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
@@ -88,20 +88,20 @@ public class ModItems {
                                         ModArmorMaterials.OBSIDIAN, ArmorItem.Type.CHESTPLATE,
                                         new Item.Properties()));
 
-        public static final RegistryObject<Item> SLEEPING_HERB = ITEMS.register("sleeping_herb",
-                        () -> new WhisperingHerbItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
+        public static final RegistryObject<Item> WHISPERING_HERB = ITEMS.register("whispering_herb",
+                        () -> new WhisperingHerbItem(new Item.Properties().food(ModFoods.HERB)));
 
         public static final RegistryObject<Item> PHANTOM_HERB = ITEMS.register("phantom_herb",
-                        () -> new PhantomHerbItem(new Item.Properties().food(ModFoods.PHANTOM_HERB)));
+                        () -> new PhantomHerbItem(new Item.Properties().food(ModFoods.HERB)));
 
         public static final RegistryObject<Item> CHORUS_HERB = ITEMS.register("chorus_herb",
-                        () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.CHORUS_HERB)));
+                        () -> new ChorusHerbItem(new Item.Properties().food(ModFoods.HERB)));
 
         public static final RegistryObject<Item> CRIMSON_HERB = ITEMS.register("crimson_herb",
-                        () -> new CrimsonHerbItem(new Item.Properties().food(ModFoods.GLOW_HERB)));
+                        () -> new CrimsonHerbItem(new Item.Properties().food(ModFoods.HERB)));
 
         public static final RegistryObject<Item> GLOW_HERB = ITEMS.register("glow_herb",
-                        () -> new GlowHerbItem(new Item.Properties().food(ModFoods.GLOW_HERB)));
+                        () -> new GlowHerbItem(new Item.Properties().food(ModFoods.HERB)));
 
         public static final RegistryObject<Item> GLOW_CROWN = ITEMS.register("glow_crown",
                         () -> new GlowCrownItem(ModArmorMaterials.KELP, ArmorItem.Type.HELMET,

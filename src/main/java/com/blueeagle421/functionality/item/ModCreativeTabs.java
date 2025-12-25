@@ -34,8 +34,8 @@ public class ModCreativeTabs {
     private static void addItemsToTab(Consumer<ItemStack> out) {
 
         // with nbt
-        acceptIf(out, () -> config().sleepingHerb.enabled.get(), () -> {
-            ItemStack herbStack = new ItemStack(ModItems.SLEEPING_HERB.get());
+        acceptIf(out, () -> config().whisperingHerb.enabled.get(), () -> {
+            ItemStack herbStack = new ItemStack(ModItems.WHISPERING_HERB.get());
             EffectHerbItem.setDuration(herbStack, WhisperingHerbItem.DEFAULT_DURATION);
             return herbStack;
         });

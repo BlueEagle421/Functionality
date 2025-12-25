@@ -10,12 +10,12 @@
         }
     ],
     "result": {
-        "item": "functionality:sleeping_herb"
+        "item": "functionality:whispering_herb"
     },
     "conditions": [
         {
             "type": "functionality:enabled",
-            "configPath": "items.sleeping_herb.enabled"
+            "configPath": "items.whispering_herb.enabled"
         }
     ]
 }

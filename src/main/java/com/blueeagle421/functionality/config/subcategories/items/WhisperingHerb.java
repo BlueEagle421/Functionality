@@ -4,12 +4,12 @@ import com.blueeagle421.functionality.item.ModItems;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class SleepingHerb {
+public class WhisperingHerb {
 
     public final ForgeConfigSpec.BooleanValue enabled;
 
-    public SleepingHerb(ForgeConfigSpec.Builder builder) {
-        builder.push(ModItems.SLEEPING_HERB.getId().getPath());
+    public WhisperingHerb(ForgeConfigSpec.Builder builder) {
+        builder.push(ModItems.WHISPERING_HERB.getId().getPath());
 
         enabled = builder
                 .comment("If false, the item won't be craftable and present in tabs effectively disabling it.")

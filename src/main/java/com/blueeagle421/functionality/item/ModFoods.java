@@ -84,29 +84,9 @@ public class ModFoods {
                         .alwaysEat()
                         .build();
 
-        public static final FoodProperties SLEEPING_HERB = new FoodProperties.Builder()
-                        .nutrition(1).saturationMod(0.3f)
-                        .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 180 * TICKS_PER_SECOND, 0), 1f)
-                        .fast()
-                        .alwaysEat()
-                        .build();
-
-        public static final FoodProperties PHANTOM_HERB = new FoodProperties.Builder()
+        public static final FoodProperties HERB = new FoodProperties.Builder()
                         .nutrition(1).saturationMod(0.3f)
                         .fast()
                         .alwaysEat()
                         .build();
-
-        public static final FoodProperties CHORUS_HERB = new FoodProperties.Builder()
-                        .nutrition(1).saturationMod(0.3f)
-                        .fast()
-                        .alwaysEat()
-                        .build();
-
-        public static final FoodProperties GLOW_HERB = new FoodProperties.Builder()
-                        .nutrition(1).saturationMod(0.3f)
-                        .fast()
-                        .alwaysEat()
-                        .build();
-
 }

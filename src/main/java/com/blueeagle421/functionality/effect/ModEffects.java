@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.effect;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.effect.custom.CalmnessEffect;
 import com.blueeagle421.functionality.effect.custom.CrimsonShieldEffect;
 import com.blueeagle421.functionality.effect.custom.GlowShieldEffect;
 
@@ -23,7 +24,7 @@ public class ModEffects {
             () -> new GlowShieldEffect(MobEffectCategory.BENEFICIAL, 0xf4bc58));
 
     public static final RegistryObject<MobEffect> CALMNESS = MOB_EFFECTS.register("calmness",
-            () -> new GlowShieldEffect(MobEffectCategory.BENEFICIAL, 0x1d7589));
+            () -> new CalmnessEffect(MobEffectCategory.BENEFICIAL, 0x009295));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

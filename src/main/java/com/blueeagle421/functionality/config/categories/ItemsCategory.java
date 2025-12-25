@@ -32,7 +32,7 @@ public class ItemsCategory {
     public final PhantomRocket phantomRocket;
     public final PhantomTreat phantomTreat;
     public final Pheromones pheromones;
-    public final SleepingHerb sleepingHerb;
+    public final WhisperingHerb whisperingHerb;
     public final TreasureSack treasureSack;
     public final DiscShards discShards;
     public final NautilusBucket nautilusBucket;
@@ -66,7 +66,7 @@ public class ItemsCategory {
         phantomRocket = new PhantomRocket(builder);
         phantomTreat = new PhantomTreat(builder);
         pheromones = new Pheromones(builder);
-        sleepingHerb = new SleepingHerb(builder);
+        whisperingHerb = new WhisperingHerb(builder);
         treasureSack = new TreasureSack(builder);
         discShards = new DiscShards(builder);
         nautilusBucket = new NautilusBucket(builder);

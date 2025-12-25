@@ -13,7 +13,7 @@
     "item.functionality.fins": "Fins",
     "item.functionality.obsidian_fins": "Obsidian Fins",
     "item.functionality.inferno_gear": "Inferno Gear",
-    "item.functionality.sleeping_herb": "Whispering Herb",
+    "item.functionality.whispering_herb": "Whispering Herb",
     "item.functionality.phantom_herb": "Phantom Herb",
     "item.functionality.chorus_herb": "Chorus Herb",
     "item.functionality.crimson_herb": "Crimson Herb",
@@ -46,6 +46,7 @@
 
     "effect.functionality.crimson_shield": "Crimson Shield",
     "effect.functionality.glow_blessing": "Glow Blessing",
+    "effect.functionality.calmness": "Calmness",
 
     "block.functionality.glow_torch": "Glow Torch",
     "block.functionality.fish_trap": "Fish Trap",
@@ -86,8 +87,8 @@
     "tooltip.functionality.inferno_gear": "Provides fire resistance.",
     "tooltip.detailed.functionality.inferno_gear": "Also makes you see clearly in lava.",
 
-    "tooltip.functionality.sleeping_herb": "Everything in it's presence becomes silent.",
-    "tooltip.detailed.functionality.sleeping_herb": "Cancels your footstep sounds.",
+    "tooltip.functionality.whispering_herb": "Everything in it's presence becomes silent.",
+    "tooltip.detailed.functionality.whispering_herb": "Cancels your footstep sounds.",
 
     "tooltip.functionality.phantom_herb": "An ominous, hissing plant.",
     "tooltip.detailed.functionality.phantom_herb": "Causes phantoms to not spawn as if you just rested.",
