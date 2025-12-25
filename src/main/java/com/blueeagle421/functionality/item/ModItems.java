@@ -89,7 +89,7 @@ public class ModItems {
                                         new Item.Properties()));
 
         public static final RegistryObject<Item> SLEEPING_HERB = ITEMS.register("sleeping_herb",
-                        () -> new TooltipItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
+                        () -> new WhisperingHerbItem(new Item.Properties().food(ModFoods.SLEEPING_HERB)));
 
         public static final RegistryObject<Item> PHANTOM_HERB = ITEMS.register("phantom_herb",
                         () -> new PhantomHerbItem(new Item.Properties().food(ModFoods.PHANTOM_HERB)));

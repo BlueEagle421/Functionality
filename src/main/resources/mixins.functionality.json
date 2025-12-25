@@ -19,7 +19,8 @@
         "thunderRitual.ItemEntityMixin",
         "HorseMobInteractMixin",
         "LayeredCauldronBlockMixin",
-        "BucketItemMixin"
+        "BucketItemMixin",
+        "MixinLivingEntity"
     ],
     "client": [ ],
     "server": [ ]

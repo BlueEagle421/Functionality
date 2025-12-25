@@ -12,7 +12,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEffects {
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS,
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(
+            ForgeRegistries.MOB_EFFECTS,
             FunctionalityMod.MOD_ID);
 
     public static final RegistryObject<MobEffect> CRIMSON_SHIELD = MOB_EFFECTS.register("crimson_shield",
@@ -20,6 +21,9 @@ public class ModEffects {
 
     public static final RegistryObject<MobEffect> GLOW_BLESSING = MOB_EFFECTS.register("glow_blessing",
             () -> new GlowShieldEffect(MobEffectCategory.BENEFICIAL, 0xf4bc58));
+
+    public static final RegistryObject<MobEffect> CALMNESS = MOB_EFFECTS.register("calmness",
+            () -> new GlowShieldEffect(MobEffectCategory.BENEFICIAL, 0x1d7589));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

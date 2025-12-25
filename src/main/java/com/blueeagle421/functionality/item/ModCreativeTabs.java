@@ -32,21 +32,28 @@ public class ModCreativeTabs {
                     .build());
 
     private static void addItemsToTab(Consumer<ItemStack> out) {
-        acceptIf(out, () -> config().sleepingHerb.enabled.get(), () -> new ItemStack(ModItems.SLEEPING_HERB.get()));
+
+        // with nbt
+        acceptIf(out, () -> config().sleepingHerb.enabled.get(), () -> {
+            ItemStack herbStack = new ItemStack(ModItems.SLEEPING_HERB.get());
+            EffectHerbItem.setDuration(herbStack, WhisperingHerbItem.DEFAULT_DURATION);
+            return herbStack;
+        });
+
         acceptIf(out, () -> config().phantomHerb.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_HERB.get()));
         acceptIf(out, () -> config().chorusHerb.enabled.get(), () -> new ItemStack(ModItems.CHORUS_HERB.get()));
 
         // with nbt
         acceptIf(out, () -> config().crimsonHerb.enabled.get(), () -> {
             ItemStack crimsonHerbStack = new ItemStack(ModItems.CRIMSON_HERB.get());
-            CrimsonHerbItem.setDuration(crimsonHerbStack, CrimsonHerbItem.DEFAULT_DURATION);
+            EffectHerbItem.setDuration(crimsonHerbStack, CrimsonHerbItem.DEFAULT_DURATION);
             return crimsonHerbStack;
         });
 
         // with nbt
         acceptIf(out, () -> config().glowHerb.enabled.get(), () -> {
             ItemStack glowingHerbStack = new ItemStack(ModItems.GLOW_HERB.get());
-            GlowHerbItem.setDuration(glowingHerbStack, GlowHerbItem.DEFAULT_DURATION);
+            EffectHerbItem.setDuration(glowingHerbStack, GlowHerbItem.DEFAULT_DURATION);
             return glowingHerbStack;
         });
 
