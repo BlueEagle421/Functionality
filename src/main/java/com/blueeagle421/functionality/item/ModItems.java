@@ -127,9 +127,6 @@ public class ModItems {
         public static final RegistryObject<Item> FISH_TRAP = ITEMS.register("fish_trap",
                         () -> new TooltipBlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
 
-        public static final RegistryObject<Item> LIGHTNING_CHARGER = ITEMS.register("lightning_charger",
-                        () -> new TooltipBlockItem(ModBlocks.LIGHTNING_CHARGER.get(), new Item.Properties()));
-
         public static final RegistryObject<Item> BLOOM_LICHEN = ITEMS.register("bloom_lichen",
                         () -> new TooltipBlockItem(ModBlocks.BLOOM_LICHEN.get(), new Item.Properties()));
 

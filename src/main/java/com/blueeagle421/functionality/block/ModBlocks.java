@@ -18,7 +18,6 @@ import com.blueeagle421.functionality.block.custom.ChunkLoaderBlock;
 import com.blueeagle421.functionality.block.custom.FishTrapBlock;
 import com.blueeagle421.functionality.block.custom.GlowTorchBlock;
 import com.blueeagle421.functionality.block.custom.GlowWallTorchBlock;
-import com.blueeagle421.functionality.block.custom.LightningChargerBlock;
 import com.blueeagle421.functionality.block.custom.RepairAltarBlock;
 import com.blueeagle421.functionality.particle.ModParticles;
 
@@ -43,11 +42,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> FISH_TRAP = BLOCKS.register("fish_trap",
             () -> new FishTrapBlock(
                     BlockBehaviour.Properties.of().noOcclusion().instabreak()
-
                             .sound(SoundType.BAMBOO)));
-
-    public static final RegistryObject<Block> LIGHTNING_CHARGER = BLOCKS.register("lightning_charger",
-            () -> new LightningChargerBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
 
     public static final RegistryObject<Block> DRY_LICHEN = BLOCKS.register("dry_lichen", () -> new GlowLichenBlock(
             BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).strength(0.08F)

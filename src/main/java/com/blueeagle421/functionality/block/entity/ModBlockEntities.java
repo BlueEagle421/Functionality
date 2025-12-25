@@ -4,7 +4,6 @@ import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.block.*;
 import com.blueeagle421.functionality.block.entity.custom.ChunkLoaderEntity;
 import com.blueeagle421.functionality.block.entity.custom.FishTrapEntity;
-import com.blueeagle421.functionality.block.entity.custom.LightningChargerEntity;
 import com.blueeagle421.functionality.block.entity.custom.RepairAltarEntity;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,13 +19,6 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<FishTrapEntity>> FISH_TRAP = BLOCK_ENTITIES.register(
             "fish_trap",
             () -> BlockEntityType.Builder.of(FishTrapEntity::new, ModBlocks.FISH_TRAP.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<LightningChargerEntity>> LIGHTNING_CHARGER = BLOCK_ENTITIES
-            .register("lightning_charger",
-                    () -> BlockEntityType.Builder
-                            .of(LightningChargerEntity::new,
-                                    ModBlocks.LIGHTNING_CHARGER.get())
-                            .build(null));
 
     public static final RegistryObject<BlockEntityType<ChunkLoaderEntity>> CHUNK_LOADER = BLOCK_ENTITIES.register(
             "chunk_loader",
