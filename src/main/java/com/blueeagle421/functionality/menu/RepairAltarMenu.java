@@ -15,6 +15,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -318,6 +319,49 @@ public class RepairAltarMenu extends ItemCombinerMenu {
         }
 
         super.removed(player);
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player player, int index) {
+        ItemStack movedStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+
+        if (slot == null || !slot.hasItem())
+            return ItemStack.EMPTY;
+
+        ItemStack slotStack = slot.getItem();
+        movedStack = slotStack.copy();
+
+        int copperSlotStart = COPPER_BLOCK_SLOT;
+        int copperSlotEnd = copperSlotStart + 1;
+
+        int inputSlotsStart = INPUT_SLOT;
+        int inputSlotsEnd = ADDITIONAL_SLOT + 1;
+
+        int playerInvStart = this.resultSlots.getContainerSize()
+                + this.inputSlots.getContainerSize();
+        int playerInvEnd = this.slots.size();
+
+        if (index >= playerInvStart && index < playerInvEnd) {
+            if (slotStack.is(Items.COPPER_BLOCK)) {
+                if (!moveItemStackTo(slotStack, copperSlotStart, copperSlotEnd, false))
+                    return ItemStack.EMPTY;
+            } else {
+                if (!moveItemStackTo(slotStack, inputSlotsStart, inputSlotsEnd, false))
+                    return ItemStack.EMPTY;
+            }
+        } else {
+            if (!moveItemStackTo(slotStack, playerInvStart, playerInvEnd, false))
+                return ItemStack.EMPTY;
+        }
+
+        if (slotStack.isEmpty())
+            slot.set(ItemStack.EMPTY);
+        else
+            slot.setChanged();
+
+        slot.onTake(player, slotStack);
+        return movedStack;
     }
 
     @Override
