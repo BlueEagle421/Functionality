@@ -173,7 +173,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
                 pos.getZ() + 0.5,
                 ModSounds.REPAIR_ALTAR_USE.get(),
                 net.minecraft.sounds.SoundSource.BLOCKS,
-                1.0f,
+                0.8f,
                 1.0f);
     }
 
@@ -206,69 +206,22 @@ public class RepairAltarMenu extends ItemCombinerMenu {
     public void createResult() {
         ItemStack input = inputSlots.getItem(INPUT_SLOT);
         ItemStack material = inputSlots.getItem(ADDITIONAL_SLOT);
+        ItemStack copper = inputSlots.getItem(COPPER_BLOCK_SLOT);
 
         repairCost.set(0);
 
-        if (input.isEmpty()
-                || inputSlots.getItem(COPPER_BLOCK_SLOT).isEmpty()
-                || material.isEmpty()) {
+        if (!isValidRepair(input, material, copper)) {
             resultSlots.setItem(0, ItemStack.EMPTY);
             return;
         }
 
         ItemStack output = input.copy();
-        int originalDurability = input.getMaxDamage() - input.getDamageValue();
+        int originalDurability = getDurability(input);
 
-        // Repair with material
-        if (output.isDamageableItem()
-                && output.getItem().isValidRepairItem(input, material)) {
-
-            int repairPerUnit = Math.min(
-                    output.getDamageValue(),
-                    output.getMaxDamage() / 4);
-
-            if (repairPerUnit <= 0) {
-                resultSlots.setItem(0, ItemStack.EMPTY);
-                return;
-            }
-
-            int used = 0;
-            while (repairPerUnit > 0 && used < material.getCount()) {
-                output.setDamageValue(output.getDamageValue() - repairPerUnit);
-                used++;
-                repairPerUnit = Math.min(
-                        output.getDamageValue(),
-                        output.getMaxDamage() / 4);
-            }
-
-            int newDurability = output.getMaxDamage() - output.getDamageValue();
-            if (newDurability <= originalDurability) {
-                resultSlots.setItem(0, ItemStack.EMPTY);
-                return;
-            }
-
-            repairCost.set(used);
+        if (canRepairWithMaterial(output, material)) {
+            repairWithMaterial(output, material, originalDurability);
         } else {
-            // Same-item repair
-            if (!output.is(material.getItem()) || !output.isDamageableItem()) {
-                resultSlots.setItem(0, ItemStack.EMPTY);
-                return;
-            }
-
-            int dur1 = input.getMaxDamage() - input.getDamageValue();
-            int dur2 = material.getMaxDamage() - material.getDamageValue();
-            int bonus = output.getMaxDamage() * 12 / 100;
-
-            int newDamage = output.getMaxDamage() - (dur1 + dur2 + bonus);
-            output.setDamageValue(Math.max(0, newDamage));
-
-            int newDurability = output.getMaxDamage() - output.getDamageValue();
-            if (newDurability <= originalDurability) {
-                resultSlots.setItem(0, ItemStack.EMPTY);
-                return;
-            }
-
-            repairCost.set(1);
+            sameItemRepair(output, material, originalDurability);
         }
 
         if (repairCost.get() <= 0) {
@@ -278,6 +231,55 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
         resultSlots.setItem(0, output);
         broadcastChanges();
+    }
+
+    private boolean isValidRepair(ItemStack input, ItemStack material, ItemStack copper) {
+        return !input.isEmpty() && !material.isEmpty() && !copper.isEmpty();
+    }
+
+    private int getDurability(ItemStack stack) {
+        return stack.getMaxDamage() - stack.getDamageValue();
+    }
+
+    private boolean canRepairWithMaterial(ItemStack output, ItemStack material) {
+        return output.isDamageableItem() && output.getItem().isValidRepairItem(output, material);
+    }
+
+    private void repairWithMaterial(ItemStack output, ItemStack material, int originalDurability) {
+        int repairPerUnit = Math.min(output.getDamageValue(), output.getMaxDamage() / 4);
+        if (repairPerUnit <= 0)
+            return;
+
+        int used = 0;
+        while (repairPerUnit > 0 && used < material.getCount()) {
+            output.setDamageValue(output.getDamageValue() - repairPerUnit);
+            used++;
+            repairPerUnit = Math.min(output.getDamageValue(), output.getMaxDamage() / 4);
+        }
+
+        int newDurability = getDurability(output);
+        if (newDurability <= originalDurability)
+            return;
+
+        repairCost.set(used);
+    }
+
+    private void sameItemRepair(ItemStack output, ItemStack material, int originalDurability) {
+        if (!output.is(material.getItem()) || !output.isDamageableItem())
+            return;
+
+        int dur1 = getDurability(output);
+        int dur2 = getDurability(material);
+        int bonus = output.getMaxDamage() * 12 / 100;
+
+        int newDamage = output.getMaxDamage() - (dur1 + dur2 + bonus);
+        output.setDamageValue(Math.max(0, newDamage));
+
+        int newDurability = getDurability(output);
+        if (newDurability <= originalDurability)
+            return;
+
+        repairCost.set(1);
     }
 
     @Override
