@@ -72,7 +72,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> config().fishTrap.enabled.get(), () -> new ItemStack(ModItems.FISH_TRAP.get()));
         acceptIf(out, () -> config().lightningCharger.enabled.get(),
                 () -> new ItemStack(ModItems.LIGHTNING_CHARGER.get()));
-        acceptIf(out, () -> config().chunkLoader.enabled.get(),
+        acceptIf(out, () -> config().repairAltar.enabled.get(),
                 () -> new ItemStack(ModItems.REPAIR_ALTAR.get()));
         acceptIf(out, () -> config().chunkLoader.enabled.get(),
                 () -> new ItemStack(ModItems.CHUNK_LOADER.get()));

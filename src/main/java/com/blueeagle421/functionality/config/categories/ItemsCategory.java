@@ -24,6 +24,7 @@ public class ItemsCategory {
     public final InfernoGear infernoGear;
     public final LightningCharger lightningCharger;
     public final ChunkLoader chunkLoader;
+    public final RepairAltar repairAltar;
     public final ObsidianBoat obsidianBoat;
     public final ObsidianFins obsidianFins;
     public final PhantomHerb phantomHerb;
@@ -57,6 +58,7 @@ public class ItemsCategory {
         infernoGear = new InfernoGear(builder);
         lightningCharger = new LightningCharger(builder);
         chunkLoader = new ChunkLoader(builder);
+        repairAltar = new RepairAltar(builder);
         obsidianBoat = new ObsidianBoat(builder);
         obsidianFins = new ObsidianFins(builder);
         phantomHerb = new PhantomHerb(builder);

@@ -21,7 +21,7 @@
   "conditions": [
     {
       "type": "functionality:enabled",
-      "configPath": "items.chunk_loader.enabled"
+      "configPath": "items.repair_altar.enabled"
     }
   ]
 }

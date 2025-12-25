@@ -27,6 +27,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.block.custom.RepairAltarBlock;
 import com.blueeagle421.functionality.block.entity.custom.RepairAltarEntity;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.RepairAltar;
 import com.blueeagle421.functionality.sound.ModSounds;
 
 public class RepairAltarMenu extends ItemCombinerMenu {
@@ -88,6 +90,8 @@ public class RepairAltarMenu extends ItemCombinerMenu {
         float breakChance = ForgeHooks.onAnvilRepair(
                 player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
 
+        boolean flatBreakChance = player.getRandom().nextFloat() < config().deactivateChance.get();
+
         clearInputSlot();
         consumeAdditionalMaterial(cost);
         consumeCopperBlock();
@@ -103,7 +107,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
             // "breaking" checks
             BlockState state = level.getBlockState(pos);
             if (!player.getAbilities().instabuild && state.is(BlockTags.ANVIL)
-                    && player.getRandom().nextFloat() < breakChance) {
+                    && player.getRandom().nextFloat() < breakChance || flatBreakChance) {
 
                 if (player instanceof ServerPlayer serverPlayer)
                     serverPlayer.closeContainer();
@@ -184,7 +188,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
                 pos.getX() + 0.5,
                 pos.getY() + 0.5,
                 pos.getZ() + 0.5,
-                SoundEvents.ITEM_BREAK,
+                SoundEvents.AMETHYST_BLOCK_BREAK,
                 net.minecraft.sounds.SoundSource.BLOCKS,
                 1.0f,
                 1.0f);
@@ -367,5 +371,9 @@ public class RepairAltarMenu extends ItemCombinerMenu {
     @Override
     protected boolean isValidBlock(BlockState pState) {
         return pState.is(ModBlocks.REPAIR_ALTAR.get());
+    }
+
+    private static RepairAltar config() {
+        return FunctionalityConfig.COMMON.items.repairAltar;
     }
 }
