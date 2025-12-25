@@ -39,7 +39,7 @@
     "message.functionality.phantom_treat.random2": "%s is happy for that treat.",
     "message.functionality.phantom_treat.random3": "%s is grateful for your treat.",
     "message.functionality.phantom_treat.random4": "%s feels a bit faster.",
-    "message.functionality.phantom_treat.random5": "%s is getting exited.",
+    "message.functionality.phantom_treat.random5": "%s is getting excited.",
     "message.functionality.phantom_treat.random6": "%s stares at you hungry for more treats.",
     "message.functionality.phantom_treat.last": "%s has reached peak form. It's swift as the wind now.",
     "message.functionality.phantom_treat.too_much": "%s is tired of the treat. It won't accept more.",
@@ -87,8 +87,8 @@
     "tooltip.functionality.inferno_gear": "Provides fire resistance.",
     "tooltip.detailed.functionality.inferno_gear": "Also makes you see clearly in lava.",
 
-    "tooltip.functionality.whispering_herb": "Everything in it's presence becomes silent.",
-    "tooltip.detailed.functionality.whispering_herb": "Cancels your footstep sounds.",
+    "tooltip.functionality.whispering_herb": "Everything in its presence becomes silent.",
+    "tooltip.detailed.functionality.whispering_herb": "• Cancels footstep sounds.\n • Hides nicknames.",
 
     "tooltip.functionality.phantom_herb": "An ominous, hissing plant.",
     "tooltip.detailed.functionality.phantom_herb": "Causes phantoms to not spawn as if you just rested.",
