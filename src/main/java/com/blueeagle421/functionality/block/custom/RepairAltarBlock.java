@@ -110,6 +110,23 @@ public class RepairAltarBlock extends BaseEntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
+    public void onRemove(BlockState state, Level level, BlockPos pos,
+            BlockState newState, boolean isMoving) {
+
+        if (state.getBlock() != newState.getBlock()) {
+
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof RepairAltarEntity altar && altar.isActive())
+                if (!level.isClientSide)
+                    popResource(level, pos, new ItemStack(Items.AMETHYST_SHARD));
+
+        }
+
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
 
