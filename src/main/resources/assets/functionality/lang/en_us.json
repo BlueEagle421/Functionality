@@ -66,7 +66,7 @@
     "tooltip.functionality.chunk_loader": "Keeps designated chunks loaded.",
     "tooltip.detailed.functionality.chunk_loader": " • Right click - configure radius.\n • Sneak + Right click - Toggle radius rendering.",
     "tooltip.functionality.repair_altar": "Repairs items without experience.",
-    "tooltip.detailed.functionality.repair_altar": " • Use amethyst shard to activate it.\n • Extracts ancient experience from copper.\n • Can only repair items.",
+    "tooltip.detailed.functionality.repair_altar": " • Use amethyst shard to activate it.\n • Extracts ancient experience from copper.\n • Can store copper blocks inside.\n • Can only repair items.",
 
     "tooltip.functionality.bear_venison": "An uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",
