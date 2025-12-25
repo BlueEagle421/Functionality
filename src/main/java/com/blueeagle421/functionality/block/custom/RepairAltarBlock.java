@@ -1,41 +1,46 @@
 package com.blueeagle421.functionality.block.custom;
 
-import javax.annotation.Nullable;
-
-import com.blueeagle421.functionality.block.entity.ModBlockEntities;
 import com.blueeagle421.functionality.block.entity.custom.RepairAltarEntity;
 import com.blueeagle421.functionality.menu.RepairAltarMenu;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraft.world.phys.shapes.Shapes;
+import javax.annotation.Nullable;
 
 public class RepairAltarBlock extends BaseEntityBlock {
 
@@ -49,24 +54,19 @@ public class RepairAltarBlock extends BaseEntityBlock {
 
     private static final VoxelShape X_AXIS_SHAPE = Shapes.or(BASE, NARROW, WIDE_X, TOP);
     private static final VoxelShape Z_AXIS_SHAPE = Shapes.or(BASE, NARROW, WIDE_Z, TOP);
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
-    public RepairAltarBlock(Properties pProperties) {
-        super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    public RepairAltarBlock(Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(ACTIVE, false));
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos,
-            Player player, InteractionHand hand, BlockHitResult hit) {
-
-        if (!level.isClientSide) {
-            NetworkHooks.openScreen(
-                    (ServerPlayer) player,
-                    state.getMenuProvider(level, pos),
-                    pos);
-        }
-
-        return InteractionResult.sidedSuccess(level.isClientSide);
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+        builder.add(ACTIVE);
+        builder.add(FACING);
     }
 
     @Nullable
@@ -76,9 +76,10 @@ public class RepairAltarBlock extends BaseEntityBlock {
         }, this.getName());
     }
 
+    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new RepairAltarEntity(ModBlockEntities.REPAIR_ALTAR.get(), pPos, pState);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new RepairAltarEntity(pos, state);
     }
 
     @Override
@@ -109,14 +110,71 @@ public class RepairAltarBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+    public InteractionResult use(BlockState state, Level level, BlockPos pos,
+            Player player, InteractionHand hand, BlockHitResult hit) {
+
+        if (level.isClientSide)
+            return InteractionResult.sidedSuccess(level.isClientSide);
+
+        BlockEntity be = level.getBlockEntity(pos);
+        if (!(be instanceof RepairAltarEntity))
+            return InteractionResult.PASS;
+
+        RepairAltarEntity altar = (RepairAltarEntity) be;
+
+        if (altar.isActive())
+            NetworkHooks.openScreen(
+                    (ServerPlayer) player,
+                    state.getMenuProvider(level, pos),
+                    pos);
+        else {
+            ItemStack held = player.getItemInHand(hand);
+
+            if (held.getItem() == Items.AMETHYST_SHARD) {
+
+                altar.setActive(true);
+
+                if (!player.isCreative())
+                    held.shrink(1);
+
+                spawnParticles((ServerLevel) level, pos);
+                level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_HIT, SoundSource.BLOCKS, 1.0F,
+                        1.0F);
+                return InteractionResult.CONSUME;
+            }
+        }
+
+        return InteractionResult.PASS;
     }
 
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
-        double d0 = (double) pPos.getX() + 0.4D + (double) pRandom.nextFloat() * 0.2D;
-        double d1 = (double) pPos.getY() + 0.7D + (double) pRandom.nextFloat() * 0.3D;
-        double d2 = (double) pPos.getZ() + 0.4D + (double) pRandom.nextFloat() * 0.2D;
-        pLevel.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+
+        BlockEntity be = level.getBlockEntity(pos);
+
+        if (!(be instanceof RepairAltarEntity))
+            return;
+
+        RepairAltarEntity altar = (RepairAltarEntity) be;
+
+        if (!altar.isActive())
+            return;
+
+        double d0 = (double) pos.getX() + 0.4D + (double) random.nextFloat() * 0.2D;
+        double d1 = (double) pos.getY() + 0.7D + (double) random.nextFloat() * 0.3D;
+        double d2 = (double) pos.getZ() + 0.4D + (double) random.nextFloat() * 0.2D;
+        level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+    }
+
+    private static void spawnParticles(ServerLevel server, BlockPos pos) {
+        int count = 12;
+        double spread = 0.25d;
+        double speed = 0.08d;
+
+        double px = pos.getX() + 0.5;
+        double py = pos.getY() + 0.95;
+        double pz = pos.getZ() + 0.5;
+
+        ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.AMETHYST_BLOCK));
+        server.sendParticles(particle, px, py, pz, count, spread, spread, spread, speed);
     }
 }

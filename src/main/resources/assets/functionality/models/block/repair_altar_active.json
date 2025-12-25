@@ -1,0 +1,65 @@
+{
+	"render_type": "cutout",
+	"texture_size": [ 64, 64 ],
+	"textures": {
+		"2": "functionality:block/repair_altar_active",
+		"particle": "minecraft:block/obsidian"
+	},
+	"elements": [
+		{
+			"name": "Anvil base",
+			"from": [ 2, 0, 2 ],
+			"to": [ 14, 4, 14 ],
+			"faces": {
+				"north": { "uv": [ 3, 3, 6, 4 ], "texture": "#2" },
+				"east": { "uv": [ 0, 3, 3, 4 ], "texture": "#2" },
+				"south": { "uv": [ 9, 3, 12, 4 ], "texture": "#2" },
+				"west": { "uv": [ 6, 3, 9, 4 ], "texture": "#2" },
+				"up": { "uv": [ 6, 3, 3, 0 ], "texture": "#2" },
+				"down": { "uv": [ 9, 0, 6, 3 ], "texture": "#2", "cullface": "down" }
+			}
+		},
+		{
+			"name": "Lower narrow portion",
+			"from": [ 4, 4, 4 ],
+			"to": [ 12, 5, 12 ],
+			"faces": {
+				"north": { "uv": [ 2.5, 10.5, 4.5, 10.75 ], "texture": "#2" },
+				"east": { "uv": [ 0.5, 10.5, 2.5, 10.75 ], "texture": "#2" },
+				"south": { "uv": [ 6.5, 10.5, 8.5, 10.75 ], "texture": "#2" },
+				"west": { "uv": [ 4.5, 10.5, 6.5, 10.75 ], "texture": "#2" },
+				"up": { "uv": [ 4.5, 10.5, 2.5, 8.5 ], "texture": "#2" }
+			}
+		},
+		{
+			"name": "Wider section beneath top portion",
+			"from": [ 6, 5, 5 ],
+			"to": [ 10, 10, 11 ],
+			"faces": {
+				"north": { "uv": [ 10.5, 9.5, 11.5, 10.75 ], "texture": "#2" },
+				"east": { "uv": [ 9, 9.5, 10.5, 10.75 ], "texture": "#2" },
+				"south": { "uv": [ 13, 9.5, 14, 10.75 ], "texture": "#2" },
+				"west": { "uv": [ 11.5, 9.5, 13, 10.75 ], "texture": "#2" }
+			}
+		},
+		{
+			"name": "Anvil top",
+			"from": [ 3, 8, 3 ],
+			"to": [ 13, 14, 13 ],
+			"faces": {
+				"north": { "uv": [ 2.5, 6.5, 5, 8 ], "texture": "#2" },
+				"east": { "uv": [ 0, 6.5, 2.5, 8 ], "texture": "#2" },
+				"south": { "uv": [ 7.5, 6.5, 10, 8 ], "texture": "#2" },
+				"west": { "uv": [ 5, 6.5, 7.5, 8 ], "texture": "#2" },
+				"up": { "uv": [ 5, 6.5, 2.5, 4 ], "texture": "#2" },
+				"down": { "uv": [ 7.5, 4, 5, 6.5 ], "texture": "#2" }
+			}
+		}
+	],
+	"display": {
+		"fixed": {
+			"rotation": [ 0, 90, 0 ],
+			"scale": [ 0.5, 0.5, 0.5 ]
+		}
+	}
+}

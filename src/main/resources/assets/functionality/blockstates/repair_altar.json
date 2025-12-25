@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "functionality:block/repair_altar" }
+        "active=false": { "model": "functionality:block/repair_altar" },
+        "active=true": { "model": "functionality:block/repair_altar_active" }
     }
 }

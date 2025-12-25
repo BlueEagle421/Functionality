@@ -72,6 +72,9 @@ public class RepairAltarRenderer implements BlockEntityRenderer<RepairAltarEntit
         if (tile == null)
             return;
 
+        if (!tile.isActive())
+            return;
+
         double currentTime = tile.getLevel() != null ? (tile.getLevel().getGameTime() + partialTicks)
                 : (0.0 + partialTicks);
 
