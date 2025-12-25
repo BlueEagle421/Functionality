@@ -7,7 +7,6 @@ import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.CustomSuspendedParticle;
 import com.blueeagle421.functionality.client.particle.GlowSmokeParticle;
-import com.blueeagle421.functionality.client.renderer.AnvilMarkerRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
 import com.blueeagle421.functionality.client.renderer.RepairAltarRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
@@ -17,7 +16,6 @@ import com.blueeagle421.functionality.data.conditions.ConfigEnabledCondition;
 import com.blueeagle421.functionality.data.conditions.ConfigEnabledRegistry;
 import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
-import com.blueeagle421.functionality.event.anvil.ForgeRepairEvent;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
 import com.blueeagle421.functionality.loot.ModLootModifiers;
@@ -111,7 +109,7 @@ public class FunctionalityMod {
     }
 
     private void loadComplete(final FMLLoadCompleteEvent event) {
-        MinecraftForge.EVENT_BUS.register(ForgeRepairEvent.class);
+
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -123,7 +121,6 @@ public class FunctionalityMod {
             EntityRenderers.register(ModEntities.OBSIDIAN_BOAT.get(),
                     pContext -> new ObsidianBoatRenderer(pContext, false));
 
-            EntityRenderers.register(ModEntities.ANVIL_MARKER.get(), AnvilMarkerRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISC.get(), context -> new ThrownDiscRenderer(context));
             BlockEntityRenderers.register(ModBlockEntities.REPAIR_ALTAR.get(), RepairAltarRenderer::new);
 
