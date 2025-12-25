@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -51,8 +50,6 @@ public class RepairAltarBlock extends BaseEntityBlock {
     private static final VoxelShape X_AXIS_SHAPE = Shapes.or(BASE, NARROW, WIDE_X, TOP);
     private static final VoxelShape Z_AXIS_SHAPE = Shapes.or(BASE, NARROW, WIDE_Z, TOP);
 
-    private static final Component CONTAINER_TITLE = Component.literal("Repair Altar");
-
     public RepairAltarBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -76,7 +73,7 @@ public class RepairAltarBlock extends BaseEntityBlock {
     public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
         return new SimpleMenuProvider((containerId, access, player) -> {
             return new RepairAltarMenu(containerId, access, ContainerLevelAccess.create(pLevel, pPos));
-        }, CONTAINER_TITLE);
+        }, this.getName());
     }
 
     @Override

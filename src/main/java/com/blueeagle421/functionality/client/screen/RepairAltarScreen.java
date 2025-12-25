@@ -31,7 +31,6 @@ public class RepairAltarScreen extends ItemCombinerScreen<RepairAltarMenu> {
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         super.renderBg(graphics, partialTick, mouseX, mouseY);
 
-        // Arrow between input slots (same as anvil)
         graphics.blit(
                 ANVIL_LOCATION,
                 this.leftPos + 59,
