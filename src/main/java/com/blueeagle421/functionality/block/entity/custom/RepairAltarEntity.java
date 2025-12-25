@@ -6,15 +6,31 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemStackHandler;
+
 import javax.annotation.Nullable;
 
 public class RepairAltarEntity extends BlockEntity {
     private boolean active = false;
 
+    private final ItemStackHandler inventory = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            RepairAltarEntity.this.setChanged();
+        }
+    };
+
     public RepairAltarEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.REPAIR_ALTAR.get(), pos, state);
+    }
+
+    public ItemStackHandler getInventory() {
+        return inventory;
     }
 
     public boolean isActive() {
@@ -25,6 +41,10 @@ public class RepairAltarEntity extends BlockEntity {
         if (this.active == active)
             return;
         this.active = active;
+
+        if (!active) {
+            dropContents();
+        }
 
         if (this.level != null) {
             BlockState current = level.getBlockState(worldPosition);
@@ -40,16 +60,33 @@ public class RepairAltarEntity extends BlockEntity {
         }
     }
 
+    public void dropContents() {
+        if (level == null || level.isClientSide)
+            return;
+
+        ItemStackHandler inv = this.getInventory();
+        for (int i = 0; i < inv.getSlots(); i++) {
+            ItemStack stack = inv.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                Block.popResource(level, worldPosition, stack.copy());
+                inv.setStackInSlot(i, ItemStack.EMPTY);
+            }
+        }
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putBoolean("Active", this.active);
+        tag.put("inventory", inventory.serializeNBT());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.active = tag.getBoolean("Active");
+        if (tag.contains("inventory"))
+            inventory.deserializeNBT(tag.getCompound("inventory"));
     }
 
     @Override

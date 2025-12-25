@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.items.ItemStackHandler;
 
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.block.custom.RepairAltarBlock;
@@ -48,6 +49,16 @@ public class RepairAltarMenu extends ItemCombinerMenu {
     public RepairAltarMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(ModMenus.REPAIR_ALTAR_MENU.get(), containerId, playerInventory, access);
         this.addDataSlot(repairCost);
+
+        access.execute((level, pos) -> {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof RepairAltarEntity altar) {
+                ItemStackHandler inv = altar.getInventory();
+                if (!inv.getStackInSlot(0).isEmpty()) {
+                    this.inputSlots.setItem(COPPER_BLOCK_SLOT, inv.getStackInSlot(0).copy());
+                }
+            }
+        });
     }
 
     @Override
@@ -135,12 +146,22 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
     private void consumeCopperBlock() {
         ItemStack copper = inputSlots.getItem(COPPER_BLOCK_SLOT);
-        if (!copper.isEmpty()) {
-            copper.shrink(1);
-            if (copper.isEmpty()) {
-                inputSlots.setItem(COPPER_BLOCK_SLOT, ItemStack.EMPTY);
+        if (copper.isEmpty())
+            return;
+
+        copper.shrink(1);
+        if (copper.isEmpty())
+            inputSlots.setItem(COPPER_BLOCK_SLOT, ItemStack.EMPTY);
+        else
+            inputSlots.setItem(COPPER_BLOCK_SLOT, copper);
+
+        access.execute((level, pos) -> {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof RepairAltarEntity altar) {
+                ItemStackHandler inv = altar.getInventory();
+                inv.setStackInSlot(0, inputSlots.getItem(COPPER_BLOCK_SLOT).copy());
             }
-        }
+        });
     }
 
     private void playRepairSound(ServerLevel server, BlockPos pos) {
@@ -243,6 +264,27 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
         resultSlots.setItem(0, output);
         broadcastChanges();
+    }
+
+    @Override
+    public void removed(Player player) {
+
+        if (!player.level().isClientSide) {
+            this.access.execute((level, pos) -> {
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be instanceof RepairAltarEntity altar) {
+
+                    ItemStack copperInSlot = this.inputSlots.getItem(COPPER_BLOCK_SLOT);
+                    if (copperInSlot == null)
+                        copperInSlot = ItemStack.EMPTY;
+                    altar.getInventory().setStackInSlot(0, copperInSlot.copy());
+
+                    this.inputSlots.setItem(COPPER_BLOCK_SLOT, ItemStack.EMPTY);
+                }
+            });
+        }
+
+        super.removed(player);
     }
 
     @Override

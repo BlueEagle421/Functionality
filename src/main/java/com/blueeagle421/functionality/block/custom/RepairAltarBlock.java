@@ -39,6 +39,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
@@ -117,10 +118,22 @@ public class RepairAltarBlock extends BaseEntityBlock {
         if (state.getBlock() != newState.getBlock()) {
 
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof RepairAltarEntity altar && altar.isActive())
-                if (!level.isClientSide)
-                    popResource(level, pos, new ItemStack(Items.AMETHYST_SHARD));
+            if (be instanceof RepairAltarEntity altar) {
+                if (!level.isClientSide) {
+                    if (altar.isActive()) {
+                        popResource(level, pos, new ItemStack(Items.AMETHYST_SHARD));
+                    }
 
+                    ItemStackHandler inv = altar.getInventory();
+                    for (int i = 0; i < inv.getSlots(); i++) {
+                        ItemStack stack = inv.getStackInSlot(i);
+                        if (!stack.isEmpty()) {
+                            popResource(level, pos, stack.copy());
+                            inv.setStackInSlot(i, ItemStack.EMPTY);
+                        }
+                    }
+                }
+            }
         }
 
         super.onRemove(state, level, pos, newState, isMoving);
