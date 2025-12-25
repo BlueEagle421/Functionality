@@ -65,7 +65,7 @@
     "tooltip.functionality.bloom_lichen": "A lichen adapted to dark environments.",
     "tooltip.functionality.chunk_loader": "Keeps designated chunks loaded.",
     "tooltip.detailed.functionality.chunk_loader": " • Right click - configure radius.\n • Sneak + Right click - Toggle radius rendering.",
-    "tooltip.functionality.repair_altar": "Repairs items with without experience.",
+    "tooltip.functionality.repair_altar": "Repairs items without experience.",
 
     "tooltip.functionality.bear_venison": "An uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",
