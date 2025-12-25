@@ -28,7 +28,6 @@ public class ItemsCategory {
     public final ObsidianBoat obsidianBoat;
     public final ObsidianFins obsidianFins;
     public final PhantomHerb phantomHerb;
-    public final PhantomLead phantomLead;
     public final PhantomRocket phantomRocket;
     public final PhantomTreat phantomTreat;
     public final Pheromones pheromones;
@@ -62,7 +61,6 @@ public class ItemsCategory {
         obsidianBoat = new ObsidianBoat(builder);
         obsidianFins = new ObsidianFins(builder);
         phantomHerb = new PhantomHerb(builder);
-        phantomLead = new PhantomLead(builder);
         phantomRocket = new PhantomRocket(builder);
         phantomTreat = new PhantomTreat(builder);
         pheromones = new Pheromones(builder);

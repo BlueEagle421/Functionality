@@ -98,7 +98,6 @@ public class ModCreativeTabs {
 
         acceptIf(out, () -> config().pheromones.enabled.get(), () -> new ItemStack(ModItems.PHEROMONES.get()));
         acceptIf(out, () -> config().phantomTreat.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_TREAT.get()));
-        acceptIf(out, () -> config().phantomLead.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_LEAD.get()));
         acceptIf(out, () -> config().ancientSeeker.enabled.get(), () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
         acceptIf(out, () -> config().harpoon.enabled.get(), () -> new ItemStack(ModItems.HARPOON.get()));
         acceptIf(out, () -> config().nautilusBucket.enabled.get(), () -> new ItemStack(ModItems.NAUTILUS_BUCKET.get()));

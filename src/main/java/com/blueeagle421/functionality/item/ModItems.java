@@ -154,9 +154,6 @@ public class ModItems {
         public static final RegistryObject<Item> PHANTOM_ROCKET = ITEMS.register("phantom_rocket",
                         () -> new FireworkRocketItem(new Item.Properties()));
 
-        public static final RegistryObject<Item> PHANTOM_LEAD = ITEMS.register("phantom_lead",
-                        () -> new TooltipItem(new Item.Properties()));
-
         public static final RegistryObject<Item> TREASURE_SACK = ITEMS.register("treasure_sack",
                         () -> new TreasureSackItem(new Item.Properties()));
 
