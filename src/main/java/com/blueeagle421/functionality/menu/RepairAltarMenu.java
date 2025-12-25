@@ -4,6 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +19,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
     public static final int COPPER_BLOCK_SLOT = 2;
     public static final int RESULT_SLOT = 3;
 
-    public int repairItemCountCost;
+    private final DataSlot repairCost = DataSlot.standalone();
 
     public RepairAltarMenu(int containerId, Inventory playerInventory) {
         this(containerId, playerInventory, ContainerLevelAccess.NULL);
@@ -33,104 +34,120 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
     public RepairAltarMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(ModMenus.REPAIR_ALTAR_MENU.get(), containerId, playerInventory, access);
+        this.addDataSlot(repairCost);
     }
 
     @Override
     protected ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
         return ItemCombinerMenuSlotDefinition.create()
-                .withSlot(INPUT_SLOT, 27 - 10, 47, (stack) -> true)
-                .withSlot(ADDITIONAL_SLOT, 76 - 10, 47, (stack) -> true)
-                .withSlot(COPPER_BLOCK_SLOT, 76 + 8, 47, (stack) -> stack.is(Items.COPPER_BLOCK))
-                .withResultSlot(RESULT_SLOT, 134 + 8, 47)
+                .withSlot(INPUT_SLOT, 17, 47, stack -> true)
+                .withSlot(ADDITIONAL_SLOT, 66, 47, stack -> true)
+                .withSlot(COPPER_BLOCK_SLOT, 84, 47, stack -> stack.is(Items.COPPER_BLOCK))
+                .withResultSlot(RESULT_SLOT, 142, 47)
                 .build();
     }
 
     @Override
     protected boolean mayPickup(Player player, boolean hasStack) {
-        return player.getAbilities().instabuild || hasStack;
+        return hasStack && repairCost.get() > 0;
     }
 
     @Override
-    protected void onTake(Player player, ItemStack resultStack) {
-        this.inputSlots.setItem(0, ItemStack.EMPTY);
+    protected void onTake(Player player, ItemStack stack) {
+        if (player.level().isClientSide)
+            return;
 
-        if (this.repairItemCountCost > 0) {
-            ItemStack mat = this.inputSlots.getItem(ADDITIONAL_SLOT);
-            if (!mat.isEmpty() && mat.getCount() > this.repairItemCountCost) {
-                mat.shrink(this.repairItemCountCost);
-                this.inputSlots.setItem(1, mat);
+        int cost = repairCost.get();
+
+        inputSlots.setItem(INPUT_SLOT, ItemStack.EMPTY);
+
+        if (cost > 0) {
+            ItemStack material = inputSlots.getItem(ADDITIONAL_SLOT);
+
+            if (!material.isEmpty() && material.getCount() > cost) {
+                material.shrink(cost);
+                inputSlots.setItem(ADDITIONAL_SLOT, material);
             } else {
-                this.inputSlots.setItem(1, ItemStack.EMPTY);
+                inputSlots.setItem(ADDITIONAL_SLOT, ItemStack.EMPTY);
             }
-        } else {
-            this.inputSlots.setItem(1, ItemStack.EMPTY);
         }
 
-        this.access.execute((world, pos) -> world.levelEvent(1030, pos, 0));
+        ItemStack copper = inputSlots.getItem(COPPER_BLOCK_SLOT);
+        if (!copper.isEmpty()) {
+            copper.shrink(1);
+            if (copper.isEmpty()) {
+                inputSlots.setItem(COPPER_BLOCK_SLOT, ItemStack.EMPTY);
+            }
+        }
+
+        repairCost.set(0);
+
+        access.execute((level, pos) -> level.levelEvent(1030, pos, 0));
     }
 
     @Override
     public void createResult() {
-        ItemStack input = this.inputSlots.getItem(INPUT_SLOT);
-        this.repairItemCountCost = 0;
+        ItemStack input = inputSlots.getItem(INPUT_SLOT);
+        ItemStack material = inputSlots.getItem(ADDITIONAL_SLOT);
 
-        if (input.isEmpty()) {
-            this.resultSlots.setItem(0, ItemStack.EMPTY);
-            return;
-        }
+        repairCost.set(0);
 
-        if (this.inputSlots.getItem(COPPER_BLOCK_SLOT).isEmpty()) {
-            this.resultSlots.setItem(0, ItemStack.EMPTY);
+        if (input.isEmpty()
+                || inputSlots.getItem(COPPER_BLOCK_SLOT).isEmpty()
+                || material.isEmpty()) {
+            resultSlots.setItem(0, ItemStack.EMPTY);
             return;
         }
 
         ItemStack output = input.copy();
-        ItemStack other = this.inputSlots.getItem(ADDITIONAL_SLOT);
 
-        if (!other.isEmpty()) {
-            boolean usedRepairMaterial = false;
+        // Repair with material
+        if (output.isDamageableItem()
+                && output.getItem().isValidRepairItem(input, material)) {
 
-            if (output.isDamageableItem() && output.getItem().isValidRepairItem(input, other)) {
-                int repairPerUnit = Math.min(output.getDamageValue(), output.getMaxDamage() / 4);
-                if (repairPerUnit <= 0) {
-                    this.resultSlots.setItem(0, ItemStack.EMPTY);
-                    return;
-                }
+            int repairPerUnit = Math.min(
+                    output.getDamageValue(),
+                    output.getMaxDamage() / 4);
 
-                int used = 0;
-                while (repairPerUnit > 0 && used < other.getCount()) {
-                    int newDamage = output.getDamageValue() - repairPerUnit;
-                    output.setDamageValue(newDamage);
-                    ++used;
-                    repairPerUnit = Math.min(output.getDamageValue(), output.getMaxDamage() / 4);
-                }
-
-                this.repairItemCountCost = used;
-                usedRepairMaterial = true;
+            if (repairPerUnit <= 0) {
+                resultSlots.setItem(0, ItemStack.EMPTY);
+                return;
             }
 
-            if (!usedRepairMaterial) {
-                if (!output.is(other.getItem()) || !output.isDamageableItem()) {
-                    this.resultSlots.setItem(0, ItemStack.EMPTY);
-                    return;
-                }
-
-                int remainingDur1 = input.getMaxDamage() - input.getDamageValue();
-                int remainingDur2 = other.getMaxDamage() - other.getDamageValue();
-                int bonus = other.getMaxDamage() * 12 / 100; // 12% bonus like vanilla
-                int combinedRemaining = remainingDur1 + remainingDur2 + bonus;
-                int newDamageValue = input.getMaxDamage() - combinedRemaining;
-                if (newDamageValue < 0)
-                    newDamageValue = 0;
-
-                if (newDamageValue < input.getDamageValue()) {
-                    output.setDamageValue(newDamageValue);
-                }
+            int used = 0;
+            while (repairPerUnit > 0 && used < material.getCount()) {
+                output.setDamageValue(output.getDamageValue() - repairPerUnit);
+                used++;
+                repairPerUnit = Math.min(
+                        output.getDamageValue(),
+                        output.getMaxDamage() / 4);
             }
+
+            repairCost.set(used);
+        } else {
+            // Same-item repair
+            if (!output.is(material.getItem()) || !output.isDamageableItem()) {
+                resultSlots.setItem(0, ItemStack.EMPTY);
+                return;
+            }
+
+            int dur1 = input.getMaxDamage() - input.getDamageValue();
+            int dur2 = material.getMaxDamage() - material.getDamageValue();
+            int bonus = output.getMaxDamage() * 12 / 100;
+
+            int newDamage = output.getMaxDamage() - (dur1 + dur2 + bonus);
+            output.setDamageValue(Math.max(0, newDamage));
+
+            repairCost.set(1);
         }
 
-        this.resultSlots.setItem(0, output);
-        this.broadcastChanges();
+        if (repairCost.get() <= 0) {
+            resultSlots.setItem(0, ItemStack.EMPTY);
+            return;
+        }
+
+        resultSlots.setItem(0, output);
+        broadcastChanges();
     }
 
     @Override
