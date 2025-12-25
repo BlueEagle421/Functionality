@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -216,6 +217,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
         }
 
         ItemStack output = input.copy();
+        int originalDurability = input.getMaxDamage() - input.getDamageValue();
 
         // Repair with material
         if (output.isDamageableItem()
@@ -239,6 +241,12 @@ public class RepairAltarMenu extends ItemCombinerMenu {
                         output.getMaxDamage() / 4);
             }
 
+            int newDurability = output.getMaxDamage() - output.getDamageValue();
+            if (newDurability <= originalDurability) {
+                resultSlots.setItem(0, ItemStack.EMPTY);
+                return;
+            }
+
             repairCost.set(used);
         } else {
             // Same-item repair
@@ -254,6 +262,12 @@ public class RepairAltarMenu extends ItemCombinerMenu {
             int newDamage = output.getMaxDamage() - (dur1 + dur2 + bonus);
             output.setDamageValue(Math.max(0, newDamage));
 
+            int newDurability = output.getMaxDamage() - output.getDamageValue();
+            if (newDurability <= originalDurability) {
+                resultSlots.setItem(0, ItemStack.EMPTY);
+                return;
+            }
+
             repairCost.set(1);
         }
 
@@ -264,6 +278,22 @@ public class RepairAltarMenu extends ItemCombinerMenu {
 
         resultSlots.setItem(0, output);
         broadcastChanges();
+    }
+
+    @Override
+    public void slotsChanged(Container inventoryIn) {
+        super.slotsChanged(inventoryIn);
+
+        this.access.execute((level, pos) -> {
+            if (level == null || level.isClientSide)
+                return;
+
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof RepairAltarEntity altar) {
+                BlockState state = level.getBlockState(pos);
+                level.sendBlockUpdated(pos, state, state, 3);
+            }
+        });
     }
 
     @Override
@@ -278,6 +308,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
                     if (copperInSlot == null)
                         copperInSlot = ItemStack.EMPTY;
                     altar.getInventory().setStackInSlot(0, copperInSlot.copy());
+                    altar.setChanged();
 
                     this.inputSlots.setItem(COPPER_BLOCK_SLOT, ItemStack.EMPTY);
                 }

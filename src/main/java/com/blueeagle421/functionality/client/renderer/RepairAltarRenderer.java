@@ -41,6 +41,7 @@ public class RepairAltarRenderer implements BlockEntityRenderer<RepairAltarEntit
     private static final float SIN_45 = (float) Math.sin(Math.PI / 4.0D);
 
     private final ModelPart glass;
+    private final ModelPart cube;
 
     // rotation state (degrees) and last time (ticks)
     private final Map<BlockPos, Double> angleMap = new HashMap<>();
@@ -49,6 +50,7 @@ public class RepairAltarRenderer implements BlockEntityRenderer<RepairAltarEntit
     public RepairAltarRenderer(BlockEntityRendererProvider.Context context) {
         ModelPart root = context.bakeLayer(LAYER_LOCATION);
         this.glass = root.getChild("glass");
+        this.cube = root.getChild("cube");
     }
 
     public static LayerDefinition createLayer() {
@@ -59,6 +61,12 @@ public class RepairAltarRenderer implements BlockEntityRenderer<RepairAltarEntit
                 CubeListBuilder.create()
                         .texOffs(0, 0)
                         .addBox(-1.5F, -1.5F, -1.5F, 3.0F, 3.0F, 3.0F),
+                PartPose.ZERO);
+
+        root.addOrReplaceChild("cube",
+                CubeListBuilder.create()
+                        .texOffs(32, 0)
+                        .addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F),
                 PartPose.ZERO);
 
         return LayerDefinition.create(mesh, 64, 32);
@@ -153,6 +161,13 @@ public class RepairAltarRenderer implements BlockEntityRenderer<RepairAltarEntit
         poseStack.mulPose((new Quaternionf()).setAngleAxis((float) Math.PI / 3F, SIN_45, 0.0F, SIN_45));
         poseStack.mulPose(Axis.YP.rotationDegrees(rot));
         this.glass.render(poseStack, vc, fullBright, OverlayTexture.NO_OVERLAY);
+
+        if (!tile.getInventory().getStackInSlot(0).isEmpty()) {
+            poseStack.scale(0.875F, 0.875F, 0.875F);
+            poseStack.mulPose((new Quaternionf()).setAngleAxis((float) Math.PI / 3F, SIN_45, 0.0F, SIN_45));
+            poseStack.mulPose(Axis.YP.rotationDegrees(rot));
+            this.cube.render(poseStack, vc, fullBright, OverlayTexture.NO_OVERLAY);
+        }
 
         poseStack.popPose();
         poseStack.popPose();
