@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        "functionality:repair_altar",
+        "functionality:chunk_loader"
+    ]
+}
