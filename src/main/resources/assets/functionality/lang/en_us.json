@@ -90,7 +90,7 @@
     "tooltip.detailed.functionality.sleeping_herb": "Allows you to sleep through the night no matter what.",
 
     "tooltip.functionality.phantom_herb": "An ominous, hissing plant.",
-    "tooltip.detailed.functionality.phantom_herb": "Causes phantoms to spawn as if you haven't slept.",
+    "tooltip.detailed.functionality.phantom_herb": "Causes phantoms to not spawn as if you just rested.",
 
     "tooltip.functionality.chorus_herb": "A strange plant that moves on its own.",
     "tooltip.detailed.functionality.chorus_herb": "Teleports you to your spawn point.",

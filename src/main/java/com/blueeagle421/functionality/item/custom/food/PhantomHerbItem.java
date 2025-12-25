@@ -16,7 +16,6 @@ import net.minecraft.core.particles.ParticleTypes;
 
 public class PhantomHerbItem extends TooltipItem {
 
-    private static final int TIME_SINCE_REST_MARK = 72000;
     private static final int COOLDOWN_TICKS = 20;
 
     public PhantomHerbItem(Properties properties) {
@@ -34,7 +33,7 @@ public class PhantomHerbItem extends TooltipItem {
             return result;
 
         ServerStatsCounter stats = serverPlayer.getStats();
-        stats.setValue(serverPlayer, Stats.CUSTOM.get(Stats.TIME_SINCE_REST), TIME_SINCE_REST_MARK);
+        stats.setValue(serverPlayer, Stats.CUSTOM.get(Stats.TIME_SINCE_REST), 0);
 
         serverPlayer.getCooldowns().addCooldown(this, COOLDOWN_TICKS);
 
