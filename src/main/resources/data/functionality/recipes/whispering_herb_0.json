@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:blue_orchid"
+        },
+        {
+            "item": "minecraft:kelp"
+        }
+    ],
+    "result": {
+        "type": "forge:nbt",
+        "item": "functionality:whispering_herb",
+        "nbt": "{Herb:{Duration:400}}"
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.whispering_herb.enabled"
+        }
+    ]
+}

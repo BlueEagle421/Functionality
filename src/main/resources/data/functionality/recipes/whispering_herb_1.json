@@ -6,11 +6,16 @@
             "item": "minecraft:blue_orchid"
         },
         {
+            "item": "minecraft:blue_orchid"
+        },
+        {
             "item": "minecraft:kelp"
         }
     ],
     "result": {
-        "item": "functionality:whispering_herb"
+        "type": "forge:nbt",
+        "item": "functionality:whispering_herb",
+        "nbt": "{Herb:{Duration:1100}}"
     },
     "conditions": [
         {
