@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.blueeagle421.functionality.effect.ModEffects;
 
 @Mixin(Entity.class)
-public class MixinLivingEntity {
+public class EntityMixin {
 
     @Inject(method = "vibrationAndSoundEffectsFromBlock", at = @At("HEAD"), cancellable = true)
     private void disableFootsteps(BlockPos pos, BlockState state, boolean playStepSound, boolean broadcastGameEvent,

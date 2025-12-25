@@ -20,7 +20,7 @@
         "HorseMobInteractMixin",
         "LayeredCauldronBlockMixin",
         "BucketItemMixin",
-        "MixinLivingEntity"
+        "EntityMixin"
     ],
     "client": [ ],
     "server": [ ]
