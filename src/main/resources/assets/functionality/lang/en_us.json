@@ -130,6 +130,7 @@
     "information.functionality.throwable_discs": "Music discs are throwable. Gotta catch em all!",
     "information.functionality.thunder_ritual": "Drop the item on copper block surrounded by torches to start a thunderstorm.",
     "information.functionality.haste_harvesting": "Use an empty bottle on a bloom lichen to get a haste potion. Harvest more to increase duration.",
+    "information.functionality.repair_altar": "Use copper blocks in the altar to repair items without experience cost.",
 
     "sounds.functionality.disc_hit": "Music disc hit",
     "sounds.functionality.disc_throw": "Music disc throw",

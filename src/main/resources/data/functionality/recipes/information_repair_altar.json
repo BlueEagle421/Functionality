@@ -1,0 +1,21 @@
+{
+    "type": "functionality:information",
+
+    "description": "information.functionality.repair_altar",
+
+    "ingredients": [
+        {
+            "item": "functionality:repair_altar"
+        },
+        {
+            "item": "minecraft:copper_block"
+        }
+
+    ],
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.repair_altar.enabled"
+        }
+    ]
+}
