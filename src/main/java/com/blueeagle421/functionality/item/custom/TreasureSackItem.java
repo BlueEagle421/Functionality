@@ -17,9 +17,10 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class TreasureSackItem extends TooltipItem {
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.TreasureSack;
 
-    private final Float XP_DROP_CHANCE = 0.75f;
+public class TreasureSackItem extends TooltipItem {
 
     @SuppressWarnings("removal")
     private static final ResourceLocation LOOT_TABLE = new ResourceLocation("functionality", "gameplay/treasure_sack");
@@ -35,10 +36,10 @@ public class TreasureSackItem extends TooltipItem {
         if (level.isClientSide)
             return InteractionResultHolder.sidedSuccess(stackInHand, true);
 
-        if (!(level instanceof ServerLevel serverLevel))
+        if (!(level instanceof ServerLevel server))
             return InteractionResultHolder.sidedSuccess(stackInHand, true);
 
-        var drops = treasureLootStack(serverLevel, player);
+        var drops = treasureLootStack(server, player);
 
         for (ItemStack drop : drops) {
             if (drop.isEmpty())
@@ -53,15 +54,31 @@ public class TreasureSackItem extends TooltipItem {
             }
         }
 
-        if (serverLevel.random.nextFloat() < XP_DROP_CHANCE) {
-            int xpAmount = 4 + serverLevel.random.nextInt(6) + serverLevel.random.nextInt(6);
-            ExperienceOrb.award(serverLevel, player.position(), xpAmount);
-        }
+        dropXP(server, player);
 
         if (!player.getAbilities().instabuild)
             stackInHand.shrink(1);
 
         return InteractionResultHolder.sidedSuccess(stackInHand, false);
+    }
+
+    private void dropXP(ServerLevel server, Player player) {
+
+        if (server.random.nextFloat() > config().dropXPChance.get())
+            return;
+
+        int base = config().baseXPValue.get();
+        int extra = config().extraXPValue.get();
+
+        int xpAmount = base;
+
+        if (extra > 0) {
+            xpAmount += server.random.nextInt(extra);
+            xpAmount += server.random.nextInt(extra);
+        }
+
+        if (xpAmount > 0)
+            ExperienceOrb.award(server, player.position(), xpAmount);
     }
 
     private List<ItemStack> treasureLootStack(ServerLevel level, Player player) {
@@ -72,5 +89,9 @@ public class TreasureSackItem extends TooltipItem {
                 .withParameter(LootContextParams.THIS_ENTITY, player);
 
         return table.getRandomItems(builder.create(LootContextParamSets.GIFT));
+    }
+
+    private TreasureSack config() {
+        return FunctionalityConfig.COMMON.items.treasureSack;
     }
 }
