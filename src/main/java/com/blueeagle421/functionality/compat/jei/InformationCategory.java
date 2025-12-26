@@ -90,6 +90,9 @@ public class InformationCategory implements IRecipeCategory<InformationRecipe> {
             builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
                     .addItemStack(stack)
                     .setSlotName("thing_" + index);
+
+            builder.addInvisibleIngredients(RecipeIngredientRole.INPUT)
+                    .addItemStack(stack);
         }
     }
 
