@@ -6,11 +6,14 @@
       "type": "forge:nbt",
       "item": "functionality:glow_herb",
       "nbt": "{Herb:{Duration:4200}}"
+    },
+    "X": {
+      "item": "minecraft:dragon_breath"
     }
   },
   "pattern": [
     " # ",
-    "# #",
+    "#X#",
     " # "
   ],
   "result": {
