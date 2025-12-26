@@ -1,8 +1,8 @@
 package com.blueeagle421.functionality.event.glowBlessingEffect;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.effect.ModEffects;
-import com.blueeagle421.functionality.effect.custom.VoidCorruptionEffect;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -92,10 +92,12 @@ public class VoidProtection {
     }
 
     private static void addVoidCorruption(Player player) {
-        player.removeEffect(ModEffects.VOID_CORRUPTION.get());
+        if (player.hasEffect(ModEffects.VOID_CORRUPTION.get()))
+            return;
+
         player.addEffect(new MobEffectInstance(
                 ModEffects.VOID_CORRUPTION.get(),
-                VoidCorruptionEffect.POST_VOID_DURATION));
+                FunctionalityConfig.COMMON.items.glowHerb.voidCorruptionDuration.get()));
     }
 
     private static BlockPos findNearestSafeBlock(Level level, BlockPos center, int radius) {

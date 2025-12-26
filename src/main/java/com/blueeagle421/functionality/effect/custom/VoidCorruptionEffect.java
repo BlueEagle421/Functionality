@@ -11,8 +11,6 @@ import net.minecraft.world.item.ItemStack;
 
 public class VoidCorruptionEffect extends MobEffect {
 
-    public static final int POST_VOID_DURATION = 400;
-
     public VoidCorruptionEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }
