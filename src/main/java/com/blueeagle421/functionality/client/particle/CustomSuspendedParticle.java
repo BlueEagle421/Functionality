@@ -32,6 +32,13 @@ public class CustomSuspendedParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
+    @Override
+    public int getLightColor(float partialTick) {
+        float ageFactor = 1.0F - ((float) this.age / (float) this.lifetime);
+        int light = (int) (15 * ageFactor);
+        return (light << 20) | (light << 4);
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static class BloomLichenAirProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;

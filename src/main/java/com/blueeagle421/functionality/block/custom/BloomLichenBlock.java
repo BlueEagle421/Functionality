@@ -222,9 +222,14 @@ public class BloomLichenBlock extends GlowLichenBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+
         if (!(level instanceof ClientLevel))
             return;
+
         ClientLevel client = (ClientLevel) level;
+
+        if (rand.nextInt(5) != 0)
+            return;
 
         final int ATTEMPTS = 2;
         final int RADIUS = 1;
