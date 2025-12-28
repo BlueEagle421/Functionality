@@ -7,6 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderNameTagEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.Event;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class OnRenderNameTag {
@@ -21,6 +22,6 @@ public class OnRenderNameTag {
         if (!player.hasEffect(ModEffects.CALMNESS.get()))
             return;
 
-        event.setCanceled(true);
+        event.setResult(Event.Result.DENY);
     }
 }
