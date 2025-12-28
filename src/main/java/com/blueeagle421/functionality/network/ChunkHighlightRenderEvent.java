@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.network;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -59,6 +60,10 @@ public class ChunkHighlightRenderEvent {
         poseStack.translate(-camPos.x, -camPos.y, -camPos.z);
 
         MultiBufferSource.BufferSource buffer = mc.renderBuffers().bufferSource();
+
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(true);
+
         var builder = buffer.getBuffer(RenderType.debugQuads());
 
         double minY = mc.level.getMinBuildHeight();
@@ -225,7 +230,7 @@ public class ChunkHighlightRenderEvent {
             }
         }
 
-        buffer.endBatch(RenderType.debugQuads());
+        buffer.endBatch();
         poseStack.popPose();
     }
 }
