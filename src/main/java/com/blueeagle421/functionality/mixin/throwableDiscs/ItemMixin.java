@@ -7,6 +7,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,14 +47,29 @@ public class ItemMixin {
         disc.setDiscStack(stack.copy());
 
         int slot;
-        if (hand == InteractionHand.OFF_HAND) {
+        if (hand == InteractionHand.OFF_HAND)
             slot = -2;
-        } else {
+        else
             slot = player.getInventory().selected;
-        }
+
         disc.setReturnSlot(slot);
 
-        disc.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.6F, 0.0F);
+        Vec3 eyePos = player.getEyePosition(1.0F);
+        Vec3 look = player.getViewVector(1.0F).normalize();
+
+        disc.setPos(eyePos.x, eyePos.y - 0.1D, eyePos.z);
+
+        double speed = 1.6D;
+        double vx = look.x * speed;
+        double vy = look.y * speed;
+        double vz = look.z * speed;
+        disc.setDeltaMovement(vx, vy, vz);
+
+        float yaw = (float) (Math.atan2(look.x, look.z) * (180.0D / Math.PI));
+        float pitch = (float) (Math.atan2(look.y, Math.sqrt(look.x * look.x + look.z * look.z)) * (180.0D / Math.PI));
+        disc.setYRot(yaw);
+        disc.setXRot(pitch);
+
         level.addFreshEntity(disc);
 
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -61,9 +78,9 @@ public class ItemMixin {
                 0.65F,
                 1.0F);
 
-        if (!player.getAbilities().instabuild) {
+        if (!player.getAbilities().instabuild)
             stack.shrink(1);
-        }
+
         player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
     }
 }
