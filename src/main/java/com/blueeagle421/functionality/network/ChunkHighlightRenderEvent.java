@@ -27,6 +27,11 @@ public class ChunkHighlightRenderEvent {
     private static final float MAX_ALPHA = 1f;
     private static final double PERIOD_SECONDS = 1;
 
+    // (1 block)
+    private static final double SEGMENT_HEIGHT = 1.0;
+
+    private static final double VERTICAL_FADE_DISTANCE = 32.0;
+
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS)
@@ -74,6 +79,13 @@ public class ChunkHighlightRenderEvent {
 
             // draw a thick line as a camera-facing quad
             java.util.function.BiConsumer<Vec3, Vec3> addThickLine = (start, end) -> {
+                double centerY = (start.y + end.y) * 0.5;
+                double dy = Math.abs(centerY - camPos.y);
+                float fadeFactor = (float) Math.max(0.0, 1.0 - dy / VERTICAL_FADE_DISTANCE);
+                float alphaLocal = alpha * fadeFactor;
+                if (alphaLocal <= 0.005f) // skip nearly invisible
+                    return;
+
                 Vec3 mid = start.add(end).scale(0.5);
                 double dist = mid.distanceTo(camPos);
 
@@ -101,13 +113,13 @@ public class ChunkHighlightRenderEvent {
                 var mat = poseStack.last().pose();
                 float r = R / 255f, g = G / 255f, b = B / 255f;
 
-                builder.vertex(mat, (float) a1.x, (float) a1.y, (float) a1.z).color(r, g, b, alpha).endVertex();
-                builder.vertex(mat, (float) b1.x, (float) b1.y, (float) b1.z).color(r, g, b, alpha).endVertex();
-                builder.vertex(mat, (float) b2.x, (float) b2.y, (float) b2.z).color(r, g, b, alpha).endVertex();
-                builder.vertex(mat, (float) a2.x, (float) a2.y, (float) a2.z).color(r, g, b, alpha).endVertex();
+                builder.vertex(mat, (float) a1.x, (float) a1.y, (float) a1.z).color(r, g, b, alphaLocal).endVertex();
+                builder.vertex(mat, (float) b1.x, (float) b1.y, (float) b1.z).color(r, g, b, alphaLocal).endVertex();
+                builder.vertex(mat, (float) b2.x, (float) b2.y, (float) b2.z).color(r, g, b, alphaLocal).endVertex();
+                builder.vertex(mat, (float) a2.x, (float) a2.y, (float) a2.z).color(r, g, b, alphaLocal).endVertex();
             };
 
-            // 12 edges of the chunk — skip edges that lie on an internal plane
+            // 12 edges of the chunk
             if (!hasNegZ)
                 addThickLine.accept(new Vec3(minX, minY, minZ), new Vec3(maxX, minY, minZ));
             if (!hasPosX)
@@ -127,39 +139,75 @@ public class ChunkHighlightRenderEvent {
             if (!hasNegX)
                 addThickLine.accept(new Vec3(minX, maxY, maxZ), new Vec3(minX, maxY, minZ));
 
-            // vertical edges — skip if either plane that contains the edge is internal
-            if (!(hasNegX || hasNegZ))
-                addThickLine.accept(new Vec3(minX, minY, minZ), new Vec3(minX, maxY, minZ));
-            if (!(hasPosX || hasNegZ))
-                addThickLine.accept(new Vec3(maxX, minY, minZ), new Vec3(maxX, maxY, minZ));
-            if (!(hasPosX || hasPosZ))
-                addThickLine.accept(new Vec3(maxX, minY, maxZ), new Vec3(maxX, maxY, maxZ));
-            if (!(hasNegX || hasPosZ))
-                addThickLine.accept(new Vec3(minX, minY, maxZ), new Vec3(minX, maxY, maxZ));
+            // vertical edges
+            if (!(hasNegX || hasNegZ)) {
+                for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                    double y0 = y;
+                    double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                    addThickLine.accept(new Vec3(minX, y0, minZ), new Vec3(minX, y1, minZ));
+                }
+            }
+            if (!(hasPosX || hasNegZ)) {
+                for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                    double y0 = y;
+                    double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                    addThickLine.accept(new Vec3(maxX, y0, minZ), new Vec3(maxX, y1, minZ));
+                }
+            }
+            if (!(hasPosX || hasPosZ)) {
+                for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                    double y0 = y;
+                    double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                    addThickLine.accept(new Vec3(maxX, y0, maxZ), new Vec3(maxX, y1, maxZ));
+                }
+            }
+            if (!(hasNegX || hasPosZ)) {
+                for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                    double y0 = y;
+                    double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                    addThickLine.accept(new Vec3(minX, y0, maxZ), new Vec3(minX, y1, maxZ));
+                }
+            }
 
             double step = 1.0;
 
-            // Draw vertical grid lines along edges
+            // vertical grid lines along edges
             if (!hasNegX) {
                 for (double z = minZ; z <= maxZ; z += step) {
-                    addThickLine.accept(new Vec3(minX, minY, z), new Vec3(minX, maxY, z));
+                    for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                        double y0 = y;
+                        double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                        addThickLine.accept(new Vec3(minX, y0, z), new Vec3(minX, y1, z));
+                    }
                 }
             }
             if (!hasPosX) {
                 for (double z = minZ; z <= maxZ; z += step) {
-                    addThickLine.accept(new Vec3(maxX, minY, z), new Vec3(maxX, maxY, z));
+                    for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                        double y0 = y;
+                        double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                        addThickLine.accept(new Vec3(maxX, y0, z), new Vec3(maxX, y1, z));
+                    }
                 }
             }
 
             // more vertical grid lines
             if (!hasNegZ) {
                 for (double x = minX; x <= maxX; x += step) {
-                    addThickLine.accept(new Vec3(x, minY, minZ), new Vec3(x, maxY, minZ));
+                    for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                        double y0 = y;
+                        double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                        addThickLine.accept(new Vec3(x, y0, minZ), new Vec3(x, y1, minZ));
+                    }
                 }
             }
             if (!hasPosZ) {
                 for (double x = minX; x <= maxX; x += step) {
-                    addThickLine.accept(new Vec3(x, minY, maxZ), new Vec3(x, maxY, maxZ));
+                    for (double y = Math.floor(minY); y < maxY; y += SEGMENT_HEIGHT) {
+                        double y0 = y;
+                        double y1 = Math.min(maxY, y + SEGMENT_HEIGHT);
+                        addThickLine.accept(new Vec3(x, y0, maxZ), new Vec3(x, y1, maxZ));
+                    }
                 }
             }
 
