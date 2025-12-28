@@ -31,7 +31,8 @@ public class ModBlocks {
 
                             .lightLevel((p_50755_) -> {
                                 return 14;
-                            }).sound(SoundType.WOOD),
+                            }).sound(SoundType.WOOD)
+                            .emissiveRendering((state, level, pos) -> true),
 
                     ModParticles.GLOW_SMOKE));
 
