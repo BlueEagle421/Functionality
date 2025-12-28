@@ -17,7 +17,7 @@ import java.util.*;
 public class ThrowableDiscs {
 
     // impossible to configure from what I know unfortunately. Read by mixin
-    public static final int DURABILITY = 48;
+    public static final int DURABILITY = 32;
 
     public final ForgeConfigSpec.BooleanValue enabled;
     public final ForgeConfigSpec.DoubleValue defaultDamage;
