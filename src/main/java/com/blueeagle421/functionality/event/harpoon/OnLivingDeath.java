@@ -45,8 +45,24 @@ public class OnLivingDeath {
         int newAir = Math.min(maxAir, currentAir + config().airBubblesRegenAmount.get());
         attacker.setAirSupply(newAir);
 
-        serverLevel.sendParticles(ParticleTypes.BUBBLE, attacker.getX(), attacker.getY() + 0.5,
-                attacker.getZ(), 6, 0.2, 0.2, 0.2, 0.02);
+        spawnBubblesAroundEntity(serverLevel, event.getEntity(), 6);
+    }
+
+    private static void spawnBubblesAroundEntity(ServerLevel level, Entity entity, int count) {
+        var box = entity.getBoundingBox();
+
+        for (int i = 0; i < count; i++) {
+            double x = level.random.nextDouble() * (box.maxX - box.minX) + box.minX;
+            double y = level.random.nextDouble() * (box.maxY - box.minY) + box.minY;
+            double z = level.random.nextDouble() * (box.maxZ - box.minZ) + box.minZ;
+
+            level.sendParticles(
+                    ParticleTypes.BUBBLE,
+                    x, y, z,
+                    1,
+                    0.02, 0.02, 0.02,
+                    0.02);
+        }
     }
 
     private static ServerPlayer findPlayerAttacker(DamageSource source) {
