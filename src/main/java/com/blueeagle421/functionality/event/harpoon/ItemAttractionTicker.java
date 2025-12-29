@@ -82,7 +82,7 @@ public class ItemAttractionTicker {
 
             item.setDeltaMovement(newVel);
 
-            if (item.isInWater() && level instanceof ServerLevel server) {
+            if (level instanceof ServerLevel server) {
                 // every second tick
                 if ((item.tickCount & 1) == 0) {
                     Vec3 pos = item.position();

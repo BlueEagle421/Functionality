@@ -23,7 +23,7 @@
     "conditions": [
         {
             "type": "functionality:enabled",
-            "configPath": "items.harpoon.enabled"
+            "configPath": "items.bident.enabled"
         }
     ]
 }

@@ -1,16 +1,11 @@
 package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
-import com.blueeagle421.functionality.item.custom.equipment.HarpoonItem;
+import com.blueeagle421.functionality.utils.UnderwaterUtils;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,25 +27,31 @@ public class OnLivingDrops {
         if (event.getEntity().level().isClientSide)
             return;
 
-        if (!config().attractItems.get())
-            return;
-
         List<ItemEntity> drops = new ArrayList<>(event.getDrops());
 
         if (drops == null || drops.isEmpty())
             return;
 
-        Player attacker = findPlayerAttacker(event.getSource());
+        Player attacker = UnderwaterUtils.findPlayerAttacker(event.getSource());
 
         if (attacker == null)
             return;
 
-        if (!attacker.isUnderWater())
+        var weaponItem = UnderwaterUtils.findUnderwaterWeapon(attacker);
+
+        if (weaponItem == null)
             return;
 
-        if (!playerUsedHarpoon(attacker, event.getSource()))
+        if (!weaponItem.isUnderwater(attacker))
             return;
 
+        if (!weaponItem.getCanAttractItems())
+            return;
+
+        attractItems(attacker, drops);
+    }
+
+    private static void attractItems(Player attacker, List<ItemEntity> drops) {
         Vec3 targetPos = attacker.position().add(0.0, attacker.getEyeHeight() - 0.25f, 0.0);
         UUID ownerUuid = attacker.getUUID();
 
@@ -71,42 +72,5 @@ public class OnLivingDrops {
             itemEntity.setThrower(ownerUuid);
             itemEntity.setNoPickUpDelay();
         }
-    }
-
-    private static Player findPlayerAttacker(DamageSource source) {
-        if (source == null)
-            return null;
-
-        Entity direct = source.getDirectEntity();
-        Entity trueSource = source.getEntity();
-
-        if (trueSource instanceof Player p)
-            return p;
-
-        if (direct instanceof Player p2)
-            return p2;
-
-        if (direct instanceof Projectile proj) {
-            Entity owner = proj.getOwner();
-            if (owner instanceof Player p3)
-                return p3;
-        }
-
-        return null;
-    }
-
-    private static boolean playerUsedHarpoon(Player player, DamageSource source) {
-
-        if (player.getMainHandItem().getItem() instanceof HarpoonItem)
-            return true;
-
-        if (player.getOffhandItem().getItem() instanceof HarpoonItem)
-            return true;
-
-        return false;
-    }
-
-    private static Harpoon config() {
-        return FunctionalityConfig.COMMON.items.harpoon;
     }
 }

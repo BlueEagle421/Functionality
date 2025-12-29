@@ -1,14 +1,14 @@
 package com.blueeagle421.functionality.item.custom.equipment;
 
 import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
+import com.blueeagle421.functionality.config.subcategories.items.Bident;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Tier;
 
-public class HarpoonItem extends UnderwaterWeaponItem {
+public class BidentItem extends UnderwaterWeaponItem {
 
-    public HarpoonItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+    public BidentItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
 
@@ -29,11 +29,11 @@ public class HarpoonItem extends UnderwaterWeaponItem {
 
     @Override
     public boolean isUnderwater(Entity entity) {
-        return entity.isUnderWater();
+        return entity.isUnderWater() || entity.level().rainLevel > 0f;
     }
 
-    private static Harpoon config() {
-        return FunctionalityConfig.COMMON.items.harpoon;
+    private static Bident config() {
+        return FunctionalityConfig.COMMON.items.bident;
     }
 
 }

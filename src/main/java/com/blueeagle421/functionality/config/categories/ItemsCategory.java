@@ -21,6 +21,7 @@ public class ItemsCategory {
     public final GlowHerb glowHerb;
     public final GlowTorch glowTorch;
     public final Harpoon harpoon;
+    public final Bident bident;
     public final InfernoGear infernoGear;
     public final ChunkLoader chunkLoader;
     public final RepairAltar repairAltar;
@@ -53,6 +54,7 @@ public class ItemsCategory {
         glowHerb = new GlowHerb(builder);
         glowTorch = new GlowTorch(builder);
         harpoon = new Harpoon(builder);
+        bident = new Bident(builder);
         infernoGear = new InfernoGear(builder);
         chunkLoader = new ChunkLoader(builder);
         repairAltar = new RepairAltar(builder);

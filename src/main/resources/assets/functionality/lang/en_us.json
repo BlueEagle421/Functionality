@@ -108,6 +108,7 @@
     "tooltip.functionality.harpoon": "Favored by seasoned fishermen.",
     "tooltip.detailed.functionality.harpoon": " • Tripled reach underwater.\n • Attracts mob drops underwater.\n • Restores air on kill.\n • Quite fragile, but highly enchantable.",
     "tooltip.functionality.bident": "A masterwork weapon of the deep.",
+    "tooltip.detailed.functionality.bident": " • Has all abilities like the harpoon.\n • Gives more air per kill.\n • Also works when it's raining.",
     "tooltip.functionality.pheromones": "A universal tame mixture for animals.",
     "tooltip.detailed.functionality.pheromones": "Right click on any tamable mob to make it your friend!",
     "tooltip.functionality.phantom_treat": "Feed it to any animal to make it much faster.",
