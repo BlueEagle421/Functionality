@@ -124,6 +124,9 @@ public class ModItems {
     public static final RegistryObject<Item> HARPOON = ITEMS.register("harpoon",
             () -> new HarpoonItem(ModToolTiers.FLINT, 2, -1.6F, new Item.Properties()));
 
+    public static final RegistryObject<Item> BIDENT = ITEMS.register("bident",
+            () -> new HarpoonItem(ModToolTiers.PRISMARINE, 3, -1.6F, new Item.Properties()));
+
     public static final RegistryObject<Item> FISH_TRAP = ITEMS.register("fish_trap",
             () -> new TooltipBlockItem(ModBlocks.FISH_TRAP.get(), new Item.Properties()));
 

@@ -28,4 +28,17 @@ public class ModToolTiers {
             new ResourceLocation(FunctionalityMod.MOD_ID, "flint"),
             List.of(Tiers.WOOD),
             List.of(Tiers.STONE));
+
+    public static final Tier PRISMARINE = TierSortingRegistry.registerTier(
+            new ForgeTier(
+                    2,
+                    400,
+                    5.5f,
+                    2.5f,
+                    16,
+                    Tags.Blocks.NEEDS_GOLD_TOOL,
+                    () -> Ingredient.of(Items.PRISMARINE_SHARD)),
+            new ResourceLocation(FunctionalityMod.MOD_ID, "prismarine"),
+            List.of(Tiers.STONE),
+            List.of(Tiers.IRON));
 }

@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        "A",
+        "S",
+        "F"
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:prismarine_shard"
+        },
+        "S": {
+            "item": "minecraft:stick"
+        },
+        "F": {
+            "item": "minecraft:diamond"
+        }
+    },
+    "result": {
+        "item": "functionality:bident"
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.harpoon.enabled"
+        }
+    ]
+}

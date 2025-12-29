@@ -100,6 +100,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.phantomTreat.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_TREAT.get()));
         acceptIf(out, () -> items.ancientSeeker.enabled.get(), () -> new ItemStack(ModItems.ANCIENT_SEEKER.get()));
         acceptIf(out, () -> items.harpoon.enabled.get(), () -> new ItemStack(ModItems.HARPOON.get()));
+        acceptIf(out, () -> items.harpoon.enabled.get(), () -> new ItemStack(ModItems.BIDENT.get()));
         acceptIf(out, () -> items.nautilusBucket.enabled.get(), () -> new ItemStack(ModItems.NAUTILUS_BUCKET.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.DRY_LICHEN.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.LICHEN.get()));
