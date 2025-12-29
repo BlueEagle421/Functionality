@@ -5,6 +5,7 @@ import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
 import com.blueeagle421.functionality.item.custom.equipment.HarpoonItem;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -17,11 +18,13 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = FunctionalityMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class OnLivingDrops {
 
-    private static final double ATTRACT_SPEED = 1;
+    private static final double INITIAL_IMPULSE = 0.6;
+    private static final int ATTRACT_DURATION_TICKS = 100; // 5 seconds
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
@@ -49,25 +52,23 @@ public class OnLivingDrops {
             return;
 
         Vec3 targetPos = attacker.position().add(0.0, attacker.getEyeHeight() - 0.25f, 0.0);
+        UUID ownerUuid = attacker.getUUID();
 
         for (ItemEntity itemEntity : drops) {
             if (itemEntity == null || itemEntity.isRemoved())
                 continue;
 
-            Vec3 itemPos = itemEntity.position();
-            Vec3 dir = targetPos.subtract(itemPos);
-            double dist = dir.length();
+            Vec3 dir = targetPos.subtract(itemEntity.position());
+            Vec3 norm = dir.lengthSqr() == 0 ? Vec3.ZERO : dir.normalize();
+            Vec3 initialVel = norm.scale(INITIAL_IMPULSE);
+            itemEntity.setDeltaMovement(initialVel);
 
-            Vec3 norm = dir.normalize();
+            CompoundTag tag = itemEntity.getPersistentData();
 
-            double speed = ATTRACT_SPEED * Math.min(1.0, 1.0 + (1.0 / Math.max(dist, 1.0) - 1.0) * 0.25);
-            double vx = norm.x * speed;
-            double vy = norm.y * speed;
-            double vz = norm.z * speed;
+            tag.putUUID("AttractedBy", ownerUuid);
+            tag.putInt("AttractTicks", ATTRACT_DURATION_TICKS);
 
-            itemEntity.setDeltaMovement(vx, vy, vz);
-
-            itemEntity.setThrower(attacker.getUUID());
+            itemEntity.setThrower(ownerUuid);
             itemEntity.setNoPickUpDelay();
         }
     }
