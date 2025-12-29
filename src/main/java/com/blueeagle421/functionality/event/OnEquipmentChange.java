@@ -2,8 +2,9 @@ package com.blueeagle421.functionality.event;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;
-import com.blueeagle421.functionality.item.custom.GlowCrownItem;
-import com.blueeagle421.functionality.item.custom.InfernoGearItem;
+import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
+import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
+
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;

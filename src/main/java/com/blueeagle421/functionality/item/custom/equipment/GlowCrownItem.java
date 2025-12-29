@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.equipment;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;

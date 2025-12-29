@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.equipment;
 
 import java.util.List;
 

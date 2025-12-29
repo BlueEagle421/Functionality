@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.equipment;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;

@@ -5,6 +5,7 @@ import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
 import com.blueeagle421.functionality.item.custom.*;
 import com.blueeagle421.functionality.item.custom.food.*;
+import com.blueeagle421.functionality.item.custom.equipment.*;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;

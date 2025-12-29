@@ -3,7 +3,7 @@ package com.blueeagle421.functionality.event.harpoon;
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
-import com.blueeagle421.functionality.item.custom.HarpoonItem;
+import com.blueeagle421.functionality.item.custom.equipment.HarpoonItem;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

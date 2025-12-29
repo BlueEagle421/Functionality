@@ -1,7 +1,7 @@
 package com.blueeagle421.functionality.utils;
 
-import com.blueeagle421.functionality.item.custom.InfernoGearItem;
-import com.blueeagle421.functionality.item.custom.ObsidianFinsItem;
+import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
+import com.blueeagle421.functionality.item.custom.equipment.ObsidianFinsItem;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;

@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
