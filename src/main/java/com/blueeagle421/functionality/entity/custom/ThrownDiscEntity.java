@@ -33,7 +33,7 @@ import net.minecraft.world.InteractionHand;
 
 public class ThrownDiscEntity extends ThrowableItemProjectile {
 
-    private static final double OUTGOING_SPEED = 1.2D;
+    public static final double OUTGOING_SPEED = 1.2D;
     private static final double RETURN_SPEED = 0.9D;
     private static final double MIN_SPEED = 0.5D;
 

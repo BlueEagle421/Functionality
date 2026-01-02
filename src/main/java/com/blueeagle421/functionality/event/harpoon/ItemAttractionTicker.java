@@ -1,8 +1,6 @@
 package com.blueeagle421.functionality.event.harpoon;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.config.subcategories.items.Harpoon;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -103,9 +101,5 @@ public class ItemAttractionTicker {
 
             tag.putInt("AttractTicks", ticksLeft - 1);
         }
-    }
-
-    private static Harpoon config() {
-        return FunctionalityConfig.COMMON.items.harpoon;
     }
 }

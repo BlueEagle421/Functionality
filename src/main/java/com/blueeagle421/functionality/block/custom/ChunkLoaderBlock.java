@@ -71,7 +71,7 @@ public class ChunkLoaderBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof ChunkLoaderEntity loader))
+        if (!(be instanceof ChunkLoaderEntity))
             return;
 
         float frequency = 0.35f;

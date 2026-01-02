@@ -59,7 +59,7 @@ public class ItemMixin {
 
         disc.setPos(eyePos.x, eyePos.y - 0.1D, eyePos.z);
 
-        double speed = 1.6D;
+        double speed = ThrownDiscEntity.OUTGOING_SPEED;
         double vx = look.x * speed;
         double vy = look.y * speed;
         double vz = look.z * speed;

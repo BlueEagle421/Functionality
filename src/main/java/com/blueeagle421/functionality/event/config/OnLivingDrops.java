@@ -7,7 +7,6 @@ import com.blueeagle421.functionality.item.ModItems;
 
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.Entity.RemovalReason;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +17,7 @@ public class OnLivingDrops {
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
 
-        if (!(event.getEntity().level() instanceof ServerLevel server))
+        if (event.getEntity().level().isClientSide)
             return;
 
         for (ItemEntity itemEntity : event.getDrops()) {

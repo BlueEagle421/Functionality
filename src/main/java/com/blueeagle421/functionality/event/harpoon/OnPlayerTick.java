@@ -6,7 +6,6 @@ import com.blueeagle421.functionality.utils.UnderwaterUtils;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,7 +20,6 @@ public class OnPlayerTick {
             return;
 
         Player player = event.player;
-        ItemStack held = player.getMainHandItem();
 
         var weaponItem = UnderwaterUtils.findUnderwaterWeapon(player);
 
