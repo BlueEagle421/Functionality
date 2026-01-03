@@ -1,6 +1,9 @@
-package com.blueeagle421.functionality.item.custom;
+package com.blueeagle421.functionality.item.custom.openable;
 
-import net.minecraft.resources.ResourceLocation;
+import java.util.List;
+
+import com.blueeagle421.functionality.item.custom.TooltipItem;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -9,23 +12,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
+public abstract class OpenableItem extends TooltipItem {
 
-import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.config.subcategories.items.TreasureSack;
-
-public class TreasureSackItem extends TooltipItem {
-
-    @SuppressWarnings("removal")
-    private static final ResourceLocation LOOT_TABLE = new ResourceLocation("functionality", "gameplay/treasure_sack");
-
-    public TreasureSackItem(Properties pProperties) {
+    public OpenableItem(Properties pProperties) {
         super(pProperties);
     }
 
@@ -39,7 +29,7 @@ public class TreasureSackItem extends TooltipItem {
         if (!(level instanceof ServerLevel server))
             return InteractionResultHolder.sidedSuccess(stackInHand, true);
 
-        var drops = treasureLootStack(server, player);
+        var drops = getLootStack(server, player);
 
         for (ItemStack drop : drops) {
             if (drop.isEmpty())
@@ -64,13 +54,11 @@ public class TreasureSackItem extends TooltipItem {
 
     private void dropXP(ServerLevel server, Player player) {
 
-        if (server.random.nextFloat() > config().dropXPChance.get())
+        if (server.random.nextFloat() > getDropXPChance())
             return;
 
-        int base = config().baseXPValue.get();
-        int extra = config().extraXPValue.get();
-
-        int xpAmount = base;
+        int extra = getExtraXPValue();
+        int xpAmount = getBaseXPValue();
 
         if (extra > 0) {
             xpAmount += server.random.nextInt(extra);
@@ -81,17 +69,12 @@ public class TreasureSackItem extends TooltipItem {
             ExperienceOrb.award(server, player.position(), xpAmount);
     }
 
-    private List<ItemStack> treasureLootStack(ServerLevel level, Player player) {
-        LootTable table = level.getServer().getLootData().getLootTable(LOOT_TABLE);
+    protected abstract List<ItemStack> getLootStack(ServerLevel server, Player player);
 
-        LootParams.Builder builder = new LootParams.Builder(level)
-                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(player.blockPosition()))
-                .withParameter(LootContextParams.THIS_ENTITY, player);
+    protected abstract float getDropXPChance();
 
-        return table.getRandomItems(builder.create(LootContextParamSets.GIFT));
-    }
+    protected abstract int getBaseXPValue();
 
-    private TreasureSack config() {
-        return FunctionalityConfig.COMMON.items.treasureSack;
-    }
+    protected abstract int getExtraXPValue();
+
 }

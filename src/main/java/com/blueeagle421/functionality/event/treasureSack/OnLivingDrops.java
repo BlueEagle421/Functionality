@@ -2,8 +2,8 @@ package com.blueeagle421.functionality.event.treasureSack;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
-import com.blueeagle421.functionality.item.custom.TreasureSackItem;
 import com.blueeagle421.functionality.data.TreasureSackChunkData;
+import com.blueeagle421.functionality.item.custom.openable.TreasureSackItem;
 
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.Entity.RemovalReason;

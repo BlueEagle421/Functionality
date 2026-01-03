@@ -1,7 +1,7 @@
 package com.blueeagle421.functionality.event.vexEssence;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.item.custom.VexEssenceItem;
+import com.blueeagle421.functionality.item.custom.openable.VexEssenceItem;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
