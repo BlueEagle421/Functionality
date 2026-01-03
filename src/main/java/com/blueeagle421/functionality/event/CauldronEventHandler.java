@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -29,22 +30,46 @@ public class CauldronEventHandler {
     @SubscribeEvent
     public static void onNeighborChange(net.minecraftforge.event.level.BlockEvent.NeighborNotifyEvent event) {
 
-        if (!(event.getLevel() instanceof Level world))
+        if (!(event.getLevel() instanceof Level level))
             return;
 
-        if (world.isClientSide())
+        if (level.isClientSide())
             return;
 
         BlockPos changedPos = event.getPos();
 
         BlockPos abovePos = changedPos.above();
-        BlockState stateAbove = world.getBlockState(abovePos);
+        BlockState stateAbove = level.getBlockState(abovePos);
 
         if (!(stateAbove.getBlock() instanceof AbstractCauldronBlock))
             return;
 
-        if (CauldronUtils.isInfiniteWaterSource(world, abovePos))
-            scheduleFill((ServerLevel) world, abovePos);
+        if (CauldronUtils.isInfiniteWaterSource(level, abovePos))
+            scheduleFill((ServerLevel) level, abovePos);
+    }
+
+    @SubscribeEvent
+    public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
+
+        if (!(event.getLevel() instanceof Level level))
+            return;
+
+        if (level.isClientSide())
+            return;
+
+        if (!(level instanceof ServerLevel server))
+            return;
+
+        BlockPos pos = event.getPos();
+        BlockState placed = event.getPlacedBlock();
+        if (!(placed.getBlock() instanceof AbstractCauldronBlock))
+            return;
+
+        if (!config().enabled.get())
+            return;
+
+        if (CauldronUtils.isInfiniteWaterSource(server, pos))
+            scheduleFill(server, pos);
     }
 
     public static void scheduleFill(ServerLevel level, BlockPos pos) {
