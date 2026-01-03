@@ -7,8 +7,9 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -23,22 +24,22 @@ public class MergeLootTableModifier extends LootModifier {
 
     private final ResourceLocation lootTable;
 
-    protected MergeLootTableModifier(LootItemCondition[] conditions, ResourceLocation lootTable) {
+    protected MergeLootTableModifier(net.minecraft.world.level.storage.loot.predicates.LootItemCondition[] conditions,
+            ResourceLocation lootTable) {
         super(conditions);
         this.lootTable = lootTable;
     }
 
-    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        LootTable extraTable = context.getResolver().getLootTable(this.lootTable);
-        if (extraTable == null || extraTable == LootTable.EMPTY)
-            return generatedLoot;
+        LootPool pool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootTableReference.lootTableReference(this.lootTable))
+                .name("functionality:merged_" + this.lootTable.getPath().replace('/', '_'))
+                .build();
 
-        extraTable.getRandomItemsRaw(
-                context,
-                LootTable.createStackSplitter(context.getLevel(), generatedLoot::add));
+        pool.addRandomItems(generatedLoot::add, context);
 
         return generatedLoot;
     }
