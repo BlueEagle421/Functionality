@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:emerald"
+        },
+        {
+            "type": "forge:nbt",
+            "item": "minecraft:potion",
+            "nbt": "{Potion:\"minecraft:water\"}"
+        },
+        {
+            "item": "functionality:vex_essence"
+        }
+    ],
+    "result": {
+        "count": 2,
+        "item": "minecraft:experience_bottle"
+    }
+}
