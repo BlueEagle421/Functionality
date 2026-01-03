@@ -87,26 +87,29 @@ public class ThrowableDiscs {
         }
     }
 
-    public float getDamage(ItemStack stack) {
+    private Optional<DiscSpec> getSpecFor(ItemStack stack) {
         if (stack == null)
-            return defaultDamage.get().floatValue();
-        Item item = stack.getItem();
-        ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
-        if (id != null && perItemStatsMap.containsKey(id)) {
-            return perItemStatsMap.get(id).damage;
-        }
-        return defaultDamage.get().floatValue();
+            return Optional.empty();
+
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+
+        if (id == null)
+            return Optional.empty();
+
+        return Optional.ofNullable(perItemStatsMap.get(id));
+    }
+
+    public float getDamage(ItemStack stack) {
+        return getSpecFor(stack).map(s -> (float) s.damage)
+                .orElseGet(() -> defaultDamage.get().floatValue());
     }
 
     public double getRange(ItemStack stack) {
-        if (stack == null)
-            return defaultTravelDistance.get();
-        Item item = stack.getItem();
-        ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
+        return getSpecFor(stack).map(s -> s.range)
+                .orElseGet(() -> defaultTravelDistance.get());
+    }
 
-        if (id != null && perItemStatsMap.containsKey(id))
-            return perItemStatsMap.get(id).range;
-
-        return defaultTravelDistance.get();
+    public Map<ResourceLocation, DiscSpec> getPerItemSpecs() {
+        return Collections.unmodifiableMap(perItemStatsMap);
     }
 }

@@ -19,14 +19,13 @@ public class UnderwaterUtils {
 
         if (trueSource instanceof ServerPlayer p)
             return p;
+
         if (direct instanceof ServerPlayer p2)
             return p2;
 
-        if (direct instanceof Projectile proj) {
-            Entity owner = proj.getOwner();
-            if (owner instanceof ServerPlayer p3)
+        if (direct instanceof Projectile proj)
+            if (proj.getOwner() instanceof ServerPlayer p3)
                 return p3;
-        }
 
         return null;
     }

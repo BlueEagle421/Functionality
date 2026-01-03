@@ -296,7 +296,7 @@ public class RepairAltarMenu extends ItemCombinerMenu {
                 return;
 
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof RepairAltarEntity altar) {
+            if (be instanceof RepairAltarEntity) {
                 BlockState state = level.getBlockState(pos);
                 level.sendBlockUpdated(pos, state, state, 3);
             }
