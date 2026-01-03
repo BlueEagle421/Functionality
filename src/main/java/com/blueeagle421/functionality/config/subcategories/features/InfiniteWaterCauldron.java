@@ -22,6 +22,8 @@ public class InfiniteWaterCauldron {
         List<String> defaults = Arrays.asList(
                 "minecraft:prismarine",
                 "minecraft:dark_prismarine",
+                "minecraft:prismarine_bricks",
+                "upgrade_aquatic:luminous_prismarine",
                 "minecraft:sea_lantern");
 
         regenWaterTicks = builder
