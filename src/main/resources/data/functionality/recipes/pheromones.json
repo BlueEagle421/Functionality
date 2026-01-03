@@ -10,7 +10,9 @@
             "item": "minecraft:gold_ingot"
         },
         "Y": {
-            "item": "minecraft:experience_bottle"
+            "type": "forge:nbt",
+            "item": "minecraft:potion",
+            "nbt": "{Potion:\"minecraft:water\"}"
         },
         "Z": {
             "item": "minecraft:phantom_membrane"
