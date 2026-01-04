@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -61,8 +62,7 @@ public class ModCreativeTabs {
 
         acceptIf(out, () -> items.glowCrown.enabled.get(), () -> new ItemStack(ModItems.GLOW_CROWN.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_VENISON.get()));
-        acceptIf(out, () -> items.bearVenison.enabled.get(),
-                () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
+        acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
         acceptIf(out, () -> items.chevon.enabled.get(), () -> new ItemStack(ModItems.CHEVON.get()));
         acceptIf(out, () -> items.chevon.enabled.get(), () -> new ItemStack(ModItems.COOKED_CHEVON.get()));
         acceptIf(out, () -> items.sniffon.enabled.get(), () -> new ItemStack(ModItems.SNIFFON.get()));
@@ -73,6 +73,8 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN.get()));
         acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.COOKED_TERRAPIN.get()));
         acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN_SOUP.get()));
+        acceptIf(out, () -> items.terrapin.enabled.get() && hasFarmersDelight(),
+                () -> new ItemStack(ModItems.TERRAPIN_STICK.get()));
         acceptIf(out, () -> items.fins.enabled.get(), () -> new ItemStack(ModItems.FINS.get()));
         acceptIf(out, () -> items.obsidianFins.enabled.get(), () -> new ItemStack(ModItems.OBSIDIAN_FINS.get()));
         acceptIf(out, () -> items.amethystArrow.enabled.get(), () -> new ItemStack(ModItems.AMETHYST_ARROW.get()));
@@ -80,10 +82,8 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.infernoGear.enabled.get(), () -> new ItemStack(ModItems.INFERNO_GEAR.get()));
         acceptIf(out, () -> items.glowTorch.enabled.get(), () -> new ItemStack(ModItems.GLOW_TORCH.get()));
         acceptIf(out, () -> items.fishTrap.enabled.get(), () -> new ItemStack(ModItems.FISH_TRAP.get()));
-        acceptIf(out, () -> items.repairAltar.enabled.get(),
-                () -> new ItemStack(ModItems.REPAIR_ALTAR.get()));
-        acceptIf(out, () -> items.chunkLoader.enabled.get(),
-                () -> new ItemStack(ModItems.CHUNK_LOADER.get()));
+        acceptIf(out, () -> items.repairAltar.enabled.get(), () -> new ItemStack(ModItems.REPAIR_ALTAR.get()));
+        acceptIf(out, () -> items.chunkLoader.enabled.get(), () -> new ItemStack(ModItems.CHUNK_LOADER.get()));
         acceptIf(out, () -> items.treasureSack.enabled.get(), () -> new ItemStack(ModItems.TREASURE_SACK.get()));
         acceptIf(out, () -> items.infernalSack.enabled.get(), () -> new ItemStack(ModItems.INFERNAL_SACK.get()));
         acceptIf(out, () -> items.discShards.enabled.get(), () -> new ItemStack(ModItems.DISC_SHARDS.get()));
@@ -115,7 +115,10 @@ public class ModCreativeTabs {
 
         if (enabled.getAsBoolean())
             output.accept(stackSupplier.get());
+    }
 
+    private static boolean hasFarmersDelight() {
+        return ModList.get().isLoaded("farmersdelight");
     }
 
     private static ItemsCategory config() {
