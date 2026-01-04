@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.event.vexEssence;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.item.custom.openable.VexEssenceItem;
 
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,6 @@ import java.util.Iterator;
 public class OnLivingDrops {
 
     private static final String ESSENCE_COUNT_KEY = FunctionalityMod.MOD_ID + ":vex_essence_count";
-    private static final int MAX_ESSENCE = 6;
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
@@ -30,10 +30,15 @@ public class OnLivingDrops {
         if (!(event.getEntity() instanceof Vex vex))
             return;
 
+        if (!config().items.vexEssence.enabled.get()) {
+            discardEssenceDrops(event);
+            return;
+        }
+
         Mob owner = vex.getOwner();
 
         if (owner == null || owner.isDeadOrDying()) {
-            discardDrops(event);
+            discardEssenceDrops(event);
             return;
         }
 
@@ -43,10 +48,10 @@ public class OnLivingDrops {
     private static void handleOwnerLimitedDrops(LivingDropsEvent event, Entity owner) {
         CompoundTag data = owner.getPersistentData();
         int current = data.getInt(ESSENCE_COUNT_KEY);
-        int allowedLeft = MAX_ESSENCE - current;
+        int allowedLeft = config().features.vexEssenceDrops.maxPerOwner.get() - current;
 
         if (allowedLeft <= 0) {
-            discardDrops(event);
+            discardEssenceDrops(event);
             return;
         }
 
@@ -75,9 +80,13 @@ public class OnLivingDrops {
             data.putInt(ESSENCE_COUNT_KEY, current + added);
     }
 
-    private static void discardDrops(LivingDropsEvent event) {
+    private static void discardEssenceDrops(LivingDropsEvent event) {
         for (ItemEntity itemEntity : event.getDrops())
             if (itemEntity.getItem().getItem() instanceof VexEssenceItem)
                 itemEntity.remove(RemovalReason.DISCARDED);
+    }
+
+    private static FunctionalityConfig.Common config() {
+        return FunctionalityConfig.COMMON;
     }
 }

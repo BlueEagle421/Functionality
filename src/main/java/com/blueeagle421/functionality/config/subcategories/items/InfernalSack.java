@@ -12,7 +12,7 @@ public class InfernalSack {
     public final ForgeConfigSpec.IntValue extraXPValue;
 
     public InfernalSack(ForgeConfigSpec.Builder builder) {
-        builder.push(ModItems.TREASURE_SACK.getId().getPath());
+        builder.push(ModItems.INFERNAL_SACK.getId().getPath());
 
         enabled = builder
                 .comment("If false, the item won't be craftable and present in tabs effectively disabling it.")

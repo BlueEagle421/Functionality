@@ -86,7 +86,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.treasureSack.enabled.get(), () -> new ItemStack(ModItems.TREASURE_SACK.get()));
         acceptIf(out, () -> items.infernalSack.enabled.get(), () -> new ItemStack(ModItems.INFERNAL_SACK.get()));
         acceptIf(out, () -> items.discShards.enabled.get(), () -> new ItemStack(ModItems.DISC_SHARDS.get()));
-        acceptIf(out, () -> items.discShards.enabled.get(), () -> new ItemStack(ModItems.VEX_ESSENCE.get()));
+        acceptIf(out, () -> items.vexEssence.enabled.get(), () -> new ItemStack(ModItems.VEX_ESSENCE.get()));
 
         // with nbt
         acceptIf(out, () -> items.phantomRocket.enabled.get(), () -> {

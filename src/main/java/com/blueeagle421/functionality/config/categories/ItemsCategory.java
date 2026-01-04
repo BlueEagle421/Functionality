@@ -34,6 +34,7 @@ public class ItemsCategory {
     public final WhisperingHerb whisperingHerb;
     public final TreasureSack treasureSack;
     public final InfernalSack infernalSack;
+    public final VexEssence vexEssence;
     public final DiscShards discShards;
     public final NautilusBucket nautilusBucket;
 
@@ -68,6 +69,7 @@ public class ItemsCategory {
         whisperingHerb = new WhisperingHerb(builder);
         treasureSack = new TreasureSack(builder);
         infernalSack = new InfernalSack(builder);
+        vexEssence = new VexEssence(builder);
         discShards = new DiscShards(builder);
         nautilusBucket = new NautilusBucket(builder);
 

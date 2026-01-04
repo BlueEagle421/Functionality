@@ -20,5 +20,11 @@
     "result": {
         "count": 2,
         "item": "minecraft:experience_bottle"
-    }
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "features.experience_bottle_recipe.enabled"
+        }
+    ]
 }
