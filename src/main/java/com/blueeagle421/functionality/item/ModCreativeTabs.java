@@ -84,6 +84,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.chunkLoader.enabled.get(),
                 () -> new ItemStack(ModItems.CHUNK_LOADER.get()));
         acceptIf(out, () -> items.treasureSack.enabled.get(), () -> new ItemStack(ModItems.TREASURE_SACK.get()));
+        acceptIf(out, () -> items.treasureSack.enabled.get(), () -> new ItemStack(ModItems.INFERNAL_SACK.get()));
         acceptIf(out, () -> items.discShards.enabled.get(), () -> new ItemStack(ModItems.DISC_SHARDS.get()));
         acceptIf(out, () -> items.discShards.enabled.get(), () -> new ItemStack(ModItems.VEX_ESSENCE.get()));
 
