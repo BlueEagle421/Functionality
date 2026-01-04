@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "functionality:terrapin"
+  },
+  "result": "functionality:cooked_terrapin",
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.terrapin.enabled"
+    }
+  ]
+
+}
