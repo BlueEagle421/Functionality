@@ -90,9 +90,8 @@ public class InformationRecipeGenerator {
         for (ResourceLocation entityRL : entityRLs) {
             ItemStack egg = getSpawnEggForEntity(entityRL);
 
-            if (!egg.isEmpty()) {
+            if (!egg.isEmpty())
                 inputs.set(index++, Ingredient.of(egg));
-            }
         }
 
         ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
@@ -114,9 +113,8 @@ public class InformationRecipeGenerator {
         for (ResourceLocation entityRL : entityRLs) {
             ItemStack egg = getSpawnEggForEntity(entityRL);
 
-            if (!egg.isEmpty()) {
+            if (!egg.isEmpty())
                 inputs.set(index++, Ingredient.of(egg));
-            }
         }
 
         ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,

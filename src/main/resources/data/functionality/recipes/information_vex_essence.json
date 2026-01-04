@@ -1,0 +1,20 @@
+{
+    "type": "functionality:information",
+
+    "description": "information.functionality.vex_essence_drops",
+
+    "ingredients": [
+        {
+            "item": "functionality:vex_essence"
+        },
+        {
+            "item": "minecraft:vex_spawn_egg"
+        }
+    ],
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "features.vex_essence_drops.limitEnabled"
+        }
+    ]
+}

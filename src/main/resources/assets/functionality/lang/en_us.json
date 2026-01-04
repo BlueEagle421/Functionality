@@ -140,6 +140,7 @@
     "information.functionality.thunder_ritual": "Drop the item on copper block surrounded by torches to start a thunderstorm.",
     "information.functionality.haste_harvesting": "Use an empty bottle on a bloom lichen to get a haste potion. Harvest more to increase duration.",
     "information.functionality.repair_altar": "Use copper blocks in the altar to repair items without experience cost.",
+    "information.functionality.vex_essence_drops": "Essence drops are limited per one living owner of the vex.",
 
     "sounds.functionality.disc_hit": "Music disc hit",
     "sounds.functionality.disc_throw": "Music disc throw",

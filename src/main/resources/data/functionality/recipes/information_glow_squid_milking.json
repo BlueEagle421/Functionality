@@ -5,9 +5,6 @@
 
     "ingredients": [
         {
-            "item": "minecraft:glow_squid_spawn_egg"
-        },
-        {
             "item": "minecraft:glass_bottle"
         },
         {
@@ -16,8 +13,10 @@
             "nbt": {
                 "Potion": "minecraft:night_vision"
             }
+        },
+        {
+            "item": "minecraft:glow_squid_spawn_egg"
         }
-
     ],
     "conditions": [
         {
