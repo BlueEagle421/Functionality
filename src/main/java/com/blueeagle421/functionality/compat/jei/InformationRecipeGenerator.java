@@ -56,7 +56,11 @@ public class InformationRecipeGenerator {
     }
 
     private static void generateInfiniteCauldronRecipe() {
-        Set<ResourceLocation> blockRLs = config().infiniteWaterCauldron.getBlocksAsResourceLocations();
+        List<ResourceLocation> blockRLs = config().infiniteWaterCauldron
+                .getBlocksAsResourceLocations()
+                .stream()
+                .filter(ForgeRegistries.ITEMS::containsKey)
+                .toList();
 
         NonNullList<Ingredient> inputs = NonNullList.withSize(1 + blockRLs.size(), Ingredient.EMPTY);
 
@@ -65,9 +69,8 @@ public class InformationRecipeGenerator {
         int index = 1;
         for (ResourceLocation blockRL : blockRLs) {
             ItemStack blockItem = ItemStack.EMPTY;
-            if (ForgeRegistries.ITEMS.containsKey(blockRL))
-                blockItem = new ItemStack(ForgeRegistries.ITEMS.getValue(blockRL));
 
+            blockItem = new ItemStack(ForgeRegistries.ITEMS.getValue(blockRL));
             inputs.set(index++, Ingredient.of(blockItem));
         }
 
