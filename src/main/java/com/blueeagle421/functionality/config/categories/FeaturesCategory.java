@@ -7,6 +7,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class FeaturesCategory {
 
     public final TreasureSacks treasureSacks;
+    public final InfernalSacks infernalSacks;
     public final GlowSquidMilking glowSquidMilking;
     public final GlowSquidEffectCloud glowSquidEffectCloud;
     public final InfiniteWaterCauldron infiniteWaterCauldron;
@@ -20,6 +21,7 @@ public class FeaturesCategory {
         builder.push("features");
 
         treasureSacks = new TreasureSacks(builder);
+        infernalSacks = new InfernalSacks(builder);
         glowSquidMilking = new GlowSquidMilking(builder);
         glowSquidEffectCloud = new GlowSquidEffectCloud(builder);
         infiniteWaterCauldron = new InfiniteWaterCauldron(builder);

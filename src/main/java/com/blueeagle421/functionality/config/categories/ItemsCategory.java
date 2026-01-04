@@ -33,6 +33,7 @@ public class ItemsCategory {
     public final Pheromones pheromones;
     public final WhisperingHerb whisperingHerb;
     public final TreasureSack treasureSack;
+    public final InfernalSack infernalSack;
     public final DiscShards discShards;
     public final NautilusBucket nautilusBucket;
 
@@ -66,6 +67,7 @@ public class ItemsCategory {
         pheromones = new Pheromones(builder);
         whisperingHerb = new WhisperingHerb(builder);
         treasureSack = new TreasureSack(builder);
+        infernalSack = new InfernalSack(builder);
         discShards = new DiscShards(builder);
         nautilusBucket = new NautilusBucket(builder);
 

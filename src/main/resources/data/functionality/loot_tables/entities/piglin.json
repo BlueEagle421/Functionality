@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:entity",
+    "pools": [
+        {
+            "name": "functionality:piglin_infernal_base",
+            "rolls": 1,
+            "entries": [
+                { "type": "minecraft:item", "name": "functionality:infernal_sack" }
+            ],
+            "conditions": [
+                { "condition": "minecraft:random_chance", "chance": 0.4 }
+            ]
+        },
+        {
+            "name": "functionality:piglin_infernal_extra",
+            "rolls": 1,
+            "entries": [
+                { "type": "minecraft:item", "name": "functionality:infernal_sack" }
+            ],
+            "conditions": [
+                { "condition": "minecraft:random_chance", "chance": 0.5 }
+            ]
+        }
+    ]
+}

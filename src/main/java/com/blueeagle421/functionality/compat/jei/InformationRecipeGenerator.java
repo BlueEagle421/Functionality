@@ -17,10 +17,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.chat.Component;
@@ -33,12 +35,15 @@ public class InformationRecipeGenerator {
 
     public static void generateRecipes() {
         GENERATED.clear();
-        
+
         if (config().hastePotionHarvesting.enabled.get())
             generateHasteHarvestingRecipe();
 
         if (config().treasureSacks.limitEnabled.get())
             generateTreasureSacksRecipe();
+
+        if (config().infernalSacks.limitEnabled.get())
+            generateInfernalSacksRecipe();
 
         if (config().infiniteWaterCauldron.enabled.get())
             generateInfiniteCauldronRecipe();
@@ -83,21 +88,11 @@ public class InformationRecipeGenerator {
 
         int index = 1;
         for (ResourceLocation entityRL : entityRLs) {
-            ItemStack egg = ItemStack.EMPTY;
+            ItemStack egg = getSpawnEggForEntity(entityRL);
 
-            if (ForgeRegistries.ITEMS.containsKey(entityRL)) {
-                egg = new ItemStack(ForgeRegistries.ITEMS.getValue(entityRL));
-            } else {
-                egg = ForgeRegistries.ITEMS.getValues().stream()
-                        .filter(i -> i.getDescriptionId() != null
-                                && i.getDescriptionId().toString().endsWith("_spawn_egg")
-                                && i.getDescriptionId().contains(entityRL.getPath()))
-                        .findFirst()
-                        .map(i -> new ItemStack(i))
-                        .orElse(ItemStack.EMPTY);
+            if (!egg.isEmpty()) {
+                inputs.set(index++, Ingredient.of(egg));
             }
-
-            inputs.set(index++, Ingredient.of(egg));
         }
 
         ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
@@ -106,6 +101,44 @@ public class InformationRecipeGenerator {
 
         InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
         GENERATED.put(recipeId, recipe);
+    }
+
+    private static void generateInfernalSacksRecipe() {
+        Set<ResourceLocation> entityRLs = config().infernalSacks.getEntitiesAsResourceLocations();
+
+        NonNullList<Ingredient> inputs = NonNullList.withSize(1 + entityRLs.size(), Ingredient.EMPTY);
+
+        inputs.set(0, Ingredient.of(ModItems.INFERNAL_SACK.get()));
+
+        int index = 1;
+        for (ResourceLocation entityRL : entityRLs) {
+            ItemStack egg = getSpawnEggForEntity(entityRL);
+
+            if (!egg.isEmpty()) {
+                inputs.set(index++, Ingredient.of(egg));
+            }
+        }
+
+        ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
+                "information/generated/infernal_sacks");
+        Component desc = Component.translatable("information.functionality.infernal_sacks");
+
+        InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
+        GENERATED.put(recipeId, recipe);
+    }
+
+    private static ItemStack getSpawnEggForEntity(ResourceLocation entityRL) {
+        EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(entityRL);
+
+        if (type == null)
+            return ItemStack.EMPTY;
+
+        SpawnEggItem egg = net.minecraftforge.common.ForgeSpawnEggItem.fromEntityType(type);
+
+        if (egg == null)
+            return ItemStack.EMPTY;
+
+        return new ItemStack(egg);
     }
 
     private static void generateThrowableDiscsRecipe() {
