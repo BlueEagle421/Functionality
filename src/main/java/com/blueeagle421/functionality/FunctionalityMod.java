@@ -11,6 +11,8 @@ import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
 import com.blueeagle421.functionality.client.renderer.RepairAltarRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
 import com.blueeagle421.functionality.client.screen.RepairAltarScreen;
+import com.blueeagle421.functionality.compat.FarmersDelightCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.data.conditions.ConfigEnabledCondition;
 import com.blueeagle421.functionality.data.conditions.ConfigEnabledRegistry;
@@ -80,6 +82,11 @@ public class FunctionalityMod {
         ModRecipes.register(modEventBus);
         ModLootModifiers.register(modEventBus);
         ModSounds.register(modEventBus);
+
+        ModCompatManager.setupModCompatPreInit();
+
+        if (ModCompatManager.farmersDelightPresent)
+            FarmersDelightCompat.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 

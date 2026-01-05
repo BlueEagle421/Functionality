@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.compat.FarmersDelightCompat;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.categories.ItemsCategory;
 import com.blueeagle421.functionality.config.subcategories.features.BetterLichens;
@@ -63,6 +64,8 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.glowCrown.enabled.get(), () -> new ItemStack(ModItems.GLOW_CROWN.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_VENISON.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
+        acceptIf(out, () -> items.bearVenison.enabled.get() && hasFarmersDelight(),
+                () -> new ItemStack(FarmersDelightCompat.BEAR_SOUP.get()));
         acceptIf(out, () -> items.chevon.enabled.get(), () -> new ItemStack(ModItems.CHEVON.get()));
         acceptIf(out, () -> items.chevon.enabled.get(), () -> new ItemStack(ModItems.COOKED_CHEVON.get()));
         acceptIf(out, () -> items.sniffon.enabled.get(), () -> new ItemStack(ModItems.SNIFFON.get()));

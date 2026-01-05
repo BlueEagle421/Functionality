@@ -6,8 +6,8 @@ import net.minecraft.world.food.FoodProperties;
 
 public class ModFoods {
 
-    private static final int TICKS_PER_SECOND = 20;
-    private static final int HUNGER_DURATION = 30 * TICKS_PER_SECOND;
+    public static final int TICKS_PER_SECOND = 20;
+    public static final int HUNGER_DURATION = 30 * TICKS_PER_SECOND;
 
     public static final FoodProperties BEAR_VENISON = new FoodProperties.Builder()
             .nutrition(3).saturationMod(0.4f)

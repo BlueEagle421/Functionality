@@ -1,0 +1,32 @@
+{
+    "type": "farmersdelight:cooking",
+    "cookingtime": 200,
+    "experience": 0.35,
+    "ingredients": [
+        {
+            "item": "functionality:cooked_bear_venison"
+        },
+        {
+            "item": "minecraft:potato"
+        },
+        {
+            "tag": "forge:eggs"
+        },
+        {
+            "tag": "forge:crops/onion"
+        }
+    ],
+    "result": {
+        "item": "functionality:bear_soup"
+    },
+    "conditions": [
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.bear_venison.enabled"
+        },
+        {
+            "type": "forge:mod_loaded",
+            "modid": "farmersdelight"
+        }
+    ]
+}
