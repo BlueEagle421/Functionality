@@ -29,7 +29,7 @@ public class BidentItem extends UnderwaterWeaponItem {
 
     @Override
     public boolean isUnderwater(Entity entity) {
-        return entity.isUnderWater() || entity.level().rainLevel > 0f;
+        return entity.isInWaterOrRain() || entity.isInFluidType();
     }
 
     private static Bident config() {

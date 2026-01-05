@@ -29,7 +29,7 @@ public class HarpoonItem extends UnderwaterWeaponItem {
 
     @Override
     public boolean isUnderwater(Entity entity) {
-        return entity.isUnderWater();
+        return entity.isInWater();
     }
 
     private static Harpoon config() {
