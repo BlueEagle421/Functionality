@@ -12,9 +12,7 @@
             "item": "functionality:vex_essence"
         },
         {
-            "type": "forge:nbt",
-            "item": "minecraft:potion",
-            "nbt": "{Potion:\"minecraft:water\"}"
+            "item": "minecraft:dragon_breath"
         }
     ],
     "result": {
