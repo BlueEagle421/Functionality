@@ -91,7 +91,7 @@ public class ModFoods {
             .build();
 
     public static final FoodProperties TERRAPIN_STICK = new FoodProperties.Builder()
-            .nutrition(9).saturationMod(0.6f)
+            .nutrition(9).saturationMod(0.8f)
             .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 55 * TICKS_PER_SECOND, 2), 1f)
             .alwaysEat()
             .build();
