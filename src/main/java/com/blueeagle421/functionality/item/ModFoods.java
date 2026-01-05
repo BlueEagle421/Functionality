@@ -22,6 +22,13 @@ public class ModFoods {
             .alwaysEat()
             .build();
 
+    public static final FoodProperties BEAR_JERKY = new FoodProperties.Builder()
+            .nutrition(3).saturationMod(0.4f)
+            .meat()
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 25 * TICKS_PER_SECOND, 1), 1f)
+            .alwaysEat()
+            .build();
+
     public static final FoodProperties CHEVON = new FoodProperties.Builder()
             .nutrition(3).saturationMod(0.3f)
             .meat()

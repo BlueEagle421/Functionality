@@ -64,6 +64,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.glowCrown.enabled.get(), () -> new ItemStack(ModItems.GLOW_CROWN.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_VENISON.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
+        acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_JERKY.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get() && hasFarmersDelight(),
                 () -> new ItemStack(FarmersDelightCompat.BEAR_SOUP.get()));
         acceptIf(out, () -> items.chevon.enabled.get(), () -> new ItemStack(ModItems.CHEVON.get()));

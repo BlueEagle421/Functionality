@@ -47,6 +47,9 @@ public class ModItems {
     public static final RegistryObject<Item> COOKED_BEAR_VENISON = ITEMS.register("cooked_bear_venison",
             () -> new TooltipItem(new Item.Properties().food(ModFoods.COOKED_BEAR_VENISON)));
 
+    public static final RegistryObject<Item> BEAR_JERKY = ITEMS.register("bear_jerky",
+            () -> new TooltipItem(new Item.Properties().food(ModFoods.BEAR_JERKY)));
+
     public static final RegistryObject<Item> CHEVON = ITEMS.register("chevon",
             () -> new TooltipItem(new Item.Properties().food(ModFoods.CHEVON)));
 

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.55,
+  "ingredient": {
+    "item": "functionality:cooked_bear_venison"
+  },
+  "result": {
+    "count": 2,
+    "item": "functionality:bear_jerky"
+  },
+  "conditions": [
+    {
+      "type": "functionality:enabled",
+      "configPath": "items.bear_venison.enabled"
+    }
+  ]
+}
