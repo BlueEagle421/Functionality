@@ -73,7 +73,7 @@
     "tooltip.functionality.repair_altar": "Repairs items without experience.",
     "tooltip.detailed.functionality.repair_altar": " • Use amethyst shard to activate it.\n • Extracts ancient experience from copper.\n • Can store copper blocks inside.\n • Can only repair items.",
 
-    "tooltip.functionality.bear_venison": "An uncured piece of bear.",
+    "tooltip.functionality.bear_venison": "A large, uncured piece of bear.",
     "tooltip.functionality.cooked_bear_venison": "Juicy and protein-dense.",
     "tooltip.functionality.chevon": "Has earthy scent and firm texture.",
     "tooltip.functionality.cooked_chevon": "It's very chewy.\nHas jump-boosting capabilities.",
@@ -86,7 +86,7 @@
     "tooltip.functionality.terrapin": "Stinks of mud and might be poisonous.",
     "tooltip.functionality.cooked_terrapin": "Feels gelatinous and smells of the sea.",
     "tooltip.functionality.terrapin_soup": "Smells delicious.\nPerfect for underwater travels.",
-    "tooltip.functionality.terrapin_stick": "Has rich flavor with amplified effects.",
+    "tooltip.functionality.terrapin_stick": "Has a rich flavor and amplified effects.",
     "tooltip.functionality.fins": "They make you swim much faster!",
     "tooltip.functionality.obsidian_fins": "They make you swim in lava!",
     "tooltip.detailed.functionality.obsidian_fins": "You might want to be fire resistant for that.",
