@@ -3,17 +3,33 @@
     "pools": [
         {
             "rolls": 1,
-            "conditions": [
-                { "condition": "minecraft:random_chance", "chance": 0.8 }
-            ],
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "minecraft:honeycomb",
-                    "functions": [
-                        { "function": "minecraft:set_count", "count": 1 },
-                        { "function": "minecraft:looting_enchant", "count": { "min": 0, "max": 1 } }
-                    ]
+                    "name": "minecraft:honeycomb"
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "minecraft:random_chance_with_looting",
+                    "chance": 0.8,
+                    "looting_multiplier": 0.1
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:honeycomb"
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "minecraft:random_chance_with_looting",
+                    "chance": 0,
+                    "looting_multiplier": 0.25
                 }
             ]
         }
