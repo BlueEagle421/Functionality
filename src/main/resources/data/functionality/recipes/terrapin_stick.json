@@ -3,9 +3,6 @@
     "category": "misc",
     "ingredients": [
         {
-            "item": "farmersdelight:onion"
-        },
-        {
             "item": "farmersdelight:cooked_bacon"
         },
         {
