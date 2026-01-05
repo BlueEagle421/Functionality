@@ -29,6 +29,12 @@ public abstract class OpenableItem extends TooltipItem {
         if (!(level instanceof ServerLevel server))
             return InteractionResultHolder.sidedSuccess(stackInHand, true);
 
+        opened(server, player, stackInHand);
+
+        return InteractionResultHolder.sidedSuccess(stackInHand, false);
+    }
+
+    protected void opened(ServerLevel server, Player player, ItemStack stack) {
         var drops = getLootStack(server, player);
 
         for (ItemStack drop : drops) {
@@ -38,18 +44,17 @@ public abstract class OpenableItem extends TooltipItem {
             boolean added = player.getInventory().add(drop.copy());
 
             if (!added) {
-                ItemEntity itemEntity = new ItemEntity(level, player.getX(), player.getY() + 0.5, player.getZ(),
+                ItemEntity itemEntity = new ItemEntity(
+                        server, player.getX(), player.getY() + 0.5, player.getZ(),
                         drop.copy());
-                level.addFreshEntity(itemEntity);
+                server.addFreshEntity(itemEntity);
             }
         }
 
         dropXP(server, player);
 
         if (!player.getAbilities().instabuild)
-            stackInHand.shrink(1);
-
-        return InteractionResultHolder.sidedSuccess(stackInHand, false);
+            stack.shrink(1);
     }
 
     private void dropXP(ServerLevel server, Player player) {
