@@ -5,7 +5,7 @@
     "#": {
       "type": "forge:nbt",
       "item": "functionality:glow_herb",
-      "nbt": "{Herb:{Duration:4200}}"
+      "nbt": "{Herb:{Duration:1100}}"
     },
     "X": {
       "item": "minecraft:dragon_breath"

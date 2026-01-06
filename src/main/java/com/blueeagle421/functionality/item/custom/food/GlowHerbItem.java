@@ -12,4 +12,9 @@ public class GlowHerbItem extends EffectHerbItem {
     public MobEffect getEffect() {
         return ModEffects.GLOW_BLESSING.get();
     }
+
+    @Override
+    public int getDefaultDuration() {
+        return 1100;
+    }
 }

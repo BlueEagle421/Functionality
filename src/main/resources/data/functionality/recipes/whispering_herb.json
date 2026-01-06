@@ -3,13 +3,13 @@
     "category": "misc",
     "ingredients": [
         {
-            "item": "minecraft:crimson_fungus"
+            "item": "minecraft:blue_orchid"
         },
         {
-            "item": "minecraft:crimson_fungus"
+            "item": "minecraft:blue_orchid"
         },
         {
-            "item": "minecraft:crimson_fungus"
+            "item": "minecraft:sugar"
         },
         {
             "item": "minecraft:kelp"
@@ -17,13 +17,13 @@
     ],
     "result": {
         "type": "forge:nbt",
-        "item": "functionality:crimson_herb",
+        "item": "functionality:whispering_herb",
         "nbt": "{Herb:{Duration:1800}}"
     },
     "conditions": [
         {
             "type": "functionality:enabled",
-            "configPath": "items.ancient_seeker.enabled"
+            "configPath": "items.whispering_herb.enabled"
         }
     ]
 }

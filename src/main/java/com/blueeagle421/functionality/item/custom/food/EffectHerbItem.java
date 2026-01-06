@@ -23,13 +23,16 @@ public abstract class EffectHerbItem extends TooltipItem {
 
     public static final String HERB_KEY = "Herb";
     public static final String DURATION_KEY = "Duration";
-    public static final int DEFAULT_DURATION = 400;
 
     public EffectHerbItem(Properties pProperties) {
         super(pProperties);
     }
 
     public abstract MobEffect getEffect();
+
+    public int getDefaultDuration() {
+        return 1800;
+    }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
@@ -38,7 +41,7 @@ public abstract class EffectHerbItem extends TooltipItem {
         if (level.isClientSide)
             return result;
 
-        int duration = DEFAULT_DURATION;
+        int duration = getDefaultDuration();
 
         CompoundTag tag = stack.getTagElement(HERB_KEY);
         if (tag != null && tag.contains(DURATION_KEY, 99)) {
@@ -53,7 +56,7 @@ public abstract class EffectHerbItem extends TooltipItem {
 
     public ItemStack getDefaultInstance() {
         ItemStack itemstack = new ItemStack(this);
-        setDuration(itemstack, DEFAULT_DURATION);
+        setDuration(itemstack, getDefaultDuration());
         return itemstack;
     }
 

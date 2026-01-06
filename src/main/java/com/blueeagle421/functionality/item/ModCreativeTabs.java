@@ -40,7 +40,8 @@ public class ModCreativeTabs {
         // with nbt
         acceptIf(out, () -> items.whisperingHerb.enabled.get(), () -> {
             ItemStack herbStack = new ItemStack(ModItems.WHISPERING_HERB.get());
-            EffectHerbItem.setDuration(herbStack, WhisperingHerbItem.DEFAULT_DURATION);
+            EffectHerbItem herbItem = (EffectHerbItem) herbStack.getItem();
+            EffectHerbItem.setDuration(herbStack, herbItem.getDefaultDuration());
             return herbStack;
         });
 
@@ -49,16 +50,18 @@ public class ModCreativeTabs {
 
         // with nbt
         acceptIf(out, () -> items.crimsonHerb.enabled.get(), () -> {
-            ItemStack crimsonHerbStack = new ItemStack(ModItems.CRIMSON_HERB.get());
-            EffectHerbItem.setDuration(crimsonHerbStack, CrimsonHerbItem.DEFAULT_DURATION);
-            return crimsonHerbStack;
+            ItemStack herbStack = new ItemStack(ModItems.CRIMSON_HERB.get());
+            EffectHerbItem herbItem = (EffectHerbItem) herbStack.getItem();
+            EffectHerbItem.setDuration(herbStack, herbItem.getDefaultDuration());
+            return herbStack;
         });
 
         // with nbt
         acceptIf(out, () -> items.glowHerb.enabled.get(), () -> {
-            ItemStack glowingHerbStack = new ItemStack(ModItems.GLOW_HERB.get());
-            EffectHerbItem.setDuration(glowingHerbStack, GlowHerbItem.DEFAULT_DURATION);
-            return glowingHerbStack;
+            ItemStack herbStack = new ItemStack(ModItems.GLOW_HERB.get());
+            EffectHerbItem herbItem = (EffectHerbItem) herbStack.getItem();
+            EffectHerbItem.setDuration(herbStack, herbItem.getDefaultDuration());
+            return herbStack;
         });
 
         acceptIf(out, () -> items.glowCrown.enabled.get(), () -> new ItemStack(ModItems.GLOW_CROWN.get()));
