@@ -1,28 +1,24 @@
 package com.blueeagle421.functionality.item.custom.equipment;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.utils.TooltipUtils;
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.ObsidianFins;
+import com.blueeagle421.functionality.item.custom.TooltipItem;
 
 //lava swimming methods are in mixins (the class is important for type checks)
-public class ObsidianFinsItem extends Item implements ICurioItem {
+public class ObsidianFinsItem extends TooltipItem implements ICurioItem {
 
     public ObsidianFinsItem(Properties pProperties) {
         super(pProperties);
@@ -39,17 +35,47 @@ public class ObsidianFinsItem extends Item implements ICurioItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip,
-            TooltipFlag isAdvanced) {
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        Entity entity = slotContext.entity();
+        if (!(entity instanceof Player player))
+            return;
+        if (player.level().isClientSide)
+            return;
 
-        TooltipUtils.addFormattedTooltip(stack, tooltip);
+        durabilityTick(player, stack);
+    }
 
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
+    private static void durabilityTick(Player player, ItemStack stack) {
+        if (!player.isInLava() || !player.isSwimming())
+            return;
+
+        int maxDurability = stack.getMaxDamage();
+        int lastsForTicks = config().lastsForTicks.get();
+
+        if (maxDurability <= 0 || lastsForTicks <= 0)
+            return;
+
+        double damagePerTick = (double) maxDurability / lastsForTicks;
+
+        int totalTicksPassed = player.tickCount;
+        int damageShouldBe = (int) Math.floor(totalTicksPassed * damagePerTick);
+        int currentDamage = stack.getDamageValue();
+
+        int damageToApply = damageShouldBe - currentDamage;
+        if (damageToApply > 0) {
+            stack.hurtAndBreak(damageToApply, player, p -> {
+                CurioCompat.Utils.playCurioBreakEffects(player, stack);
+            });
+        }
     }
 
     @Override
     @Nonnull
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
         return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_DIAMOND, 1.0f, 1.0f);
+    }
+
+    private static ObsidianFins config() {
+        return FunctionalityConfig.COMMON.items.obsidianFins;
     }
 }

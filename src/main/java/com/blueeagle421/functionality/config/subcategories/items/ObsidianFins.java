@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class ObsidianFins {
 
     public final ForgeConfigSpec.BooleanValue enabled;
+    public final ForgeConfigSpec.IntValue lastsForTicks;
 
     public ObsidianFins(ForgeConfigSpec.Builder builder) {
         builder.push("obsidian_fins");
@@ -13,6 +14,10 @@ public class ObsidianFins {
                 .comment(
                         "If false, the item won't be craftable and present in tabs effectively disabling it. Only works with Curio API present.")
                 .define("enabled", true);
+
+        lastsForTicks = builder
+                .comment("The amount of tick time it allows swimming for.")
+                .defineInRange("lastsForTicks", 7200, 1, Integer.MAX_VALUE);
 
         builder.pop();
     }
