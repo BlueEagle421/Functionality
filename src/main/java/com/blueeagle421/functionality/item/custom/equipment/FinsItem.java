@@ -25,6 +25,7 @@ import com.blueeagle421.functionality.item.custom.TooltipItem;
 public class FinsItem extends TooltipItem implements ICurioItem {
 
     private static final UUID FINS_SWIM_UUID = UUID.fromString("a46b3c7a-5f6a-4c2d-9d3e-1a2b3c4d5e6f");
+    private static final String SWIM_TICKS = "SwimmingTicks";
 
     public FinsItem(Properties pProperties) {
         super(pProperties);
@@ -86,10 +87,12 @@ public class FinsItem extends TooltipItem implements ICurioItem {
         if (maxDurability <= 0 || lastsForTicks <= 0)
             return;
 
-        double damagePerTick = (double) maxDurability / lastsForTicks;
+        int ticksSwimming = stack.getOrCreateTag().getInt(SWIM_TICKS);
+        ticksSwimming++;
+        stack.getOrCreateTag().putInt(SWIM_TICKS, ticksSwimming);
 
-        int totalTicksPassed = player.tickCount;
-        int damageShouldBe = (int) Math.floor(totalTicksPassed * damagePerTick);
+        double damagePerTick = (double) maxDurability / lastsForTicks;
+        int damageShouldBe = (int) Math.floor(ticksSwimming * damagePerTick);
         int currentDamage = stack.getDamageValue();
 
         int damageToApply = damageShouldBe - currentDamage;
@@ -97,7 +100,6 @@ public class FinsItem extends TooltipItem implements ICurioItem {
             stack.hurtAndBreak(damageToApply, player, p -> {
                 CurioCompat.Utils.playCurioBreakEffects(player, stack);
             });
-
     }
 
     @Override

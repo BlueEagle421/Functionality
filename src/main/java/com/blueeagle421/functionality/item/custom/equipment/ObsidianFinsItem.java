@@ -20,6 +20,8 @@ import com.blueeagle421.functionality.item.custom.TooltipItem;
 //lava swimming methods are in mixins (the class is important for type checks)
 public class ObsidianFinsItem extends TooltipItem implements ICurioItem {
 
+    private static final String SWIM_TICKS = "LavaSwimmingTicks";
+
     public ObsidianFinsItem(Properties pProperties) {
         super(pProperties);
     }
@@ -55,18 +57,19 @@ public class ObsidianFinsItem extends TooltipItem implements ICurioItem {
         if (maxDurability <= 0 || lastsForTicks <= 0)
             return;
 
-        double damagePerTick = (double) maxDurability / lastsForTicks;
+        int ticksSwimming = stack.getOrCreateTag().getInt(SWIM_TICKS);
+        ticksSwimming++;
+        stack.getOrCreateTag().putInt(SWIM_TICKS, ticksSwimming);
 
-        int totalTicksPassed = player.tickCount;
-        int damageShouldBe = (int) Math.floor(totalTicksPassed * damagePerTick);
+        double damagePerTick = (double) maxDurability / lastsForTicks;
+        int damageShouldBe = (int) Math.floor(ticksSwimming * damagePerTick);
         int currentDamage = stack.getDamageValue();
 
         int damageToApply = damageShouldBe - currentDamage;
-        if (damageToApply > 0) {
+        if (damageToApply > 0)
             stack.hurtAndBreak(damageToApply, player, p -> {
                 CurioCompat.Utils.playCurioBreakEffects(player, stack);
             });
-        }
     }
 
     @Override
