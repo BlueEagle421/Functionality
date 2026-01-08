@@ -1,21 +1,26 @@
 package com.blueeagle421.functionality.item.custom.equipment;
 
+import javax.annotation.Nonnull;
+
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;
+
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class GlowCrownItem extends ArmorItem {
+public class GlowCrownItem extends Item implements ICurioItem {
     private static final int MARKER_AMPLIFIER = 127;
 
-    public GlowCrownItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
-        super(pMaterial, pType, pProperties);
+    public GlowCrownItem(Properties pProperties) {
+        super(pProperties);
     }
 
     @Override
@@ -29,20 +34,31 @@ public class GlowCrownItem extends ArmorItem {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
 
-        if (level.isClientSide)
+        if (slotContext.entity().level().isClientSide)
             return;
 
-        MobEffectInstance current = player.getEffect(ModEffects.GLOW_BLESSING.get());
+        MobEffectInstance current = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
 
         if (current != null)
             return;
 
-        MobEffectInstance infiniteFR = new MobEffectInstance(ModEffects.GLOW_BLESSING.get(),
+        MobEffectInstance infiniteFR = new MobEffectInstance(MobEffects.FIRE_RESISTANCE,
                 MobEffectInstance.INFINITE_DURATION, MARKER_AMPLIFIER, true, false, true);
 
-        player.addEffect(infiniteFR);
+        slotContext.entity().addEffect(infiniteFR);
+    }
+
+    @Override
+    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (slotContext.entity().level().isClientSide)
+            return;
+
+        MobEffectInstance fr = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
+
+        if (GlowCrownItem.isEffectFromGear(fr))
+            slotContext.entity().removeEffect(MobEffects.FIRE_RESISTANCE);
     }
 
     public static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {
@@ -56,5 +72,11 @@ public class GlowCrownItem extends ArmorItem {
             return false;
 
         return true;
+    }
+
+    @Override
+    @Nonnull
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+        return new ICurio.SoundInfo(SoundEvents.SMALL_DRIPLEAF_PLACE, 1.0f, 1.0f);
     }
 }

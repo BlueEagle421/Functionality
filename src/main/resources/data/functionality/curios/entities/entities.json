@@ -4,6 +4,7 @@
         "minecraft:armor_stand"
     ],
     "slots": [
+        "head",
         "back",
         "feet"
     ]

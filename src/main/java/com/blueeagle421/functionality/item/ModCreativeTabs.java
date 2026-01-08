@@ -66,7 +66,8 @@ public class ModCreativeTabs {
             return herbStack;
         });
 
-        acceptIf(out, () -> items.glowCrown.enabled.get(), () -> new ItemStack(ModItems.GLOW_CROWN.get()));
+        acceptIf(out, () -> items.glowCrown.enabled.get() && ModCompatManager.curiosPresent,
+                () -> new ItemStack(CurioCompat.GLOW_CROWN.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_VENISON.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.COOKED_BEAR_VENISON.get()));
         acceptIf(out, () -> items.bearVenison.enabled.get(), () -> new ItemStack(ModItems.BEAR_JERKY.get()));

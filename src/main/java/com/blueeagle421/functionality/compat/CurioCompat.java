@@ -2,6 +2,7 @@ package com.blueeagle421.functionality.compat;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.item.custom.equipment.FinsItem;
+import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
 import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
 import com.blueeagle421.functionality.item.custom.equipment.ObsidianFinsItem;
 
@@ -26,6 +27,9 @@ public class CurioCompat {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
             FunctionalityMod.MOD_ID);
+
+    public static final RegistryObject<Item> GLOW_CROWN = ITEMS
+            .register("glow_crown", () -> new GlowCrownItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> FINS = ITEMS
             .register("fins", () -> new FinsItem(new Item.Properties().stacksTo(1)));

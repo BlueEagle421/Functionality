@@ -25,6 +25,10 @@
     {
       "type": "functionality:enabled",
       "configPath": "items.glow_crown.enabled"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "curios"
     }
   ]
 }

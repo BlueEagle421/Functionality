@@ -24,12 +24,13 @@ public class AnvilRecipeGenerator {
     private static Map<Item, ItemStack> BASE_REPAIRABLE_ITEMS() {
         return Map.of(
                 ModItems.HARPOON.get(), new ItemStack(Items.FLINT),
-                ModItems.BIDENT.get(), new ItemStack(Items.PRISMARINE_SHARD),
-                ModItems.GLOW_CROWN.get(), new ItemStack(Items.KELP));
+                ModItems.BIDENT.get(), new ItemStack(Items.PRISMARINE_SHARD));
+
     }
 
     private static Map<Item, ItemStack> CURIO_REPAIRABLE_ITEMS() {
         return Map.of(
+                CurioCompat.GLOW_CROWN.get(), new ItemStack(Items.KELP),
                 CurioCompat.FINS.get(), new ItemStack(Items.SCUTE),
                 CurioCompat.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN),
                 CurioCompat.INFERNO_GEAR.get(), new ItemStack(Items.OBSIDIAN));
