@@ -1,8 +1,11 @@
 package com.blueeagle421.functionality.event.glowBlessingEffect;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.effect.ModEffects;
+import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -55,6 +59,8 @@ public class VoidProtection {
 
         event.setCanceled(true);
 
+        destroyCrown(player);
+
         addVoidCorruption(player);
 
         Vec3 lastPos = LAST_GROUND_POS.get(player.getUUID());
@@ -89,6 +95,18 @@ public class VoidProtection {
 
         // spawn particles
         spawnParticles(server, teleportPos);
+    }
+
+    private static void destroyCrown(Player player) {
+        if (!ModCompatManager.curiosPresent)
+            return;
+
+        ItemStack crownStack = CurioCompat.Utils.getCurio(player, GlowCrownItem.class);
+
+        if (crownStack == null)
+            return;
+
+        crownStack.shrink(1);
     }
 
     private static void addVoidCorruption(Player player) {

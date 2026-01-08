@@ -4,19 +4,18 @@ import javax.annotation.Nonnull;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.effect.ModEffects;
+import com.blueeagle421.functionality.item.custom.TooltipItem;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class GlowCrownItem extends Item implements ICurioItem {
+public class GlowCrownItem extends TooltipItem implements ICurioItem {
     private static final int MARKER_AMPLIFIER = 127;
 
     public GlowCrownItem(Properties pProperties) {
@@ -39,12 +38,12 @@ public class GlowCrownItem extends Item implements ICurioItem {
         if (slotContext.entity().level().isClientSide)
             return;
 
-        MobEffectInstance current = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
+        MobEffectInstance current = slotContext.entity().getEffect(ModEffects.GLOW_BLESSING.get());
 
         if (current != null)
             return;
 
-        MobEffectInstance infiniteFR = new MobEffectInstance(MobEffects.FIRE_RESISTANCE,
+        MobEffectInstance infiniteFR = new MobEffectInstance(ModEffects.GLOW_BLESSING.get(),
                 MobEffectInstance.INFINITE_DURATION, MARKER_AMPLIFIER, true, false, true);
 
         slotContext.entity().addEffect(infiniteFR);
@@ -55,10 +54,10 @@ public class GlowCrownItem extends Item implements ICurioItem {
         if (slotContext.entity().level().isClientSide)
             return;
 
-        MobEffectInstance fr = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
+        MobEffectInstance fr = slotContext.entity().getEffect(ModEffects.GLOW_BLESSING.get());
 
         if (GlowCrownItem.isEffectFromGear(fr))
-            slotContext.entity().removeEffect(MobEffects.FIRE_RESISTANCE);
+            slotContext.entity().removeEffect(ModEffects.GLOW_BLESSING.get());
     }
 
     public static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {

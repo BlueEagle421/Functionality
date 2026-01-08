@@ -47,33 +47,32 @@ public class CurioCompat {
     public class Utils {
 
         public static boolean hasInfernoGear(Entity entity) {
-            return hasCurio(entity, InfernoGearItem.class);
+            return getCurio(entity, InfernoGearItem.class) != null;
         }
 
         public static boolean hasObsidianFins(Entity entity) {
-            return hasCurio(entity, ObsidianFinsItem.class);
+            return getCurio(entity, ObsidianFinsItem.class) != null;
         }
 
-        public static boolean hasCurio(Entity entity, Class<? extends Item> itemType) {
+        public static ItemStack getCurio(Entity entity, Class<? extends Item> itemType) {
             if (!ModCompatManager.curiosPresent)
-                return false;
+                return null;
 
-            if (!(entity instanceof LivingEntity livingEntity))
-                return false;
+            if (!(entity instanceof LivingEntity living))
+                return null;
 
-            return CuriosApi.getCuriosInventory(
-                    livingEntity)
+            return CuriosApi.getCuriosInventory(living)
+                    .resolve()
                     .map(curios -> {
                         IItemHandler handler = curios.getEquippedCurios();
                         for (int i = 0; i < handler.getSlots(); i++) {
                             ItemStack stack = handler.getStackInSlot(i);
                             if (!stack.isEmpty() && itemType.isInstance(stack.getItem()))
-                                return true;
+                                return stack;
                         }
-                        return false;
+                        return null;
                     })
-                    .orElse(false);
+                    .orElse(null);
         }
-
     }
 }

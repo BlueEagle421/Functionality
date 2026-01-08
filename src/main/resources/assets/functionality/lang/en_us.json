@@ -113,6 +113,8 @@
     "tooltip.detailed.functionality.glow_herb": "Grants immunity to:\n • Void damage\n • Levitation\n • Angering Endermen\n\nTaking void damage rapidly corrupts you.\nIt can only be cured with regeneration effect.",
 
     "tooltip.nbt.functionality.duration": "Duration:",
+    "tooltip.functionality.glow_crown": "Provides glow blessing.",
+    "tooltip.detailed.functionality.glow_crown": "Breaks after taking void damage.",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
     "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
     "tooltip.functionality.obsidian_boat": "Can sail on lava.",
