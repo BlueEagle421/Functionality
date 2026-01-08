@@ -6,6 +6,7 @@ public class Fins {
 
     public final ForgeConfigSpec.BooleanValue enabled;
     public final ForgeConfigSpec.DoubleValue maxSpeedMultiplier;
+    public final ForgeConfigSpec.IntValue lastsForTicks;
 
     public Fins(ForgeConfigSpec.Builder builder) {
         builder.push("fins");
@@ -18,6 +19,10 @@ public class Fins {
         maxSpeedMultiplier = builder
                 .comment("The max speed multiplier that will be applied while swimming.")
                 .defineInRange("maxSpeedMultiplier", 1.5, 1.0, 64.0);
+
+        lastsForTicks = builder
+                .comment("The amount of tick time it allows fast swimming for.")
+                .defineInRange("lastsForTicks", 4800, 1, Integer.MAX_VALUE);
 
         builder.pop();
     }

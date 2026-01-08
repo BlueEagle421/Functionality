@@ -6,8 +6,13 @@ import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
 import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
 import com.blueeagle421.functionality.item.custom.equipment.ObsidianFinsItem;
 
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,13 +37,14 @@ public class CurioCompat {
             .register("glow_crown", () -> new GlowCrownItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> FINS = ITEMS
-            .register("fins", () -> new FinsItem(new Item.Properties().stacksTo(1)));
+            .register("fins", () -> new FinsItem(new Item.Properties().durability(200)));
 
     public static final RegistryObject<Item> OBSIDIAN_FINS = ITEMS
-            .register("obsidian_fins", () -> new ObsidianFinsItem(new Item.Properties().stacksTo(1)));
+            .register("obsidian_fins", () -> new ObsidianFinsItem(new Item.Properties().durability(200)));
 
     public static final RegistryObject<Item> INFERNO_GEAR = ITEMS
-            .register("inferno_gear", () -> new InfernoGearItem(new Item.Properties().stacksTo(1)));
+            .register("inferno_gear",
+                    () -> new InfernoGearItem(new Item.Properties().durability(600)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
@@ -73,6 +79,33 @@ public class CurioCompat {
                         return null;
                     })
                     .orElse(null);
+        }
+
+        public static void playCurioBreakEffects(Player player, ItemStack stack) {
+            player.level().playSound(
+                    null,
+                    player.getX(),
+                    player.getY(),
+                    player.getZ(),
+                    SoundEvents.ITEM_BREAK,
+                    player.getSoundSource(),
+                    1.0F,
+                    1.0F);
+
+            if (player.level() instanceof ServerLevel serverLevel) {
+                int count = 20;
+                double spread = 0.2;
+                double speed = 0.1;
+
+                double px = player.getX();
+                double py = player.getY() + 1.0;
+                double pz = player.getZ();
+
+                ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM,
+                        new ItemStack(FinsItem.class.cast(stack.getItem())));
+
+                serverLevel.sendParticles(particle, px, py, pz, count, spread, spread, spread, speed);
+            }
         }
     }
 }

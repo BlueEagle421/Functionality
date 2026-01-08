@@ -106,6 +106,7 @@ public class VoidProtection {
         if (crownStack == null)
             return;
 
+        CurioCompat.Utils.playCurioBreakEffects(player, crownStack);
         crownStack.shrink(1);
     }
 
