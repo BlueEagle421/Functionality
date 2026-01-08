@@ -85,20 +85,6 @@ public class ModItems {
     public static final RegistryObject<Item> TERRAPIN_STICK = ITEMS.register("terrapin_stick",
             () -> new TooltipItem(new Item.Properties().food(ModFoods.TERRAPIN_STICK)));
 
-    public static final RegistryObject<Item> FINS = ITEMS
-            .register("fins", () -> new FinsItem(ArmorMaterials.TURTLE, ArmorItem.Type.BOOTS,
-                    new Item.Properties()));
-
-    public static final RegistryObject<Item> OBSIDIAN_FINS = ITEMS
-            .register("obsidian_fins", () -> new ObsidianFinsItem(
-                    ModArmorMaterials.OBSIDIAN, ArmorItem.Type.BOOTS,
-                    new Item.Properties()));
-
-    public static final RegistryObject<Item> INFERNO_GEAR = ITEMS
-            .register("inferno_gear", () -> new InfernoGearItem(
-                    ModArmorMaterials.OBSIDIAN, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties()));
-
     public static final RegistryObject<Item> WHISPERING_HERB = ITEMS.register("whispering_herb",
             () -> new WhisperingHerbItem(new Item.Properties().food(ModFoods.HERB)));
 

@@ -154,6 +154,9 @@
     "sounds.functionality.disc_throw": "Music disc throw",
     "sounds.functionality.repair_altar_use": "Repair altar use",
 
+    "curios.identifier.feet": "Feet",
+    "curios.modifiers.feet": "When on feet:",
+
     "creativetab.functionality_tab": "Functionality",
     "category.functionality.information": "Functional Information"
 }

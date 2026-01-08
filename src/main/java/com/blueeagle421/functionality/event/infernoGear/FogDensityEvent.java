@@ -1,7 +1,8 @@
 package com.blueeagle421.functionality.event.infernoGear;
 
 import com.blueeagle421.functionality.FunctionalityMod;
-import com.blueeagle421.functionality.utils.ArmorUtils;
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +27,10 @@ public class FogDensityEvent {
         if (mc.level == null)
             return;
 
-        if (!ArmorUtils.hasInfernoGear(player))
+        if (!ModCompatManager.curiosPresent)
+            return;
+
+        if (!CurioCompat.Utils.hasInfernoGear(player))
             return;
 
         if (!player.isEyeInFluidType(ForgeMod.LAVA_TYPE.get()))

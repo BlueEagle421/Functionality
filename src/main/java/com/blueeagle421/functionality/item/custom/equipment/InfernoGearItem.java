@@ -3,6 +3,8 @@ package com.blueeagle421.functionality.item.custom.equipment;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,25 +16,28 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class InfernoGearItem extends ArmorItem {
+public class InfernoGearItem extends Item implements ICurioItem {
 
     private static final int MARKER_AMPLIFIER = 127;
 
-    public InfernoGearItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
-        super(pMaterial, pType, pProperties);
+    public InfernoGearItem(Properties pProperties) {
+        super(pProperties);
+
     }
 
     @Override
@@ -67,12 +72,12 @@ public class InfernoGearItem extends ArmorItem {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
 
-        if (level.isClientSide)
+        if (slotContext.entity().level().isClientSide)
             return;
 
-        MobEffectInstance current = player.getEffect(MobEffects.FIRE_RESISTANCE);
+        MobEffectInstance current = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
 
         if (current != null)
             return;
@@ -80,10 +85,27 @@ public class InfernoGearItem extends ArmorItem {
         MobEffectInstance infiniteFR = new MobEffectInstance(MobEffects.FIRE_RESISTANCE,
                 MobEffectInstance.INFINITE_DURATION, MARKER_AMPLIFIER, true, false, true);
 
-        player.addEffect(infiniteFR);
+        slotContext.entity().addEffect(infiniteFR);
     }
 
-    public static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {
+    @Override
+    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (slotContext.entity().level().isClientSide)
+            return;
+
+        MobEffectInstance fr = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
+
+        if (InfernoGearItem.isEffectFromGear(fr))
+            slotContext.entity().removeEffect(MobEffects.FIRE_RESISTANCE);
+    }
+
+    @Override
+    @Nonnull
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_DIAMOND, 1.0f, 1.0f);
+    }
+
+    private static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {
         if (mobEffectInstance == null)
             return false;
 

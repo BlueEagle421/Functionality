@@ -5,7 +5,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.compat.CurioCompat;
 import com.blueeagle421.functionality.compat.FarmersDelightCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.categories.ItemsCategory;
 import com.blueeagle421.functionality.config.subcategories.features.BetterLichens;
@@ -82,11 +84,14 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN_SOUP.get()));
         acceptIf(out, () -> items.terrapin.enabled.get() && hasFarmersDelight(),
                 () -> new ItemStack(ModItems.TERRAPIN_STICK.get()));
-        acceptIf(out, () -> items.fins.enabled.get(), () -> new ItemStack(ModItems.FINS.get()));
-        acceptIf(out, () -> items.obsidianFins.enabled.get(), () -> new ItemStack(ModItems.OBSIDIAN_FINS.get()));
+        acceptIf(out, () -> items.fins.enabled.get() && ModCompatManager.curiosPresent,
+                () -> new ItemStack(CurioCompat.FINS.get()));
+        acceptIf(out, () -> items.obsidianFins.enabled.get() && ModCompatManager.curiosPresent,
+                () -> new ItemStack(CurioCompat.OBSIDIAN_FINS.get()));
         acceptIf(out, () -> items.amethystArrow.enabled.get(), () -> new ItemStack(ModItems.AMETHYST_ARROW.get()));
         acceptIf(out, () -> items.obsidianBoat.enabled.get(), () -> new ItemStack(ModItems.OBSIDIAN_BOAT.get()));
-        acceptIf(out, () -> items.infernoGear.enabled.get(), () -> new ItemStack(ModItems.INFERNO_GEAR.get()));
+        acceptIf(out, () -> items.infernoGear.enabled.get() && ModCompatManager.curiosPresent,
+                () -> new ItemStack(CurioCompat.INFERNO_GEAR.get()));
         acceptIf(out, () -> items.glowTorch.enabled.get(), () -> new ItemStack(ModItems.GLOW_TORCH.get()));
         acceptIf(out, () -> items.fishTrap.enabled.get(), () -> new ItemStack(ModItems.FISH_TRAP.get()));
         acceptIf(out, () -> items.repairAltar.enabled.get(), () -> new ItemStack(ModItems.REPAIR_ALTAR.get()));

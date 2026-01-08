@@ -1,8 +1,5 @@
 package com.blueeagle421.functionality.compat;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.blueeagle421.functionality.FunctionalityMod;
 
 //This code is inspired by Nether Depths Upgrade by Scouter456
@@ -20,35 +17,36 @@ import net.minecraftforge.fml.ModList;
 public class ModCompatManager {
 
     public static boolean farmersDelightPresent;
-
-    private static final Map<String, Runnable> PRE_INIT_COMPAT = new LinkedHashMap<>();
-    private static final Map<String, Runnable> COMMON_SETUP_COMPAT = new LinkedHashMap<>();
-
-    static {
-        // Pre-init compat
-        PRE_INIT_COMPAT.put("farmersdelight", FarmersDelightCompat::setupCompat);
-    }
+    public static boolean curiosPresent;
 
     public static void setupModCompatPreInit() {
-        runCompatMap(PRE_INIT_COMPAT, "pre init");
+        String modid = "";
+
+        try {
+
+            modid = "farmersdelight";
+            loadModCompat(modid, () -> FarmersDelightCompat.setupCompat());
+
+            modid = "curios";
+            loadModCompat(modid, () -> CurioCompat.setupCompat());
+
+        } catch (Throwable e) {
+            printErrorToLogs("classloading " + modid + " pre init, mod compat done afterwards broke");
+            e.printStackTrace();
+        }
     }
 
-    public static void setupModCompatCommonSetup() {
-        runCompatMap(COMMON_SETUP_COMPAT, "common setup");
-    }
-
-    private static void runCompatMap(Map<String, Runnable> compatMap, String phase) {
-        for (Map.Entry<String, Runnable> entry : compatMap.entrySet()) {
-            String modid = entry.getKey();
-
-            try {
-                if (ModList.get().isLoaded(modid)) {
-                    entry.getValue().run();
-                }
-            } catch (Throwable e) {
-                printErrorToLogs("classloading " + modid + " " + phase);
-                e.printStackTrace();
+    private static void loadModCompat(String modid, Runnable runnable) {
+        try {
+            if (ModList.get().isLoaded(modid)) {
+                runnable.run();
             }
+        }
+
+        catch (Throwable e) {
+            printErrorToLogs(modid);
+            e.printStackTrace();
+
         }
     }
 

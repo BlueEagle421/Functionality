@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.mixin.lavaTravel;
 
-import com.blueeagle421.functionality.utils.ArmorUtils;
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
@@ -21,10 +22,13 @@ public class LivingEntityTravelMixin {
     private float modifyMoveRelative(float originalValue, Vec3 travel) {
         LivingEntity self = (LivingEntity) (Object) this;
 
+        if (!ModCompatManager.curiosPresent)
+            return originalValue;
+
         if (!self.isInLava())
             return originalValue;
 
-        if (ArmorUtils.hasObsidianFins(self))
+        if (CurioCompat.Utils.hasObsidianFins(self))
             return originalValue * LAVA_MOVE_MULTIPLIER;
 
         return originalValue;
@@ -34,7 +38,10 @@ public class LivingEntityTravelMixin {
     private float modifyLavaVerticalDamping(float original) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        if (ArmorUtils.hasObsidianFins(self))
+        if (!ModCompatManager.curiosPresent)
+            return original;
+
+        if (CurioCompat.Utils.hasObsidianFins(self))
             return LAVA_VERTICAL_DAMPING;
 
         return original;
@@ -44,7 +51,10 @@ public class LivingEntityTravelMixin {
     private double modifyLavaHorizontalSlowdown(double original) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        if (ArmorUtils.hasObsidianFins(self))
+        if (!ModCompatManager.curiosPresent)
+            return original;
+
+        if (CurioCompat.Utils.hasObsidianFins(self))
             return LAVA_SLOWDOWN_REDUCTION;
 
         return original;
@@ -54,7 +64,10 @@ public class LivingEntityTravelMixin {
     private Vec3 reduceDownwardWhenInLava(Vec3 original) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        if (!self.isInLava() || !ArmorUtils.hasObsidianFins(self))
+        if (!ModCompatManager.curiosPresent)
+            return original;
+
+        if (!self.isInLava() || !CurioCompat.Utils.hasObsidianFins(self))
             return original;
 
         double y = original.y;

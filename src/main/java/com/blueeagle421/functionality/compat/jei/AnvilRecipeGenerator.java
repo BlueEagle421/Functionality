@@ -1,5 +1,7 @@
 package com.blueeagle421.functionality.compat.jei;
 
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.item.ModItems;
 
@@ -19,14 +21,18 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public class AnvilRecipeGenerator {
 
-    private static Map<Item, ItemStack> REPAIRABLE_ITEMS() {
+    private static Map<Item, ItemStack> BASE_REPAIRABLE_ITEMS() {
         return Map.of(
                 ModItems.HARPOON.get(), new ItemStack(Items.FLINT),
                 ModItems.BIDENT.get(), new ItemStack(Items.PRISMARINE_SHARD),
-                ModItems.GLOW_CROWN.get(), new ItemStack(Items.KELP),
-                ModItems.FINS.get(), new ItemStack(Items.SCUTE),
-                ModItems.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN),
-                ModItems.INFERNO_GEAR.get(), new ItemStack(Items.OBSIDIAN));
+                ModItems.GLOW_CROWN.get(), new ItemStack(Items.KELP));
+    }
+
+    private static Map<Item, ItemStack> CURIO_REPAIRABLE_ITEMS() {
+        return Map.of(
+                CurioCompat.FINS.get(), new ItemStack(Items.SCUTE),
+                CurioCompat.OBSIDIAN_FINS.get(), new ItemStack(Items.OBSIDIAN),
+                CurioCompat.INFERNO_GEAR.get(), new ItemStack(Items.OBSIDIAN));
     }
 
     public static List<IJeiAnvilRecipe> generate(IVanillaRecipeFactory factory) {
@@ -42,7 +48,18 @@ public class AnvilRecipeGenerator {
             IVanillaRecipeFactory factory,
             List<IJeiAnvilRecipe> recipes) {
 
-        for (Map.Entry<Item, ItemStack> entry : REPAIRABLE_ITEMS().entrySet()) {
+        for (Map.Entry<Item, ItemStack> entry : BASE_REPAIRABLE_ITEMS().entrySet()) {
+            addStandardRepairRecipes(
+                    factory,
+                    recipes,
+                    new ItemStack(entry.getKey()),
+                    entry.getValue());
+        }
+
+        if (!ModCompatManager.curiosPresent)
+            return;
+
+        for (Map.Entry<Item, ItemStack> entry : CURIO_REPAIRABLE_ITEMS().entrySet()) {
             addStandardRepairRecipes(
                     factory,
                     recipes,

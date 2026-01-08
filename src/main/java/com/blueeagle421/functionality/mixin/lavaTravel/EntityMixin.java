@@ -1,7 +1,8 @@
 package com.blueeagle421.functionality.mixin.lavaTravel;
 
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
-import com.blueeagle421.functionality.utils.ArmorUtils;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -26,14 +27,20 @@ public abstract class EntityMixin {
     @Inject(method = "lavaHurt()V", at = @At("HEAD"), cancellable = true)
     private void onLavaHurt(CallbackInfo ci) {
 
-        if (isImmuneInBoat(this.getSelf()) || ArmorUtils.hasInfernoGear(this.getSelf()))
+        if (!ModCompatManager.curiosPresent)
+            return;
+
+        if (isImmuneInBoat(this.getSelf()) || CurioCompat.Utils.hasInfernoGear(this.getSelf()))
             ci.cancel();
     }
 
     @Inject(method = "isOnFire()Z", at = @At("HEAD"), cancellable = true)
     private void onIsOnFire(CallbackInfoReturnable<Boolean> cir) {
 
-        if (isImmuneInBoat(this.getSelf()) || ArmorUtils.hasInfernoGear(this.getSelf()))
+        if (!ModCompatManager.curiosPresent)
+            return;
+
+        if (isImmuneInBoat(this.getSelf()) || CurioCompat.Utils.hasInfernoGear(this.getSelf()))
             cir.setReturnValue(false);
     }
 
