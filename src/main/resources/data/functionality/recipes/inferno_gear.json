@@ -30,6 +30,10 @@
         {
             "type": "functionality:enabled",
             "configPath": "items.inferno_gear.enabled"
+        },
+        {
+            "type": "forge:mod_loaded",
+            "modid": "curios"
         }
     ]
 }

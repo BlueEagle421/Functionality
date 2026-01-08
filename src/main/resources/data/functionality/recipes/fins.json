@@ -18,6 +18,10 @@
     {
       "type": "functionality:enabled",
       "configPath": "items.fins.enabled"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "curios"
     }
   ]
 }
