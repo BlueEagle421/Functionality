@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.entity;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.entity.custom.AmethystArrowEntity;
 import com.blueeagle421.functionality.entity.custom.ObsidianBoatEntity;
 import com.blueeagle421.functionality.entity.custom.ThrownDiscEntity;
 
@@ -15,25 +16,34 @@ import net.minecraftforge.registries.RegistryObject;
 @SuppressWarnings("removal")
 public class ModEntities {
 
-        public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister
-                        .create(ForgeRegistries.ENTITY_TYPES, FunctionalityMod.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister
+            .create(ForgeRegistries.ENTITY_TYPES, FunctionalityMod.MOD_ID);
 
-        public static final RegistryObject<EntityType<ObsidianBoatEntity>> OBSIDIAN_BOAT = ENTITY_TYPES.register(
-                        "obsidian_boat",
-                        () -> EntityType.Builder.<ObsidianBoatEntity>of(
-                                        ObsidianBoatEntity::new, MobCategory.MISC).fireImmune()
-                                        .sized(1.375f, 0.5625f).build("obsidian_boat"));
+    public static final RegistryObject<EntityType<AmethystArrowEntity>> AMETHYST_ARROW = ENTITY_TYPES.register(
+            "amethyst_arrow",
+            () -> EntityType.Builder
+                    .<AmethystArrowEntity>of(AmethystArrowEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build("amethyst_arrow"));
 
-        public static final RegistryObject<EntityType<ThrownDiscEntity>> THROWN_DISC = ENTITY_TYPES.register(
-                        "thrown_disc",
-                        () -> EntityType.Builder.<ThrownDiscEntity>of(ThrownDiscEntity::new, MobCategory.MISC)
-                                        .sized(0.5f, 0.5f)
-                                        .clientTrackingRange(8)
-                                        .build(new ResourceLocation(FunctionalityMod.MOD_ID, "thrown_disc")
-                                                        .toString()));
+    public static final RegistryObject<EntityType<ObsidianBoatEntity>> OBSIDIAN_BOAT = ENTITY_TYPES.register(
+            "obsidian_boat",
+            () -> EntityType.Builder.<ObsidianBoatEntity>of(
+                    ObsidianBoatEntity::new, MobCategory.MISC).fireImmune()
+                    .sized(1.375f, 0.5625f).build("obsidian_boat"));
 
-        public static void register(IEventBus eventBus) {
-                ENTITY_TYPES.register(eventBus);
-        }
+    public static final RegistryObject<EntityType<ThrownDiscEntity>> THROWN_DISC = ENTITY_TYPES.register(
+            "thrown_disc",
+            () -> EntityType.Builder.<ThrownDiscEntity>of(ThrownDiscEntity::new, MobCategory.MISC)
+                    .sized(0.5f, 0.5f)
+                    .clientTrackingRange(8)
+                    .build(new ResourceLocation(FunctionalityMod.MOD_ID, "thrown_disc")
+                            .toString()));
+
+    public static void register(IEventBus eventBus) {
+        ENTITY_TYPES.register(eventBus);
+    }
 
 }

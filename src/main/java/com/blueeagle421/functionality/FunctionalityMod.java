@@ -7,6 +7,7 @@ import com.blueeagle421.functionality.client.ObsidianBoatRenderer;
 import com.blueeagle421.functionality.client.particle.AncientSeekerParticle;
 import com.blueeagle421.functionality.client.particle.CustomSuspendedParticle;
 import com.blueeagle421.functionality.client.particle.GlowSmokeParticle;
+import com.blueeagle421.functionality.client.renderer.AmethystArrowRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
 import com.blueeagle421.functionality.client.renderer.RepairAltarRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
@@ -132,6 +133,7 @@ public class FunctionalityMod {
             EntityRenderers.register(ModEntities.OBSIDIAN_BOAT.get(),
                     pContext -> new ObsidianBoatRenderer(pContext, false));
 
+            EntityRenderers.register(ModEntities.AMETHYST_ARROW.get(), AmethystArrowRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISC.get(), context -> new ThrownDiscRenderer(context));
             BlockEntityRenderers.register(ModBlockEntities.REPAIR_ALTAR.get(), RepairAltarRenderer::new);
 
