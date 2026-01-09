@@ -7,6 +7,7 @@ public class HastePotionHarvesting {
     public final ForgeConfigSpec.BooleanValue enabled;
     public final ForgeConfigSpec.IntValue ticksDurationPerHarvest;
     public final ForgeConfigSpec.IntValue maxPotionDuration;
+    public final ForgeConfigSpec.BooleanValue amplificationEnabled;
 
     public HastePotionHarvesting(ForgeConfigSpec.Builder builder) {
         builder.push("haste potion harvesting");
@@ -25,6 +26,11 @@ public class HastePotionHarvesting {
                 .comment(
                         "The max duration of potion effect you can get from harvesting (20 ticks per second).")
                 .defineInRange("maxPotionDuration", 1600, 1, Integer.MAX_VALUE);
+
+        amplificationEnabled = builder
+                .comment(
+                        "If true, right clicking on overgrown lichen with will amplify haste potion effects.")
+                .define("amplificationEnabled", true);
 
         builder.pop();
     }

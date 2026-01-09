@@ -39,6 +39,9 @@ public class InformationRecipeGenerator {
         if (config().hastePotionHarvesting.enabled.get())
             generateHasteHarvestingRecipe();
 
+        if (config().hastePotionHarvesting.amplificationEnabled.get())
+            generateHasteAmplificationRecipe();
+
         if (config().treasureSacks.limitEnabled.get())
             generateTreasureSacksRecipe();
 
@@ -217,6 +220,33 @@ public class InformationRecipeGenerator {
         ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
                 "information/generated/haste_harvesting");
         Component desc = Component.translatable("information.functionality.haste_harvesting");
+
+        InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
+        GENERATED.put(recipeId, recipe);
+    }
+
+    private static void generateHasteAmplificationRecipe() {
+        NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
+        inputs.set(0, Ingredient.of(new ItemStack(ModItems.OVERGROWN_LICHEN.get())));
+
+        ItemStack hastePotionStack = new ItemStack(Items.POTION);
+        PotionUtils.setPotion(hastePotionStack, Potions.WATER);
+        List<MobEffectInstance> effects = new ArrayList<>();
+        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED,
+                config().hastePotionHarvesting.ticksDurationPerHarvest.get(), 1));
+        CompoundTag tag = hastePotionStack.getOrCreateTag();
+        ListTag listTag = new ListTag();
+        for (MobEffectInstance inst : effects) {
+            listTag.add(inst.save(new CompoundTag()));
+        }
+        tag.put("CustomPotionEffects", listTag);
+        hastePotionStack.setHoverName(Component.translatable("item.functionality.potion.effect.haste"));
+
+        inputs.set(1, Ingredient.of(hastePotionStack));
+
+        ResourceLocation recipeId = new ResourceLocation(FunctionalityMod.MOD_ID,
+                "information/generated/haste_amplification");
+        Component desc = Component.translatable("information.functionality.haste_amplification");
 
         InformationRecipe recipe = new InformationRecipe(inputs, desc, recipeId);
         GENERATED.put(recipeId, recipe);
