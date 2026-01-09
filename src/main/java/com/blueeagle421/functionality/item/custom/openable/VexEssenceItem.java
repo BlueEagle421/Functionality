@@ -6,6 +6,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.VexEssence;
+
 public class VexEssenceItem extends OpenableItem {
 
     public VexEssenceItem(Properties pProperties) {
@@ -19,16 +22,20 @@ public class VexEssenceItem extends OpenableItem {
 
     @Override
     protected float getDropXPChance() {
-        return 1f;
+        return config().dropXPChance.get().floatValue();
     }
 
     @Override
     protected int getBaseXPValue() {
-        return 7;
+        return config().baseXPValue.get();
     }
 
     @Override
     protected int getExtraXPValue() {
-        return 6;
+        return config().extraXPValue.get();
+    }
+
+    private VexEssence config() {
+        return FunctionalityConfig.COMMON.items.vexEssence;
     }
 }
