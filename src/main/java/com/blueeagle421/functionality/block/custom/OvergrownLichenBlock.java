@@ -37,7 +37,7 @@ public class OvergrownLichenBlock extends BloomLichenBlock {
                     held.shrink(1);
                 }
 
-                ItemStack hastePotion = createHastePotion(ticksPerHarvest, 1);
+                ItemStack hastePotion = createHastePotion(ticksPerHarvest, getAmplifier());
                 giveItemToPlayerOrDrop(player, hastePotion);
                 playPotionSound(level, pos);
                 destroySelf(level, pos);
@@ -82,7 +82,7 @@ public class OvergrownLichenBlock extends BloomLichenBlock {
                 newEffects.add(new MobEffectInstance(
                         MobEffects.DIG_SPEED,
                         inst.getDuration(),
-                        1,
+                        getAmplifier(),
                         inst.isAmbient(),
                         inst.isVisible()));
             } else {
@@ -95,5 +95,9 @@ public class OvergrownLichenBlock extends BloomLichenBlock {
         PotionUtils.setCustomEffects(stack, newEffects);
 
         stack.setHoverName(Component.translatable(HASTE_POTION_KEY));
+    }
+
+    private int getAmplifier() {
+        return config().amplificationEnabled.get() ? 1 : 0;
     }
 }
