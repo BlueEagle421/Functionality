@@ -66,7 +66,7 @@
 
     "tooltip.functionality.fish_trap": "Catches fish over time.",
     "tooltip.detailed.functionality.fish_trap": "Place to increase luck:\n • Amethyst crystals\n • Gold blocks\n • Mob heads\nWorks within 5 blocks (2 of each for max luck).\nHigher light level speeds it up.\nWater depth increases catch amount.",
-    "message.functionality.fish_trap.stats": "Luck: %s Max catch: %s Speed: %s%%",
+    "message.functionality.fish_trap.stats": "Luck: %s Max catch: %s Speed: %s",
     "tooltip.functionality.dry_lichen": "Ancient remains of a lichen.",
     "tooltip.functionality.lichen": "A hybrid colony of algae and fungus.",
     "tooltip.functionality.bloom_lichen": "A lichen adapted to dark environments.",
@@ -116,7 +116,7 @@
     "tooltip.functionality.glow_crown": "Provides glow blessing.",
     "tooltip.detailed.functionality.glow_crown": "Breaks after taking void damage.",
     "tooltip.functionality.amethyst_arrow": "Deals 1.2x damage.",
-    "tooltip.functionality.glow_torch": "Works underwater and is unaffected by moving liquids.",
+    "tooltip.functionality.glow_torch": "Shines brightly even underwater.",
     "tooltip.functionality.obsidian_boat": "Can sail on lava.",
     "tooltip.functionality.harpoon": "Favored by seasoned fishermen.",
     "tooltip.detailed.functionality.harpoon": " • Tripled reach underwater.\n • Attracts mob drops underwater.\n • Restores air on kill.\n • Quite fragile, but highly enchantable.",

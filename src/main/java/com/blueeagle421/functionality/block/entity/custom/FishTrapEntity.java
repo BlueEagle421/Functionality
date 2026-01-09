@@ -87,7 +87,8 @@ public class FishTrapEntity extends BlockEntity {
 
     private int calculateInitialTargetTicks(Level level, BlockPos pos, RandomSource rand) {
         int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
-        double speedFactor = 1.0 - 0.5 * (blockLight / 15.0);
+        float speedFactor = getSpeedFactorForLight(blockLight);
+
         int base = (int) (BASE_TICKS * speedFactor);
         int jitter = rand.nextInt(1000) - 500;
         return Math.max(20, base + jitter);
@@ -236,17 +237,30 @@ public class FishTrapEntity extends BlockEntity {
         return totalUnits * LUCK_PER_UNIT;
     }
 
+    private static float getSpeedFactorForLight(int lightLevel) {
+        lightLevel = Math.max(0, Math.min(16, lightLevel));
+
+        return switch (lightLevel) {
+            case 0, 1, 2, 3 -> 1.00f;
+            case 4, 5, 6, 7 -> 1.25f;
+            case 8, 9, 10, 11 -> 1.5f;
+            case 12, 13, 14, 15, 16 -> 2.0f;
+            default -> 1.00f;
+        };
+    }
+
     public void sendStatsToPlayer(Player player) {
         if (this.level == null || this.level.isClientSide || player == null)
             return;
 
-        int waterDepth = countWaterDepthAbove(this.level, this.worldPosition, WATER_DEPTH_MAX);
         float luck = computeLuck(this.level, this.worldPosition);
+
+        int waterDepth = countWaterDepthAbove(this.level, this.worldPosition, WATER_DEPTH_MAX);
         int maxCatchAmount = determineMaxCatchAmount(waterDepth);
-        int blockLight = this.level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, this.worldPosition);
-        double speedFactor = 1.0 - 0.5 * (blockLight / 15.0);
-        double speedMultiplier = 1.0 / Math.max(0.0001, speedFactor);
-        int speedPercent = (int) Math.round(speedMultiplier * 100.0);
+
+        int blockLight = this.level.getBrightness(LightLayer.BLOCK, this.worldPosition);
+        float speedFactor = getSpeedFactorForLight(blockLight);
+        int speedPercent = Math.round(speedFactor * 100.0f);
 
         Component luckComp = Component.literal(String.format("%.2f", luck))
                 .withStyle(net.minecraft.ChatFormatting.GOLD);
