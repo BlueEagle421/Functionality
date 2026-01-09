@@ -28,6 +28,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.registries.ForgeRegistries;
 
+//yep, that's a mess :)
 @SuppressWarnings({ "removal", "deprecation" })
 public class InformationRecipeGenerator {
 
