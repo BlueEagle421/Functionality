@@ -1,0 +1,56 @@
+{
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"lichen": "functionality:block/lichen",
+		"petal": "functionality:block/overgrown_lichen_petal",
+		"particle": "functionality:block/lichen"
+	},
+	"elements": [
+		{
+			"from": [ 0, 0, 0.1 ],
+			"to": [ 16, 16, 0.1 ],
+			"rotation": { "angle": 0, "axis": "y", "origin": [ 0, 0, 0.1 ] },
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#lichen" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#lichen" }
+			}
+		},
+		{
+			"from": [ 0, 8, 0.1 ],
+			"to": [ 16, 24, 0.1 ],
+			"rotation": { "angle": 22.5, "axis": "x", "origin": [ 8, 8, 0.1 ] },
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#petal" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#petal" }
+			}
+		},
+		{
+			"from": [ 0, 8, 0.1 ],
+			"to": [ 16, -8, 0.1 ],
+			"rotation": { "angle": -22.5, "axis": "x", "origin": [ 8, 8, 0.1 ] },
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "texture": "#petal" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#petal" }
+			}
+		},
+		{
+			"from": [ -8, 0, 0.1 ],
+			"to": [ 8, 16, 0.1 ],
+			"rotation": { "angle": 22.5, "axis": "y", "origin": [ 8, 8, 0.1 ] },
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "rotation": 90, "texture": "#petal" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "rotation": 270, "texture": "#petal" }
+			}
+		},
+		{
+			"from": [ 24, 0, 0.1 ],
+			"to": [ 8, 16, 0.1 ],
+			"rotation": { "angle": -22.5, "axis": "y", "origin": [ 8, 8, 0.1 ] },
+			"faces": {
+				"north": { "uv": [ 0, 0, 16, 16 ], "rotation": 90, "texture": "#petal" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "rotation": 270, "texture": "#petal" }
+			}
+		}
+	]
+}

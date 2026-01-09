@@ -121,6 +121,9 @@ public class ModItems {
     public static final RegistryObject<Item> BLOOM_LICHEN = ITEMS.register("bloom_lichen",
             () -> new TooltipBlockItem(ModBlocks.BLOOM_LICHEN.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> OVERGROWN_LICHEN = ITEMS.register("overgrown_lichen",
+            () -> new TooltipBlockItem(ModBlocks.OVERGROWN_LICHEN.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> DRY_LICHEN = ITEMS.register("dry_lichen",
             () -> new TooltipBlockItem(ModBlocks.DRY_LICHEN.get(), new Item.Properties()));
 

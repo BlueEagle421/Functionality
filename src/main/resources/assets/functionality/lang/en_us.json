@@ -59,6 +59,7 @@
     "block.functionality.dry_lichen": "Dry Lichen",
     "block.functionality.lichen": "Lichen",
     "block.functionality.bloom_lichen": "Bloom Lichen",
+    "block.functionality.overgrown_lichen": "Overgrown Bloom Lichen",
     "block.functionality.chunk_loader": "Chunk Keeper",
     "block.functionality.repair_altar": "Repair Altar",
 
@@ -70,6 +71,7 @@
     "tooltip.functionality.dry_lichen": "Ancient remains of a lichen.",
     "tooltip.functionality.lichen": "A hybrid colony of algae and fungus.",
     "tooltip.functionality.bloom_lichen": "A lichen adapted to dark environments.",
+    "tooltip.functionality.overgrown_lichen": "An old lichen developed in the darkest depths.",
     "tooltip.functionality.chunk_loader": "Keeps designated chunks loaded.",
     "tooltip.detailed.functionality.chunk_loader": " • Right click - configure radius.\n • Sneak + Right click - Toggle radius rendering.",
     "tooltip.functionality.repair_altar": "Repairs items without experience.",

@@ -122,6 +122,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.DRY_LICHEN.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.LICHEN.get()));
         acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.BLOOM_LICHEN.get()));
+        acceptIf(out, () -> lichenConfig().enabled.get(), () -> new ItemStack(ModItems.OVERGROWN_LICHEN.get()));
     }
 
     private static void acceptIf(Consumer<ItemStack> output, BooleanSupplier enabled,

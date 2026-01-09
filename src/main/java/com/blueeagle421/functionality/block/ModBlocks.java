@@ -18,6 +18,7 @@ import com.blueeagle421.functionality.block.custom.ChunkLoaderBlock;
 import com.blueeagle421.functionality.block.custom.FishTrapBlock;
 import com.blueeagle421.functionality.block.custom.GlowTorchBlock;
 import com.blueeagle421.functionality.block.custom.GlowWallTorchBlock;
+import com.blueeagle421.functionality.block.custom.OvergrownLichenBlock;
 import com.blueeagle421.functionality.block.custom.RepairAltarBlock;
 import com.blueeagle421.functionality.particle.ModParticles;
 
@@ -58,6 +59,9 @@ public class ModBlocks {
                     BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN)
                             .strength(0.08F)
                             .lightLevel(GlowLichenBlock.emission(11))));
+
+    public static final RegistryObject<Block> OVERGROWN_LICHEN = BLOCKS.register("overgrown_lichen",
+            () -> new OvergrownLichenBlock(BlockBehaviour.Properties.copy(BLOOM_LICHEN.get())));
 
     public static final RegistryObject<Block> CHUNK_LOADER = BLOCKS.register("chunk_loader",
             () -> new ChunkLoaderBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));

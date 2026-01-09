@@ -36,6 +36,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BloomLichenBlock extends GlowLichenBlock {
 
+    public static final String HASTE_POTION_KEY = "item.functionality.potion.effect.haste";
+
     public BloomLichenBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -58,7 +60,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
                     held.shrink(1);
                 }
 
-                ItemStack hastePotion = createHastePotion(ticksPerHarvest);
+                ItemStack hastePotion = createHastePotion(ticksPerHarvest, 0);
                 giveItemToPlayerOrDrop(player, hastePotion);
                 playPotionSound(level, pos);
                 destroySelf(level, pos);
@@ -101,17 +103,17 @@ public class BloomLichenBlock extends GlowLichenBlock {
         return InteractionResult.PASS;
     }
 
-    private ItemStack createHastePotion(int durationTicks) {
+    protected ItemStack createHastePotion(int durationTicks, int amplifier) {
         ItemStack stack = new ItemStack(Items.POTION);
         PotionUtils.setPotion(stack, Potions.WATER);
 
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED, durationTicks, 0, false, true));
+        effects.add(new MobEffectInstance(MobEffects.DIG_SPEED, durationTicks, amplifier, false, true));
 
         writeEffectsToStack(stack, effects);
         setPotionBaseAndColor(stack, effects);
 
-        stack.setHoverName(Component.translatable("item.functionality.potion.effect.haste"));
+        stack.setHoverName(Component.translatable(HASTE_POTION_KEY));
 
         return stack;
     }
@@ -149,40 +151,40 @@ public class BloomLichenBlock extends GlowLichenBlock {
         writeEffectsToStack(potionStack, newEffects);
         setPotionBaseAndColor(potionStack, newEffects);
 
-        potionStack.setHoverName(Component.translatable("item.functionality.potion.effect.haste"));
+        potionStack.setHoverName(Component.translatable(HASTE_POTION_KEY));
         return true;
     }
 
-    private void writeEffectsToStack(ItemStack stack, List<MobEffectInstance> effects) {
+    protected void writeEffectsToStack(ItemStack stack, List<MobEffectInstance> effects) {
         CompoundTag tag = stack.getOrCreateTag();
         ListTag listTag = new ListTag();
         for (MobEffectInstance inst : effects) {
             listTag.add(inst.save(new CompoundTag()));
         }
-        tag.put("CustomPotionEffects", listTag);
+        tag.put(PotionUtils.TAG_CUSTOM_POTION_EFFECTS, listTag);
     }
 
-    private void setPotionBaseAndColor(ItemStack stack, List<MobEffectInstance> effects) {
+    protected void setPotionBaseAndColor(ItemStack stack, List<MobEffectInstance> effects) {
         PotionUtils.setPotion(stack, Potions.WATER);
         int color = PotionUtils.getColor(effects);
-        stack.getOrCreateTag().putInt("CustomPotionColor", color);
+        stack.getOrCreateTag().putInt(PotionUtils.TAG_CUSTOM_POTION_COLOR, color);
     }
 
-    private void giveItemToPlayerOrDrop(Player player, ItemStack stack) {
+    protected void giveItemToPlayerOrDrop(Player player, ItemStack stack) {
         if (!player.getInventory().add(stack)) {
             player.drop(stack, false);
         }
     }
 
-    private void playPotionSound(Level level, BlockPos pos) {
+    protected void playPotionSound(Level level, BlockPos pos) {
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
-    private void destroySelf(Level level, BlockPos pos) {
+    protected void destroySelf(Level level, BlockPos pos) {
         level.destroyBlock(pos, false);
     }
 
-    private void spawnHarvestParticlesClient(Level level, BlockHitResult hit) {
+    protected void spawnHarvestParticlesClient(Level level, BlockHitResult hit) {
         if (!level.isClientSide)
             return;
 
@@ -249,7 +251,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
         }
     }
 
-    private static HastePotionHarvesting config() {
+    protected static HastePotionHarvesting config() {
         return FunctionalityConfig.COMMON.features.hastePotionHarvesting;
     }
 }
