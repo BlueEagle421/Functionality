@@ -1,6 +1,7 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "category": "misc",
+    "type": "farmersdelight:cooking",
+    "cookingtime": 200,
+    "experience": 0.35,
     "ingredients": [
         {
             "tag": "forge:mushrooms"
@@ -12,7 +13,7 @@
             "item": "functionality:cooked_terrapin"
         },
         {
-            "item": "minecraft:bowl"
+            "tag": "forge:crops/tomato"
         }
     ],
     "result": {
@@ -22,6 +23,10 @@
         {
             "type": "functionality:enabled",
             "configPath": "items.terrapin.enabled"
+        },
+        {
+            "type": "forge:mod_loaded",
+            "modid": "farmersdelight"
         }
     ]
 }

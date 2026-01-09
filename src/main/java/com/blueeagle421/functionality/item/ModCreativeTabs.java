@@ -82,7 +82,8 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.frogLeg.enabled.get(), () -> new ItemStack(ModItems.COOKED_FROG_LEG.get()));
         acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN.get()));
         acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.COOKED_TERRAPIN.get()));
-        acceptIf(out, () -> items.terrapin.enabled.get(), () -> new ItemStack(ModItems.TERRAPIN_SOUP.get()));
+        acceptIf(out, () -> items.terrapin.enabled.get()
+                && hasFarmersDelight(), () -> new ItemStack(FarmersDelightCompat.TERRAPIN_SOUP.get()));
         acceptIf(out, () -> items.terrapin.enabled.get() && hasFarmersDelight(),
                 () -> new ItemStack(ModItems.TERRAPIN_STICK.get()));
         acceptIf(out, () -> items.fins.enabled.get() && ModCompatManager.curiosPresent,

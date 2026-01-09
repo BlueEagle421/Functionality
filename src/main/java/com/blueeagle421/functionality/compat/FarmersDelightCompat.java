@@ -40,6 +40,13 @@ public class FarmersDelightCompat {
             .alwaysEat()
             .build();
 
+    public static final FoodProperties TERRAPIN_SOUP_PROP = new FoodProperties.Builder()
+            .nutrition(10).saturationMod(0.6f)
+            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), FoodValues.LONG_DURATION, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 110 * ModFoods.TICKS_PER_SECOND, 1), 1f)
+            .alwaysEat()
+            .build();
+
     // ITEMS
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
@@ -51,6 +58,9 @@ public class FarmersDelightCompat {
 
     public static final RegistryObject<Item> BEAR_SOUP = ITEMS.register("bear_soup",
             () -> new TooltipConsumableItem(bowlFoodItem(BEAR_SOUP_PROP)));
+
+    public static final RegistryObject<Item> TERRAPIN_SOUP = ITEMS.register("terrapin_soup",
+            () -> new TooltipConsumableItem(bowlFoodItem(TERRAPIN_SOUP_PROP)));
 
     // Why this has to be static? Another example of C# supremacy 8)
     public static class TooltipConsumableItem extends ConsumableItem {

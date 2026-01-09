@@ -77,11 +77,6 @@ public class ModItems {
     public static final RegistryObject<Item> COOKED_TERRAPIN = ITEMS.register("cooked_terrapin",
             () -> new TooltipItem(new Item.Properties().food(ModFoods.COOKED_TERRAPIN)));
 
-    public static final RegistryObject<Item> TERRAPIN_SOUP = ITEMS.register("terrapin_soup",
-            () -> new TooltipBowlFoodItem(new Item.Properties()
-                    .stacksTo(1)
-                    .food(ModFoods.TERRAPIN_SOUP)));
-
     public static final RegistryObject<Item> TERRAPIN_STICK = ITEMS.register("terrapin_stick",
             () -> new TooltipItem(new Item.Properties().food(ModFoods.TERRAPIN_STICK)));
 
