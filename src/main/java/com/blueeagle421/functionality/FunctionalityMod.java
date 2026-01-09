@@ -22,6 +22,7 @@ import com.blueeagle421.functionality.effect.ModEffects;
 import com.blueeagle421.functionality.entity.ModEntities;
 import com.blueeagle421.functionality.item.ModCreativeTabs;
 import com.blueeagle421.functionality.item.ModItems;
+import com.blueeagle421.functionality.item.custom.equipment.NautilusBucketItem;
 import com.blueeagle421.functionality.loot.ModLootModifiers;
 import com.blueeagle421.functionality.menu.ModMenus;
 import com.blueeagle421.functionality.particle.ModParticles;
@@ -34,6 +35,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -140,6 +142,10 @@ public class FunctionalityMod {
             MenuScreens.register(
                     ModMenus.REPAIR_ALTAR_MENU.get(),
                     RepairAltarScreen::new);
+
+            ItemProperties.register(ModItems.NAUTILUS_BUCKET.get(),
+                    new ResourceLocation(MOD_ID, "mode"),
+                    (stack, level, entity, seed) -> NautilusBucketItem.isLiquidPlacing(stack) ? 1.0F : 0.0F);
 
             event.enqueueWork(() -> {
                 net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(

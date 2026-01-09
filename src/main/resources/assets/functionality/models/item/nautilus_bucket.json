@@ -2,5 +2,11 @@
     "parent": "item/generated",
     "textures": {
         "layer0": "functionality:item/nautilus_bucket"
-    }
+    },
+    "overrides": [
+        {
+            "predicate": { "functionality:mode": 1.0 },
+            "model": "functionality:item/nautilus_bucket_open"
+        }
+    ]
 }

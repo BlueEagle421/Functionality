@@ -9,6 +9,8 @@ import com.blueeagle421.functionality.utils.TooltipUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -50,6 +52,9 @@ public class NautilusBucketItem extends BucketItem {
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide) {
                 toggleLiquidPlacing(stack);
+            } else {
+                level.playSound(player, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.75F, 1.25F);
             }
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
         }
@@ -86,11 +91,6 @@ public class NautilusBucketItem extends BucketItem {
         }
 
         return super.use(level, player, hand);
-    }
-
-    @Override
-    public boolean isFoil(ItemStack stack) {
-        return isLiquidPlacing(stack);
     }
 
     @Override
