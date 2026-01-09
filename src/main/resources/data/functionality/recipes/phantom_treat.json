@@ -10,10 +10,14 @@
         },
         {
             "item": "minecraft:phantom_membrane"
+        },
+        {
+            "item": "minecraft:sugar"
         }
     ],
     "result": {
-        "item": "functionality:phantom_treat"
+        "item": "functionality:phantom_treat",
+        "count": 2
     },
     "conditions": [
         {
