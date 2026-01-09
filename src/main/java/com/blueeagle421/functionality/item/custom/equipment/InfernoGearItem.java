@@ -10,6 +10,9 @@ import org.jetbrains.annotations.Nullable;
 
 import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.client.InfernoGearHumanoidModel;
+import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.items.InfernoGear;
 import com.blueeagle421.functionality.utils.TooltipUtils;
 
 import net.minecraft.client.Minecraft;
@@ -34,10 +37,10 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 public class InfernoGearItem extends Item implements ICurioItem {
 
     private static final int MARKER_AMPLIFIER = 127;
+    private static final String LAVA_TICKS = "LavaTicks";
 
     public InfernoGearItem(Properties pProperties) {
         super(pProperties);
-
     }
 
     @Override
@@ -77,6 +80,14 @@ public class InfernoGearItem extends Item implements ICurioItem {
         if (slotContext.entity().level().isClientSide)
             return;
 
+        addEffect(slotContext);
+
+        LivingEntity entity = slotContext.entity();
+        if (entity.isInLava())
+            CurioCompat.Utils.durabilityTick(entity, stack, config().lastsForTicks.get(), LAVA_TICKS);
+    }
+
+    private static void addEffect(SlotContext slotContext) {
         MobEffectInstance current = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
 
         if (current != null)
@@ -90,6 +101,9 @@ public class InfernoGearItem extends Item implements ICurioItem {
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (!newStack.isEmpty())
+            return;
+
         if (slotContext.entity().level().isClientSide)
             return;
 
@@ -125,5 +139,9 @@ public class InfernoGearItem extends Item implements ICurioItem {
         TooltipUtils.addFormattedTooltip(stack, tooltip);
 
         super.appendHoverText(stack, level, tooltip, isAdvanced);
+    }
+
+    private static InfernoGear config() {
+        return FunctionalityConfig.COMMON.items.infernoGear;
     }
 }

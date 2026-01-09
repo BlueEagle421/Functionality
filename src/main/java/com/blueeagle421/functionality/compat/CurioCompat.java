@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -40,7 +39,7 @@ public class CurioCompat {
             .register("fins", () -> new FinsItem(new Item.Properties().durability(200)));
 
     public static final RegistryObject<Item> OBSIDIAN_FINS = ITEMS
-            .register("obsidian_fins", () -> new ObsidianFinsItem(new Item.Properties().durability(200)));
+            .register("obsidian_fins", () -> new ObsidianFinsItem(new Item.Properties().durability(300)));
 
     public static final RegistryObject<Item> INFERNO_GEAR = ITEMS
             .register("inferno_gear",
@@ -81,25 +80,51 @@ public class CurioCompat {
                     .orElse(null);
         }
 
-        public static void playCurioBreakEffects(Player player, ItemStack stack) {
-            player.level().playSound(
+        public static void durabilityTick(LivingEntity entity, ItemStack stack, int lastsForTicks, String tag) {
+
+            int maxDurability = stack.getMaxDamage();
+
+            if (maxDurability <= 0 || lastsForTicks <= 0)
+                return;
+
+            int ticksSwimming = stack.getOrCreateTag().getInt(tag);
+            ticksSwimming++;
+            stack.getOrCreateTag().putInt(tag, ticksSwimming);
+
+            double damagePerTick = (double) maxDurability / lastsForTicks;
+            int damageShouldBe = (int) Math.floor(ticksSwimming * damagePerTick);
+            int currentDamage = stack.getDamageValue();
+
+            int damageToApply = damageShouldBe - currentDamage;
+
+            hurtAndBreak(entity, stack, damageToApply);
+        }
+
+        public static void hurtAndBreak(LivingEntity e, ItemStack stack, int damage) {
+            stack.hurtAndBreak(damage, e, p -> {
+                CurioCompat.Utils.playCurioBreakEffects(e, stack);
+            });
+        }
+
+        public static void playCurioBreakEffects(Entity entity, ItemStack stack) {
+            entity.level().playSound(
                     null,
-                    player.getX(),
-                    player.getY(),
-                    player.getZ(),
+                    entity.getX(),
+                    entity.getY(),
+                    entity.getZ(),
                     SoundEvents.ITEM_BREAK,
-                    player.getSoundSource(),
+                    entity.getSoundSource(),
                     1.0F,
                     1.0F);
 
-            if (player.level() instanceof ServerLevel serverLevel) {
+            if (entity.level() instanceof ServerLevel serverLevel) {
                 int count = 20;
                 double spread = 0.2;
                 double speed = 0.1;
 
-                double px = player.getX();
-                double py = player.getY() + 1.0;
-                double pz = player.getZ();
+                double px = entity.getX();
+                double py = entity.getY() + 1.0;
+                double pz = entity.getZ();
 
                 ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM,
                         new ItemStack(FinsItem.class.cast(stack.getItem())));

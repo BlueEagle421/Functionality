@@ -45,7 +45,9 @@ public class FinsItem extends TooltipItem implements ICurioItem {
             return;
 
         speedModifierTick(player);
-        durabilityTick(player, stack);
+
+        if (player.isInWater() && player.isSwimming())
+            CurioCompat.Utils.durabilityTick(player, stack, config().lastsForTicks.get(), SWIM_TICKS);
     }
 
     private static void removeSwimModifier(Player player) {
@@ -77,33 +79,10 @@ public class FinsItem extends TooltipItem implements ICurioItem {
         }
     }
 
-    private static void durabilityTick(Player player, ItemStack stack) {
-        if (!player.isInWater() || !player.isSwimming())
-            return;
-
-        int maxDurability = stack.getMaxDamage();
-        int lastsForTicks = config().lastsForTicks.get();
-
-        if (maxDurability <= 0 || lastsForTicks <= 0)
-            return;
-
-        int ticksSwimming = stack.getOrCreateTag().getInt(SWIM_TICKS);
-        ticksSwimming++;
-        stack.getOrCreateTag().putInt(SWIM_TICKS, ticksSwimming);
-
-        double damagePerTick = (double) maxDurability / lastsForTicks;
-        int damageShouldBe = (int) Math.floor(ticksSwimming * damagePerTick);
-        int currentDamage = stack.getDamageValue();
-
-        int damageToApply = damageShouldBe - currentDamage;
-        if (damageToApply > 0)
-            stack.hurtAndBreak(damageToApply, player, p -> {
-                CurioCompat.Utils.playCurioBreakEffects(player, stack);
-            });
-    }
-
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (!newStack.isEmpty())
+            return;
         Entity entity = slotContext.entity();
         if (!(entity instanceof Player player))
             return;
