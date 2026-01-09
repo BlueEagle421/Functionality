@@ -1,6 +1,7 @@
 package com.blueeagle421.functionality.event.infernoGear;
 
 import com.blueeagle421.functionality.compat.CurioCompat;
+import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
 
 import net.minecraft.tags.DamageTypeTags;
@@ -17,6 +18,9 @@ public class OnLivingAttack {
     @SubscribeEvent
     public static void onLivingAttack(LivingAttackEvent event) {
         LivingEntity entity = event.getEntity();
+
+        if (!ModCompatManager.curiosPresent)
+            return;
 
         if (event.getSource().is(DamageTypes.IN_FIRE))
             return;
