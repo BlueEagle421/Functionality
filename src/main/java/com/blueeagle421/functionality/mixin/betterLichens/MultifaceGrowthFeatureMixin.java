@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.blueeagle421.functionality.block.ModBlocks;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
+import com.blueeagle421.functionality.config.subcategories.features.BetterLichens;
 
 import java.util.List;
 
@@ -24,16 +25,20 @@ import java.util.List;
 public class MultifaceGrowthFeatureMixin {
 
     @Inject(method = "place", at = @At("HEAD"), cancellable = true)
-    private void beforePlace(FeaturePlaceContext<MultifaceGrowthConfiguration> context,
+    private void beforePlace(
+            FeaturePlaceContext<MultifaceGrowthConfiguration> context,
             CallbackInfoReturnable<Boolean> cir) {
-        MultifaceGrowthConfiguration config = context.config();
-        RandomSource random = context.random();
-        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
 
-        if (modConfig.enabled.get() && config.placeBlock == Blocks.GLOW_LICHEN) {
-            if (random.nextFloat() > modConfig.lichenFeatureGenChance.get()) {
-                cir.setReturnValue(false);
-            }
+        BetterLichens cfg = FunctionalityConfig.COMMON.features.betterLichens;
+
+        if (!cfg.isEnabled())
+            return;
+
+        if (context.config().placeBlock != Blocks.GLOW_LICHEN)
+            return;
+
+        if (!cfg.rollFeature(context.random())) {
+            cir.setReturnValue(false);
         }
     }
 
@@ -62,78 +67,84 @@ public class MultifaceGrowthFeatureMixin {
         placeSurroundingLichen(level, pos, state, config, random, directions);
     }
 
-    private static void replaceVanillaLichen(WorldGenLevel level,
-            BlockPos pos, RandomSource random) {
-        BlockState vanillaState = level.getBlockState(pos);
-        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
+    private static void replaceVanillaLichen(
+            WorldGenLevel level, BlockPos pos, RandomSource random) {
 
-        if (random.nextFloat() > modConfig.lichenOverrideChance.get())
+        BetterLichens cfg = FunctionalityConfig.COMMON.features.betterLichens;
+
+        if (!cfg.rollOverride(random))
             return;
 
-        if (vanillaState.is(Blocks.GLOW_LICHEN)) {
+        BlockState vanilla = level.getBlockState(pos);
+        if (!vanilla.is(Blocks.GLOW_LICHEN))
+            return;
 
-            BlockState modState = ModBlocks.BLOOM_LICHEN.get().defaultBlockState();
+        boolean canBeOvergrown = pos.getY() <= cfg.overgrownMaxHeight.get()
+                && cfg.rollOvergrown(random);
 
-            for (Direction dir : Direction.values()) {
-                if (vanillaState.hasProperty(MultifaceBlock.getFaceProperty(dir))
-                        && vanillaState.getValue(MultifaceBlock.getFaceProperty(dir))) {
-                    modState = modState.setValue(
-                            MultifaceBlock.getFaceProperty(dir),
-                            true);
-                }
+        BlockState replacement = canBeOvergrown
+                ? ModBlocks.OVERGROWN_LICHEN.get().defaultBlockState()
+                : ModBlocks.BLOOM_LICHEN.get().defaultBlockState();
+
+        for (Direction dir : Direction.values()) {
+            var prop = MultifaceBlock.getFaceProperty(dir);
+            if (vanilla.hasProperty(prop) && vanilla.getValue(prop)) {
+                replacement = replacement.setValue(prop, true);
             }
-
-            level.setBlock(pos, modState, 3);
         }
+
+        level.setBlock(pos, replacement, 3);
     }
 
-    private static void placeSurroundingLichen(WorldGenLevel level,
+    private static void placeSurroundingLichen(
+            WorldGenLevel level,
             BlockPos pos,
             BlockState state,
             MultifaceGrowthConfiguration config,
             RandomSource random,
             List<Direction> directions) {
 
-        var modConfig = FunctionalityConfig.COMMON.features.betterLichens;
+        BetterLichens cfg = FunctionalityConfig.COMMON.features.betterLichens;
 
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
+
                 if (dx == 0 && dz == 0)
+                    continue;
+
+                if (!cfg.rollSurrounding(random))
                     continue;
 
                 BlockPos targetPos = pos.offset(dx, 0, dz);
                 BlockState targetState = level.getBlockState(targetPos);
 
-                if (random.nextFloat() > modConfig.surroundingLichenGenChance.get())
-                    continue;
-
                 if (!targetState.isAir() && !targetState.is(Blocks.WATER))
                     continue;
 
-                MultifaceBlock lichen = random.nextFloat() < modConfig.dryLichenGenChance.get()
+                MultifaceBlock lichen = cfg.rollDry(random)
                         ? (MultifaceBlock) ModBlocks.DRY_LICHEN.get()
                         : (MultifaceBlock) ModBlocks.LICHEN.get();
 
                 for (Direction dir : directions) {
                     BlockPos supportPos = targetPos.relative(dir);
-                    BlockState supportState = level.getBlockState(supportPos);
-
-                    if (!supportState.is(config.canBePlacedOn))
+                    if (!level.getBlockState(supportPos).is(config.canBePlacedOn))
                         continue;
 
-                    BlockState placedState = lichen.getStateForPlacement(targetState, level, targetPos, dir);
-                    if (placedState == null)
+                    BlockState placed = lichen.getStateForPlacement(
+                            targetState, level, targetPos, dir);
+
+                    if (placed == null)
                         continue;
 
-                    level.setBlock(targetPos, placedState, 3);
+                    level.setBlock(targetPos, placed, 3);
                     level.getChunk(targetPos).markPosForPostprocessing(targetPos);
 
                     if (random.nextFloat() < config.chanceOfSpreading) {
                         lichen.getSpreader().spreadFromFaceTowardRandomDirection(
-                                placedState, level, targetPos, dir, random, true);
-
-                        break;
+                                placed, level, targetPos, dir, random, true);
                     }
+
+                    break;
                 }
             }
         }

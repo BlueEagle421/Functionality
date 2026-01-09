@@ -31,7 +31,7 @@ public class DefaultSpreaderConfigMixin {
 
         RandomSource random = RandomSource.create();
 
-        if (random.nextFloat() <= config.lichenOverrideChance.get())
+        if (config.rollOverride(random))
             cir.setReturnValue(ModBlocks.BLOOM_LICHEN.get().defaultBlockState());
     }
 }
