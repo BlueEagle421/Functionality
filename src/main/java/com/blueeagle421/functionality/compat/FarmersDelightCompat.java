@@ -41,8 +41,8 @@ public class FarmersDelightCompat {
             .build();
 
     public static final FoodProperties TERRAPIN_SOUP_PROP = new FoodProperties.Builder()
-            .nutrition(10).saturationMod(0.6f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), FoodValues.LONG_DURATION, 0), 1.0F)
+            .nutrition(12).saturationMod(0.75f)
+            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), FoodValues.MEDIUM_DURATION, 0), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffects.CONDUIT_POWER, 110 * ModFoods.TICKS_PER_SECOND, 1), 1f)
             .alwaysEat()
             .build();
