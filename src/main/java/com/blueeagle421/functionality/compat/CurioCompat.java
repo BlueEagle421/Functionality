@@ -126,8 +126,9 @@ public class CurioCompat {
                 double py = entity.getY() + 1.0;
                 double pz = entity.getZ();
 
-                ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM,
-                        new ItemStack(FinsItem.class.cast(stack.getItem())));
+                ItemParticleOption particle = new ItemParticleOption(
+                        ParticleTypes.ITEM,
+                        stack.copy());
 
                 serverLevel.sendParticles(particle, px, py, pz, count, spread, spread, spread, speed);
             }

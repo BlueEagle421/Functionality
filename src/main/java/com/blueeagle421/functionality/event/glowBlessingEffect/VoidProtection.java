@@ -94,7 +94,7 @@ public class VoidProtection {
                 SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.0f);
 
         // spawn particles
-        spawnParticles(server, teleportPos);
+        sendPortalParticles(server, teleportPos);
     }
 
     private static void destroyCrown(Player player) {
@@ -148,22 +148,15 @@ public class VoidProtection {
         return state.isSolidRender(level, pos) && above.isAir();
     }
 
-    private static void spawnParticles(ServerLevel server, Vec3 pos) {
-        int amount = 50;
-        double offset = 0.5; // how far particles spread
-        double speed = 0.02d;
-
-        for (int i = 0; i < amount; i++) {
-            double offsetX = (server.random.nextDouble() - 0.5) * 2 * offset;
-            double offsetY = server.random.nextDouble() * offset;
-            double offsetZ = (server.random.nextDouble() - 0.5) * 2 * offset;
-
-            server.sendParticles(ParticleTypes.PORTAL,
-                    pos.x + offsetX,
-                    pos.y + offsetY,
-                    pos.z + offsetZ,
-                    1, // 1 particle per send
-                    0, 0, 0, speed);
-        }
+    private static void sendPortalParticles(ServerLevel server, Vec3 pos) {
+        server.sendParticles(
+                ParticleTypes.PORTAL,
+                pos.x(),
+                pos.y() + 1.0D,
+                pos.z(),
+                32,
+                0.5D, 0.5D, 0.5D,
+                0.1D);
     }
+
 }
