@@ -28,6 +28,10 @@ public class PheromonesItem extends Item {
         super(props);
     }
 
+    public boolean isFoil(ItemStack pStack) {
+        return true;
+    }
+
     // horse specific interaction is handled in mixin
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
