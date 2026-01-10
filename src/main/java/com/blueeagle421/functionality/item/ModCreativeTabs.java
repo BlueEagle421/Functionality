@@ -39,6 +39,9 @@ public class ModCreativeTabs {
 
         ItemsCategory items = config();
 
+        acceptIf(out, () -> items.phantomHerb.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_HERB.get()));
+        acceptIf(out, () -> items.chorusHerb.enabled.get(), () -> new ItemStack(ModItems.CHORUS_HERB.get()));
+
         // with nbt
         acceptIf(out, () -> items.whisperingHerb.enabled.get(), () -> {
             ItemStack herbStack = new ItemStack(ModItems.WHISPERING_HERB.get());
@@ -46,9 +49,6 @@ public class ModCreativeTabs {
             EffectHerbItem.setDuration(herbStack, herbItem.getDefaultDuration());
             return herbStack;
         });
-
-        acceptIf(out, () -> items.phantomHerb.enabled.get(), () -> new ItemStack(ModItems.PHANTOM_HERB.get()));
-        acceptIf(out, () -> items.chorusHerb.enabled.get(), () -> new ItemStack(ModItems.CHORUS_HERB.get()));
 
         // with nbt
         acceptIf(out, () -> items.crimsonHerb.enabled.get(), () -> {
