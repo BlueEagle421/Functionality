@@ -1,6 +1,10 @@
 package com.blueeagle421.functionality.compat;
 
 import com.blueeagle421.functionality.FunctionalityMod;
+import com.blueeagle421.functionality.client.ModModelLayers;
+import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer;
+import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer.CurioModel;
+import com.blueeagle421.functionality.client.renderer.CurioInfernoGearRenderer;
 import com.blueeagle421.functionality.item.custom.equipment.FinsItem;
 import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
 import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
@@ -14,17 +18,39 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 public class CurioCompat {
 
     public static void setupCompat() {
         ModCompatManager.curiosPresent = true;
+    }
+
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        CuriosRendererRegistry.register(
+                CurioCompat.FINS.get(),
+                CurioArmorLikeRenderer::new);
+        CuriosRendererRegistry.register(
+                CurioCompat.OBSIDIAN_FINS.get(),
+                CurioArmorLikeRenderer::new);
+        CuriosRendererRegistry.register(
+                CurioCompat.GLOW_CROWN.get(),
+                CurioArmorLikeRenderer::new);
+        CuriosRendererRegistry.register(
+                CurioCompat.INFERNO_GEAR.get(),
+                CurioInfernoGearRenderer::new);
+    }
+
+    public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(ModModelLayers.CURIO_ARMOR, CurioModel::createLayer);
     }
 
     // ITEMS
