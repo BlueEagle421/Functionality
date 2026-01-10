@@ -11,6 +11,7 @@ import com.blueeagle421.functionality.client.renderer.AmethystArrowRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
 import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer;
 import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer.CurioModel;
+import com.blueeagle421.functionality.client.renderer.CurioInfernoGearRenderer;
 import com.blueeagle421.functionality.client.renderer.RepairAltarRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
 import com.blueeagle421.functionality.client.screen.RepairAltarScreen;
@@ -150,6 +151,7 @@ public class FunctionalityMod {
                 CuriosRendererRegistry.register(CurioCompat.FINS.get(), () -> new CurioArmorLikeRenderer());
                 CuriosRendererRegistry.register(CurioCompat.OBSIDIAN_FINS.get(), () -> new CurioArmorLikeRenderer());
                 CuriosRendererRegistry.register(CurioCompat.GLOW_CROWN.get(), () -> new CurioArmorLikeRenderer());
+                CuriosRendererRegistry.register(CurioCompat.INFERNO_GEAR.get(), () -> new CurioInfernoGearRenderer());
             }
 
             MenuScreens.register(
