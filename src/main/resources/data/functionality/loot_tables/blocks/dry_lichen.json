@@ -4,10 +4,121 @@
         {
             "rolls": 1.0,
             "bonus_rolls": 0.0,
+            "conditions": [
+                {
+                    "condition": "minecraft:inverted",
+                    "term": {
+                        "condition": "minecraft:match_tool",
+                        "predicate": {
+                            "items": [ "minecraft:shears" ]
+                        }
+                    }
+                }
+            ],
             "entries": [
                 {
                     "type": "minecraft:item",
                     "name": "minecraft:stick"
+                }
+            ]
+        },
+        {
+            "rolls": 1.0,
+            "bonus_rolls": 0.0,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "functionality:dry_lichen",
+                    "conditions": [
+                        {
+                            "condition": "minecraft:match_tool",
+                            "predicate": {
+                                "items": [ "minecraft:shears" ]
+                            }
+                        }
+                    ],
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": 1.0,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:block_state_property",
+                                    "block": "functionality:dry_lichen",
+                                    "properties": { "down": "true" }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": 1.0,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:block_state_property",
+                                    "block": "functionality:dry_lichen",
+                                    "properties": { "up": "true" }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": 1.0,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:block_state_property",
+                                    "block": "functionality:dry_lichen",
+                                    "properties": { "north": "true" }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": 1.0,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:block_state_property",
+                                    "block": "functionality:dry_lichen",
+                                    "properties": { "south": "true" }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": 1.0,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:block_state_property",
+                                    "block": "functionality:dry_lichen",
+                                    "properties": { "west": "true" }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": 1.0,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:block_state_property",
+                                    "block": "functionality:dry_lichen",
+                                    "properties": { "east": "true" }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "add": true,
+                            "count": -1.0
+                        },
+                        {
+                            "function": "minecraft:explosion_decay"
+                        }
+                    ]
                 }
             ]
         }
