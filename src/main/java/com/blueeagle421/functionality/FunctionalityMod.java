@@ -9,6 +9,8 @@ import com.blueeagle421.functionality.client.particle.CustomSuspendedParticle;
 import com.blueeagle421.functionality.client.particle.GlowSmokeParticle;
 import com.blueeagle421.functionality.client.renderer.AmethystArrowRenderer;
 import com.blueeagle421.functionality.client.renderer.ChunkLoaderRenderer;
+import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer;
+import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer.CurioModel;
 import com.blueeagle421.functionality.client.renderer.RepairAltarRenderer;
 import com.blueeagle421.functionality.client.renderer.ThrownDiscRenderer;
 import com.blueeagle421.functionality.client.screen.RepairAltarScreen;
@@ -33,6 +35,7 @@ import com.blueeagle421.functionality.worldgen.ModFeatures;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -53,6 +56,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import org.slf4j.Logger;
 
@@ -126,6 +130,9 @@ public class FunctionalityMod {
 
     }
 
+    public static final ModelLayerLocation CURIO_ARMOR = new ModelLayerLocation(
+            new ResourceLocation(MOD_ID, "curio_armor"), "main");
+
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
 
@@ -138,6 +145,12 @@ public class FunctionalityMod {
             EntityRenderers.register(ModEntities.AMETHYST_ARROW.get(), AmethystArrowRenderer::new);
             EntityRenderers.register(ModEntities.THROWN_DISC.get(), context -> new ThrownDiscRenderer(context));
             BlockEntityRenderers.register(ModBlockEntities.REPAIR_ALTAR.get(), RepairAltarRenderer::new);
+
+            if (ModCompatManager.curiosPresent) {
+                CuriosRendererRegistry.register(CurioCompat.FINS.get(), () -> new CurioArmorLikeRenderer());
+                CuriosRendererRegistry.register(CurioCompat.OBSIDIAN_FINS.get(), () -> new CurioArmorLikeRenderer());
+                CuriosRendererRegistry.register(CurioCompat.GLOW_CROWN.get(), () -> new CurioArmorLikeRenderer());
+            }
 
             MenuScreens.register(
                     ModMenus.REPAIR_ALTAR_MENU.get(),
@@ -172,6 +185,7 @@ public class FunctionalityMod {
             event.registerLayerDefinition(InfernoGearHumanoidModel.LAYER_LOCATION,
                     InfernoGearHumanoidModel::createBodyLayer);
             event.registerLayerDefinition(RepairAltarRenderer.LAYER_LOCATION, RepairAltarRenderer::createLayer);
+            event.registerLayerDefinition(CURIO_ARMOR, CurioModel::createLayer);
         }
     }
 }
