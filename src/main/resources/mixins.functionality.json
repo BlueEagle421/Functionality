@@ -20,7 +20,8 @@
         "HorseMobInteractMixin",
         "LayeredCauldronBlockMixin",
         "BucketItemMixin",
-        "EntityMixin"
+        "EntityMixin",
+        "VibrationSystemListenerMixin"
     ],
     "client": [ ],
     "server": [ ]
