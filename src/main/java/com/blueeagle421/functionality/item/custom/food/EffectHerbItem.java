@@ -36,10 +36,8 @@ public abstract class EffectHerbItem extends TooltipItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
-        ItemStack result = super.finishUsingItem(stack, level, user);
-
         if (level.isClientSide)
-            return result;
+            return super.finishUsingItem(stack, level, user);
 
         int duration = getDefaultDuration();
 
@@ -51,7 +49,7 @@ public abstract class EffectHerbItem extends TooltipItem {
         MobEffectInstance instance = new MobEffectInstance(getEffect(), duration, 0, false, true);
         user.addEffect(instance);
 
-        return result;
+        return super.finishUsingItem(stack, level, user);
     }
 
     public ItemStack getDefaultInstance() {
