@@ -5,7 +5,7 @@ import com.blueeagle421.functionality.compat.CurioCompat;
 import com.blueeagle421.functionality.compat.ModCompatManager;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.effect.ModEffects;
-import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
+import com.blueeagle421.functionality.item.custom.curio.GlowCrownItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

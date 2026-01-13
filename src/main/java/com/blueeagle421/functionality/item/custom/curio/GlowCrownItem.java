@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom.equipment;
+package com.blueeagle421.functionality.item.custom.curio;
 
 import javax.annotation.Nonnull;
 

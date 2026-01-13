@@ -5,10 +5,10 @@ import com.blueeagle421.functionality.client.ModModelLayers;
 import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer;
 import com.blueeagle421.functionality.client.renderer.CurioArmorLikeRenderer.CurioModel;
 import com.blueeagle421.functionality.client.renderer.CurioInfernoGearRenderer;
-import com.blueeagle421.functionality.item.custom.equipment.FinsItem;
-import com.blueeagle421.functionality.item.custom.equipment.GlowCrownItem;
-import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
-import com.blueeagle421.functionality.item.custom.equipment.ObsidianFinsItem;
+import com.blueeagle421.functionality.item.custom.curio.FinsItem;
+import com.blueeagle421.functionality.item.custom.curio.GlowCrownItem;
+import com.blueeagle421.functionality.item.custom.curio.InfernoGearItem;
+import com.blueeagle421.functionality.item.custom.curio.ObsidianFinsItem;
 
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;

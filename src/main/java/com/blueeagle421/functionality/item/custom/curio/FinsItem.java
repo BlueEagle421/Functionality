@@ -1,4 +1,4 @@
-package com.blueeagle421.functionality.item.custom.equipment;
+package com.blueeagle421.functionality.item.custom.curio;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;

@@ -2,7 +2,7 @@ package com.blueeagle421.functionality.event.infernoGear;
 
 import com.blueeagle421.functionality.compat.CurioCompat;
 import com.blueeagle421.functionality.compat.ModCompatManager;
-import com.blueeagle421.functionality.item.custom.equipment.InfernoGearItem;
+import com.blueeagle421.functionality.item.custom.curio.InfernoGearItem;
 
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageTypes;
