@@ -101,16 +101,16 @@ public class InfernoGearItem extends Item implements ICurioItem {
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        if (!newStack.isEmpty())
+        if (!newStack.isEmpty() && newStack.is(this))
             return;
 
         if (slotContext.entity().level().isClientSide)
             return;
 
-        MobEffectInstance fr = slotContext.entity().getEffect(MobEffects.FIRE_RESISTANCE);
+        if (!InfernoGearItem.hasCurioEffect(slotContext.entity()))
+            return;
 
-        if (InfernoGearItem.isEffectFromGear(fr))
-            slotContext.entity().removeEffect(MobEffects.FIRE_RESISTANCE);
+        slotContext.entity().removeEffect(MobEffects.FIRE_RESISTANCE);
     }
 
     @Override
@@ -119,14 +119,16 @@ public class InfernoGearItem extends Item implements ICurioItem {
         return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_DIAMOND, 1.0f, 1.0f);
     }
 
-    private static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {
-        if (mobEffectInstance == null)
+    private static Boolean hasCurioEffect(LivingEntity e) {
+        MobEffectInstance fr = e.getEffect(MobEffects.FIRE_RESISTANCE);
+
+        if (fr == null)
             return false;
 
-        if (mobEffectInstance.getEffect() != MobEffects.FIRE_RESISTANCE)
+        if (fr.getEffect() != MobEffects.FIRE_RESISTANCE)
             return false;
 
-        if (mobEffectInstance.getAmplifier() != MARKER_AMPLIFIER)
+        if (fr.getAmplifier() != MARKER_AMPLIFIER)
             return false;
 
         return true;

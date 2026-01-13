@@ -81,16 +81,18 @@ public class FinsItem extends TooltipItem implements ICurioItem {
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        if (!newStack.isEmpty())
+        if (!newStack.isEmpty() && newStack.is(this))
             return;
+
         Entity entity = slotContext.entity();
+
         if (!(entity instanceof Player player))
             return;
+
         if (player.level().isClientSide)
             return;
 
-        if (stack.isEmpty() || stack.getDamageValue() >= stack.getMaxDamage())
-            removeSwimModifier(player);
+        removeSwimModifier(player);
     }
 
     @Override

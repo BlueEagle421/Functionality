@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -51,23 +52,27 @@ public class GlowCrownItem extends TooltipItem implements ICurioItem {
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (!newStack.isEmpty() && newStack.is(this))
+            return;
+
         if (slotContext.entity().level().isClientSide)
             return;
 
-        MobEffectInstance fr = slotContext.entity().getEffect(ModEffects.GLOW_BLESSING.get());
+        if (!hasCurioEffect(slotContext.entity()))
+            return;
 
-        if (GlowCrownItem.isEffectFromGear(fr))
-            slotContext.entity().removeEffect(ModEffects.GLOW_BLESSING.get());
+        slotContext.entity().removeEffect(ModEffects.GLOW_BLESSING.get());
     }
 
-    public static Boolean isEffectFromGear(MobEffectInstance mobEffectInstance) {
-        if (mobEffectInstance == null)
+    private static Boolean hasCurioEffect(LivingEntity e) {
+        MobEffectInstance effect = e.getEffect(ModEffects.GLOW_BLESSING.get());
+        if (effect == null)
             return false;
 
-        if (mobEffectInstance.getEffect() != ModEffects.GLOW_BLESSING.get())
+        if (effect.getEffect() != ModEffects.GLOW_BLESSING.get())
             return false;
 
-        if (mobEffectInstance.getAmplifier() != MARKER_AMPLIFIER)
+        if (effect.getAmplifier() != MARKER_AMPLIFIER)
             return false;
 
         return true;

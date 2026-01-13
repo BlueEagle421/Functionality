@@ -3,7 +3,7 @@ package com.blueeagle421.functionality.item.custom.curio;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -38,14 +38,13 @@ public class ObsidianFinsItem extends TooltipItem implements ICurioItem {
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Entity entity = slotContext.entity();
-        if (!(entity instanceof Player player))
-            return;
-        if (player.level().isClientSide)
+        LivingEntity entity = slotContext.entity();
+
+        if (entity.level().isClientSide)
             return;
 
-        if (player.isInLava() && player.isSwimming())
-            CurioCompat.Utils.durabilityTick(player, stack, config().lastsForTicks.get(), SWIM_TICKS);
+        if (entity.isInLava() && entity.isSwimming())
+            CurioCompat.Utils.durabilityTick(entity, stack, config().lastsForTicks.get(), SWIM_TICKS);
     }
 
     @Override
