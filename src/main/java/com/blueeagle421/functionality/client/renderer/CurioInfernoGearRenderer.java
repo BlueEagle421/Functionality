@@ -30,7 +30,6 @@ public class CurioInfernoGearRenderer implements ICurioRenderer.HumanoidRender {
         return model;
     }
 
-    @SuppressWarnings("removal")
     @Override
     public ResourceLocation getModelTexture(ItemStack stack, SlotContext slotContext) {
         Item item = stack.getItem();
