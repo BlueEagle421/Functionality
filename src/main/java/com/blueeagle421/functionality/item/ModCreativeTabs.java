@@ -107,7 +107,7 @@ public class ModCreativeTabs {
         acceptIf(out, () -> items.phantomRocket.enabled.get(), () -> {
             ItemStack rocketStack = new ItemStack(ModItems.PHANTOM_ROCKET.get());
             CompoundTag tag = new CompoundTag();
-            tag.putByte("Flight", (byte) 5);
+            tag.putByte("Flight", (byte) 8);
             CompoundTag root = rocketStack.getOrCreateTag();
             root.put("Fireworks", tag);
             return rocketStack;

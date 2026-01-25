@@ -17,7 +17,7 @@
     "result": {
         "type": "forge:nbt",
         "item": "functionality:phantom_rocket",
-        "nbt": "{Fireworks:{Flight:5}}"
+        "nbt": "{Fireworks:{Flight:8}}"
     },
     "conditions": [
         {
