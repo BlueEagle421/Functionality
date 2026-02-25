@@ -36,7 +36,7 @@ public class ThrowableDiscs {
 
         defaultDamage = builder
                 .comment("The default amount of damage the disc deals to entities. Overwritten by defaultStats list.")
-                .defineInRange("defaultDamage", 5.0, 0.0, 128.0);
+                .defineInRange("defaultDamage", 4.0, 0.0, 128.0);
 
         defaultTravelDistance = builder
                 .comment("The default max travel distance (range) for thrown discs. Overwritten by defaultStats list.")
@@ -47,12 +47,12 @@ public class ThrowableDiscs {
                 .define("repairItem", "functionality:disc_shards");
 
         List<String> defaultStats = Arrays.asList(
-                "minecraft:music_disc_pigstep;7;6",
-                "minecraft:music_disc_5;7;6",
-                "minecraft:music_disc_relic;7;6",
-                "minecraft:music_disc_otherside;6;12",
-                "minecraft:music_disc_11;6;12",
-                "minecraft:music_disc_wait;6;12");
+                "minecraft:music_disc_pigstep;6;6",
+                "minecraft:music_disc_5;6;6",
+                "minecraft:music_disc_relic;6;6",
+                "minecraft:music_disc_otherside;5;12",
+                "minecraft:music_disc_11;5;12",
+                "minecraft:music_disc_wait;5;12");
 
         perItemStats = builder
                 .comment(
