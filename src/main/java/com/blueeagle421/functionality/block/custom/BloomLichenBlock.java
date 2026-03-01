@@ -78,10 +78,12 @@ public class BloomLichenBlock extends GlowLichenBlock {
             giveItemToPlayerOrDrop(player, hastePotion);
             playPotionSound(level, pos);
             destroySelf(level, pos);
-        }
+        } else {
+            if (!player.isCreative() && !hasEnoughXp(player))
+                return InteractionResult.FAIL;
 
-        if (level.isClientSide)
             spawnHarvestParticlesClient(level, hit);
+        }
 
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
@@ -102,16 +104,58 @@ public class BloomLichenBlock extends GlowLichenBlock {
             if (changed) {
                 playPotionSound(level, pos);
                 destroySelf(level, pos);
+            } else {
+                return InteractionResult.FAIL;
             }
-        }
+        } else {
+            if (!player.isCreative() && !hasEnoughXp(player))
+                return InteractionResult.FAIL;
 
-        if (level.isClientSide)
             spawnHarvestParticlesClient(level, hit);
+        }
 
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    private boolean tryConsumeXp(Player player, Level level) {
+    protected int getExpToNextLevel(int level) {
+        if (level >= 31) {
+            return 9 * level - 158;
+        } else if (level >= 16) {
+            return 5 * level - 38;
+        } else {
+            return 2 * level + 7;
+        }
+    }
+
+    protected int getExpFromLevel(int level) {
+        if (level <= 16) {
+            return level * level + 6 * level;
+        } else if (level <= 31) {
+            // 2.5 * level^2 - 40.5 * level + 360
+            return (int) (2.5 * level * level - 40.5 * level + 360.0);
+        } else {
+            // 4.5 * level^2 - 162.5 * level + 2220
+            return (int) (4.5 * level * level - 162.5 * level + 2220.0);
+        }
+    }
+
+    protected int getPlayerTotalExperience(Player player) {
+        int level = player.experienceLevel;
+        float progress = player.experienceProgress; // 0.0 - 1.0
+        int base = getExpFromLevel(level);
+        int toNext = getExpToNextLevel(level);
+        int progressPoints = Math.round(progress * toNext);
+        return base + progressPoints;
+    }
+
+    protected boolean hasEnoughXp(Player p) {
+        if (p.isCreative())
+            return true;
+
+        return getPlayerTotalExperience(p) >= getXpCost();
+    }
+
+    protected boolean tryConsumeXp(Player player, Level level) {
         if (player.isCreative())
             return true;
 
@@ -120,7 +164,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
 
         int xpCost = getXpCost();
 
-        if (player.totalExperience < xpCost) {
+        if (!hasEnoughXp(player)) {
             player.displayClientMessage(
                     Component.translatable("message.functionality.bloom_lichen.not_enough_xp", xpCost)
                             .withStyle(ChatFormatting.RED),

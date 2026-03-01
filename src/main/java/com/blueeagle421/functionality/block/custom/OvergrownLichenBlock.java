@@ -33,17 +33,20 @@ public class OvergrownLichenBlock extends BloomLichenBlock {
         if (held.getItem() == Items.GLASS_BOTTLE) {
 
             if (!level.isClientSide) {
-                if (!player.getAbilities().instabuild) {
+                if (!tryConsumeXp(player, level))
+                    return InteractionResult.FAIL;
+
+                if (!player.getAbilities().instabuild)
                     held.shrink(1);
-                }
 
                 ItemStack hastePotion = createHastePotion(ticksPerHarvest, getAmplifier());
                 giveItemToPlayerOrDrop(player, hastePotion);
                 playPotionSound(level, pos);
                 destroySelf(level, pos);
-            }
+            } else {
+                if (!player.isCreative() && !hasEnoughXp(player))
+                    return InteractionResult.FAIL;
 
-            if (level.isClientSide) {
                 spawnHarvestParticlesClient(level, hit);
             }
 
@@ -51,18 +54,23 @@ public class OvergrownLichenBlock extends BloomLichenBlock {
         }
 
         if (held.getItem() == Items.POTION) {
+
             List<MobEffectInstance> effects = PotionUtils.getMobEffects(held);
 
             for (MobEffectInstance inst : effects) {
                 if (inst.getEffect() == MobEffects.DIG_SPEED && inst.getAmplifier() == 0) {
 
                     if (!level.isClientSide) {
+                        if (!tryConsumeXp(player, level))
+                            return InteractionResult.FAIL;
+
                         amplifyHastePotion(held, inst);
                         playPotionSound(level, pos);
                         destroySelf(level, pos);
-                    }
+                    } else {
+                        if (!player.isCreative() && !hasEnoughXp(player))
+                            return InteractionResult.FAIL;
 
-                    if (level.isClientSide) {
                         spawnHarvestParticlesClient(level, hit);
                     }
 
