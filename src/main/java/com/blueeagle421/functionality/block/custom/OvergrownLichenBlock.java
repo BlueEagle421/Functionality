@@ -97,6 +97,11 @@ public class OvergrownLichenBlock extends BloomLichenBlock {
         stack.setHoverName(Component.translatable(HASTE_POTION_KEY));
     }
 
+    @Override
+    public int getXpCost() {
+        return config().xpCostPerHarvestOvergrown.get();
+    }
+
     private int getAmplifier() {
         return config().amplificationEnabled.get() ? 1 : 0;
     }

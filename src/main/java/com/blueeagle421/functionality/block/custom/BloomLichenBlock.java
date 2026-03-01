@@ -7,6 +7,7 @@ import com.blueeagle421.functionality.config.FunctionalityConfig;
 import com.blueeagle421.functionality.config.subcategories.features.HastePotionHarvesting;
 import com.blueeagle421.functionality.particle.ModParticles;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -67,6 +68,9 @@ public class BloomLichenBlock extends GlowLichenBlock {
             InteractionHand hand, BlockHitResult hit, int ticksPerHarvest) {
 
         if (!level.isClientSide) {
+            if (!tryConsumeXp(player, level))
+                return InteractionResult.FAIL;
+
             if (!player.getAbilities().instabuild)
                 held.shrink(1);
 
@@ -90,20 +94,46 @@ public class BloomLichenBlock extends GlowLichenBlock {
         if (currentHasteDuration >= maxPotionTicks)
             return InteractionResult.PASS;
 
-        boolean changed = addHasteDurationToPotion(held, ticksPerHarvest, maxPotionTicks);
-        if (changed) {
-            if (!level.isClientSide) {
+        if (!level.isClientSide) {
+            if (!tryConsumeXp(player, level))
+                return InteractionResult.FAIL;
+
+            boolean changed = addHasteDurationToPotion(held, ticksPerHarvest, maxPotionTicks);
+            if (changed) {
                 playPotionSound(level, pos);
                 destroySelf(level, pos);
             }
-
-            if (level.isClientSide)
-                spawnHarvestParticlesClient(level, hit);
-
-            return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
-        return InteractionResult.PASS;
+        if (level.isClientSide)
+            spawnHarvestParticlesClient(level, hit);
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    private boolean tryConsumeXp(Player player, Level level) {
+        if (player.isCreative())
+            return true;
+
+        if (level.isClientSide)
+            return true;
+
+        int xpCost = getXpCost();
+
+        if (player.totalExperience < xpCost) {
+            player.displayClientMessage(
+                    Component.translatable("message.functionality.bloom_lichen.not_enough_xp", xpCost)
+                            .withStyle(ChatFormatting.RED),
+                    true);
+            return false;
+        }
+
+        player.giveExperiencePoints(-xpCost);
+        return true;
+    }
+
+    public int getXpCost() {
+        return config().xpCostPerHarvest.get();
     }
 
     private int getCurrentHasteDuration(ItemStack potion) {

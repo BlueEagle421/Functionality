@@ -9,6 +9,9 @@ public class HastePotionHarvesting {
     public final ForgeConfigSpec.IntValue maxPotionDuration;
     public final ForgeConfigSpec.BooleanValue amplificationEnabled;
 
+    public final ForgeConfigSpec.IntValue xpCostPerHarvest;
+    public final ForgeConfigSpec.IntValue xpCostPerHarvestOvergrown;
+
     public HastePotionHarvesting(ForgeConfigSpec.Builder builder) {
         builder.push("haste potion harvesting");
 
@@ -31,6 +34,14 @@ public class HastePotionHarvesting {
                 .comment(
                         "If true, right clicking on overgrown lichen with will amplify haste potion effects.")
                 .define("amplificationEnabled", true);
+
+        xpCostPerHarvest = builder
+                .comment("Experience points required to harvest a bloom lichen.")
+                .defineInRange("xpCostPerHarvest", 4, 0, Integer.MAX_VALUE);
+
+        xpCostPerHarvestOvergrown = builder
+                .comment("Experience points required to harvest an overgrown lichen.")
+                .defineInRange("xpCostPerHarvestOvergrown", 16, 0, Integer.MAX_VALUE);
 
         builder.pop();
     }
