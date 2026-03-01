@@ -8,11 +8,11 @@ import com.blueeagle421.functionality.item.ModItems;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.RecordItem;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,6 @@ public class AnvilRecipeGenerator {
         return Map.of(
                 ModItems.HARPOON.get(), new ItemStack(Items.FLINT),
                 ModItems.BIDENT.get(), new ItemStack(Items.PRISMARINE_SHARD));
-
     }
 
     private static Map<Item, ItemStack> CURIO_REPAIRABLE_ITEMS() {
@@ -80,7 +79,7 @@ public class AnvilRecipeGenerator {
                 .getDiscRepairIngredient()
                 .getItems()[0];
 
-        BuiltInRegistries.ITEM.stream()
+        ForgeRegistries.ITEMS.getValues().stream()
                 .filter(item -> item instanceof RecordItem)
                 .map(ItemStack::new)
                 .forEach(disc -> addStandardRepairRecipes(factory, recipes, disc, fragment));
