@@ -15,6 +15,6 @@ public class GlowHerbItem extends EffectHerbItem {
 
     @Override
     public int getDefaultDuration() {
-        return 1100;
+        return 1000;
     }
 }

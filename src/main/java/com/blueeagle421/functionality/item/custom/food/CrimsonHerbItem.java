@@ -12,4 +12,9 @@ public class CrimsonHerbItem extends EffectHerbItem {
     public MobEffect getEffect() {
         return ModEffects.CRIMSON_SHIELD.get();
     }
+
+    @Override
+    public int getDefaultDuration() {
+        return 700;
+    }
 }
