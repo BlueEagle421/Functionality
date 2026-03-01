@@ -12,6 +12,9 @@
             "item": "minecraft:string"
         },
         {
+            "item": "functionality:vex_essence"
+        },
+        {
             "item": "minecraft:kelp"
         }
     ],
@@ -24,6 +27,10 @@
         {
             "type": "functionality:enabled",
             "configPath": "items.whispering_herb.enabled"
+        },
+        {
+            "type": "functionality:enabled",
+            "configPath": "items.vex_essence.enabled"
         }
     ]
 }

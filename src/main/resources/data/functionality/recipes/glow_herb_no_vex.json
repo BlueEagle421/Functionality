@@ -9,9 +9,6 @@
             "item": "minecraft:glow_berries"
         },
         {
-            "item": "functionality:vex_essence"
-        },
-        {
             "item": "minecraft:kelp"
         },
         {
@@ -29,8 +26,11 @@
             "configPath": "items.glow_herb.enabled"
         },
         {
-            "type": "functionality:enabled",
-            "configPath": "items.vex_essence.enabled"
+            "type": "forge:not",
+            "value": {
+                "type": "functionality:enabled",
+                "configPath": "items.vex_essence.enabled"
+            }
         }
     ]
 }

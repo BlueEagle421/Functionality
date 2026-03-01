@@ -9,9 +9,6 @@
             "item": "minecraft:crimson_fungus"
         },
         {
-            "item": "functionality:vex_essence"
-        },
-        {
             "item": "minecraft:kelp"
         }
     ],
@@ -26,8 +23,11 @@
             "configPath": "items.crimson_herb.enabled"
         },
         {
-            "type": "functionality:enabled",
-            "configPath": "items.vex_essence.enabled"
+            "type": "forge:not",
+            "value": {
+                "type": "functionality:enabled",
+                "configPath": "items.vex_essence.enabled"
+            }
         }
     ]
 }
