@@ -54,54 +54,64 @@ public class BloomLichenBlock extends GlowLichenBlock {
         int ticksPerHarvest = config().ticksDurationPerHarvest.get();
         int maxPotionTicks = config().maxPotionDuration.get();
 
-        if (held.getItem() == Items.GLASS_BOTTLE) {
+        if (held.getItem() == Items.GLASS_BOTTLE)
+            return handleGlassBottleUse(held, player, level, pos, hand, hit, ticksPerHarvest);
 
+        if (held.getItem() == Items.POTION)
+            return handlePotionUse(held, level, pos, player, hit, ticksPerHarvest, maxPotionTicks);
+
+        return InteractionResult.PASS;
+    }
+
+    private InteractionResult handleGlassBottleUse(ItemStack held, Player player, Level level, BlockPos pos,
+            InteractionHand hand, BlockHitResult hit, int ticksPerHarvest) {
+
+        if (!level.isClientSide) {
+            if (!player.getAbilities().instabuild)
+                held.shrink(1);
+
+            ItemStack hastePotion = createHastePotion(ticksPerHarvest, 0);
+            giveItemToPlayerOrDrop(player, hastePotion);
+            playPotionSound(level, pos);
+            destroySelf(level, pos);
+        }
+
+        if (level.isClientSide)
+            spawnHarvestParticlesClient(level, hit);
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    private InteractionResult handlePotionUse(ItemStack held, Level level, BlockPos pos, Player player,
+            BlockHitResult hit, int ticksPerHarvest, int maxPotionTicks) {
+
+        int currentHasteDuration = getCurrentHasteDuration(held);
+
+        if (currentHasteDuration >= maxPotionTicks)
+            return InteractionResult.PASS;
+
+        boolean changed = addHasteDurationToPotion(held, ticksPerHarvest, maxPotionTicks);
+        if (changed) {
             if (!level.isClientSide) {
-                if (!player.getAbilities().instabuild) {
-                    held.shrink(1);
-                }
-
-                ItemStack hastePotion = createHastePotion(ticksPerHarvest, 0);
-                giveItemToPlayerOrDrop(player, hastePotion);
                 playPotionSound(level, pos);
                 destroySelf(level, pos);
             }
 
-            if (level.isClientSide) {
+            if (level.isClientSide)
                 spawnHarvestParticlesClient(level, hit);
-            }
 
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
-        if (held.getItem() == Items.POTION) {
-
-            int currentHasteDuration = PotionUtils.getMobEffects(held).stream()
-                    .filter(e -> e.getEffect() == MobEffects.DIG_SPEED)
-                    .mapToInt(MobEffectInstance::getDuration)
-                    .max()
-                    .orElse(0);
-
-            if (currentHasteDuration >= maxPotionTicks) {
-                return InteractionResult.PASS;
-            }
-
-            boolean changed = addHasteDurationToPotion(held, ticksPerHarvest, maxPotionTicks);
-            if (changed) {
-                if (!level.isClientSide) {
-                    playPotionSound(level, pos);
-                    destroySelf(level, pos);
-                }
-
-                if (level.isClientSide) {
-                    spawnHarvestParticlesClient(level, hit);
-                }
-
-                return InteractionResult.sidedSuccess(level.isClientSide);
-            }
-        }
-
         return InteractionResult.PASS;
+    }
+
+    private int getCurrentHasteDuration(ItemStack potion) {
+        return PotionUtils.getMobEffects(potion).stream()
+                .filter(e -> e.getEffect() == MobEffects.DIG_SPEED)
+                .mapToInt(MobEffectInstance::getDuration)
+                .max()
+                .orElse(0);
     }
 
     protected ItemStack createHastePotion(int durationTicks, int amplifier) {
@@ -136,13 +146,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
                         inst.isVisible());
                 newEffects.add(bumped);
             } else {
-                MobEffectInstance copy = new MobEffectInstance(
-                        inst.getEffect(),
-                        inst.getDuration(),
-                        inst.getAmplifier(),
-                        inst.isAmbient(),
-                        inst.isVisible());
-                newEffects.add(copy);
+                newEffects.add(copyEffect(inst));
             }
         }
 
@@ -156,12 +160,22 @@ public class BloomLichenBlock extends GlowLichenBlock {
         return true;
     }
 
+    private MobEffectInstance copyEffect(MobEffectInstance inst) {
+        return new MobEffectInstance(
+                inst.getEffect(),
+                inst.getDuration(),
+                inst.getAmplifier(),
+                inst.isAmbient(),
+                inst.isVisible());
+    }
+
     protected void writeEffectsToStack(ItemStack stack, List<MobEffectInstance> effects) {
         CompoundTag tag = stack.getOrCreateTag();
         ListTag listTag = new ListTag();
-        for (MobEffectInstance inst : effects) {
+
+        for (MobEffectInstance inst : effects)
             listTag.add(inst.save(new CompoundTag()));
-        }
+
         tag.put(PotionUtils.TAG_CUSTOM_POTION_EFFECTS, listTag);
     }
 
@@ -193,15 +207,25 @@ public class BloomLichenBlock extends GlowLichenBlock {
         ParticleEngine engine = mc.particleEngine;
 
         int color = PotionUtils.getColor(List.of(new MobEffectInstance(MobEffects.DIG_SPEED, 1)));
-        float r = ((color >> 16) & 0xFF) / 255.0F;
-        float g = ((color >> 8) & 0xFF) / 255.0F;
-        float b = (color & 0xFF) / 255.0F;
+        float[] rgb = getRGBFromColor(color);
 
         RandomSource random = level.random;
         double cx = hit.getLocation().x;
         double cy = hit.getLocation().y;
         double cz = hit.getLocation().z;
 
+        spawnEffectParticles(engine, random, cx, cy, cz, rgb);
+    }
+
+    private float[] getRGBFromColor(int color) {
+        float r = ((color >> 16) & 0xFF) / 255.0F;
+        float g = ((color >> 8) & 0xFF) / 255.0F;
+        float b = (color & 0xFF) / 255.0F;
+        return new float[] { r, g, b };
+    }
+
+    private void spawnEffectParticles(ParticleEngine engine, RandomSource random, double cx, double cy, double cz,
+            float[] rgb) {
         for (int i = 0; i < 20; i++) {
             double dx = random.nextGaussian() * 0.15D;
             double dy = random.nextDouble() * 0.2D;
@@ -218,7 +242,7 @@ public class BloomLichenBlock extends GlowLichenBlock {
 
             if (particle != null) {
                 float brightness = 0.75F + random.nextFloat() * 0.25F;
-                particle.setColor(r * brightness, g * brightness, b * brightness);
+                particle.setColor(rgb[0] * brightness, rgb[1] * brightness, rgb[2] * brightness);
             }
         }
     }
@@ -231,9 +255,17 @@ public class BloomLichenBlock extends GlowLichenBlock {
 
         ClientLevel client = (ClientLevel) level;
 
-        if (rand.nextInt(5) != 0)
+        if (!shouldAnimate(rand))
             return;
 
+        trySpawnAmbientParticles(client, pos, rand);
+    }
+
+    private boolean shouldAnimate(RandomSource rand) {
+        return rand.nextInt(5) == 0;
+    }
+
+    private void trySpawnAmbientParticles(ClientLevel client, BlockPos pos, RandomSource rand) {
         final int ATTEMPTS = 2;
         final int RADIUS = 1;
         for (int i = 0; i < ATTEMPTS; ++i) {
@@ -242,13 +274,17 @@ public class BloomLichenBlock extends GlowLichenBlock {
                     Mth.nextInt(rand, -RADIUS, RADIUS),
                     Mth.nextInt(rand, -RADIUS, RADIUS));
 
-            BlockState blockstate = client.getBlockState(target);
-            if (!blockstate.isCollisionShapeFullBlock(client, target)) {
-                double px = target.getX() + rand.nextDouble();
-                double py = target.getY() + rand.nextDouble();
-                double pz = target.getZ() + rand.nextDouble();
-                client.addParticle(ModParticles.BLOOM_LICHEN_AIR.get(), px, py, pz, 0.0D, 0.0D, 0.0D);
-            }
+            spawnAmbientParticleIfPossible(client, rand, target);
+        }
+    }
+
+    private void spawnAmbientParticleIfPossible(ClientLevel client, RandomSource rand, BlockPos target) {
+        BlockState blockstate = client.getBlockState(target);
+        if (!blockstate.isCollisionShapeFullBlock(client, target)) {
+            double px = target.getX() + rand.nextDouble();
+            double py = target.getY() + rand.nextDouble();
+            double pz = target.getZ() + rand.nextDouble();
+            client.addParticle(ModParticles.BLOOM_LICHEN_AIR.get(), px, py, pz, 0.0D, 0.0D, 0.0D);
         }
     }
 
