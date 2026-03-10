@@ -1,6 +1,5 @@
 package com.blueeagle421.functionality.data.conditions;
 
-import com.blueeagle421.functionality.FunctionalityMod;
 import com.blueeagle421.functionality.config.FunctionalityConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -23,7 +22,6 @@ public final class ConfigEnabledRegistry {
         if (configPath == null || configPath.isBlank() || supplier == null)
             return;
         REGISTRY.put(configPath, supplier);
-        FunctionalityMod.LOGGER.info("ConfigEnabledRegistry path: " + configPath + ", supplier: " + supplier);
     }
 
     public static BooleanSupplier get(String configPath) {
