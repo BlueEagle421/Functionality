@@ -11,7 +11,7 @@ public class PhantomTreat {
     public final ForgeConfigSpec.DoubleValue speedIncreasePerUse;
 
     public PhantomTreat(ForgeConfigSpec.Builder builder) {
-        builder.push(ModItems.PHANTOM_HERB.getId().getPath());
+        builder.push(ModItems.PHANTOM_TREAT.getId().getPath());
 
         enabled = builder
                 .comment("If false, the item won't be craftable and present in tabs effectively disabling it.")
