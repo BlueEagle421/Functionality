@@ -6,6 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class FeaturesCategory {
 
+    public final Tooltips tooltips;
     public final TreasureSacks treasureSacks;
     public final InfernalSacks infernalSacks;
     public final GlowSquidMilking glowSquidMilking;
@@ -22,6 +23,7 @@ public class FeaturesCategory {
     public FeaturesCategory(ForgeConfigSpec.Builder builder) {
         builder.push("features");
 
+        tooltips = new Tooltips(builder);
         treasureSacks = new TreasureSacks(builder);
         infernalSacks = new InfernalSacks(builder);
         glowSquidMilking = new GlowSquidMilking(builder);

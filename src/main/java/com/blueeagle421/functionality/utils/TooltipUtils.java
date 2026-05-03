@@ -1,10 +1,14 @@
 package com.blueeagle421.functionality.utils;
 
 import java.util.List;
+import java.util.Set;
+
+import com.blueeagle421.functionality.config.FunctionalityConfig;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -18,10 +22,27 @@ public class TooltipUtils {
         if (key == null)
             return;
 
+        if (!shouldDisplayTooltip(key))
+            return;
+
         String registryName = key.getPath();
 
         handleBaseTooltip(tooltip, registryName);
         handleDetailTooltip(tooltip, registryName);
+    }
+
+    private static boolean shouldDisplayTooltip(ResourceLocation key) {
+        var config = FunctionalityConfig.COMMON.features.tooltips;
+
+        if (!config.enabled.get())
+            return false;
+
+        Set<ResourceLocation> blacklist = config.getItemsAsResourceLocations();
+
+        boolean isBlacklisted = blacklist.contains(key);
+        boolean inverted = config.blacklistInverted.get();
+
+        return inverted ? isBlacklisted : !isBlacklisted;
     }
 
     private static void handleBaseTooltip(List<Component> tooltip, String registryName) {
