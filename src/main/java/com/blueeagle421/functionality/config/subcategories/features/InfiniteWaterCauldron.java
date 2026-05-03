@@ -28,7 +28,7 @@ public class InfiniteWaterCauldron {
 
         regenWaterTicks = builder
                 .comment("The ticks duration of a single water regeneration in the infinite cauldron.")
-                .defineInRange("regenWaterTicks", 8, 1, Integer.MAX_VALUE);
+                .defineInRange("regenWaterTicks", 2, 1, Integer.MAX_VALUE);
 
         this.infiniteWaterBlocks = builder
                 .comment(
