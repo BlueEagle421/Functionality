@@ -37,11 +37,11 @@ public class HastePotionHarvesting {
 
         xpCostPerHarvest = builder
                 .comment("Experience points required to harvest a bloom lichen.")
-                .defineInRange("xpCostPerHarvest", 4, 0, Integer.MAX_VALUE);
+                .defineInRange("xpCostPerHarvest", 18, 0, Integer.MAX_VALUE);
 
         xpCostPerHarvestOvergrown = builder
                 .comment("Experience points required to harvest an overgrown lichen.")
-                .defineInRange("xpCostPerHarvestOvergrown", 16, 0, Integer.MAX_VALUE);
+                .defineInRange("xpCostPerHarvestOvergrown", 44, 0, Integer.MAX_VALUE);
 
         builder.pop();
     }
