@@ -3,6 +3,7 @@ package com.blueeagle421.functionality.config.subcategories.features;
 import com.blueeagle421.functionality.FunctionalityMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -18,7 +19,23 @@ public class TreasureSacks {
         List<String> defaults = Arrays.asList(
                 "minecraft:vindicator",
                 "minecraft:evoker",
-                "minecraft:pillager");
+                "minecraft:pillager",
+
+                "takesapillage:archer",
+                "takesapillage:skirmisher",
+                "takesapillage:legioner",
+
+                "illagerinvasion:provoker",
+                "illagerinvasion:invoker",
+                "illagerinvasion:necromancer",
+                "illagerinvasion:basher",
+                "illagerinvasion:sorcerer",
+                "illagerinvasion:archivist",
+                "illagerinvasion:inquisitor",
+                "illagerinvasion:marauder",
+                "illagerinvasion:alchemist",
+                "illagerinvasion:firecaller",
+                "illagerinvasion:surrendered");
 
         this.illagerEntities = builder
                 .comment("List of entity IDs (namespace:path) that should receive the illager treasure loot.")
@@ -46,21 +63,26 @@ public class TreasureSacks {
             return Collections.emptySet();
 
         Set<ResourceLocation> out = new HashSet<>();
+
         for (String raw : rawList) {
             if (raw == null)
                 continue;
-            String s = raw.trim();
 
+            String s = raw.trim();
             if (s.isEmpty())
                 continue;
 
             try {
                 ResourceLocation rl = new ResourceLocation(s);
-                out.add(rl);
+
+                if (ForgeRegistries.ENTITY_TYPES.containsKey(rl))
+                    out.add(rl);
+
             } catch (Exception e) {
                 FunctionalityMod.LOGGER.warn("Invalid entity id in config illagerEntities: '{}'. Ignoring.", raw);
             }
         }
+
         return out;
     }
 }
